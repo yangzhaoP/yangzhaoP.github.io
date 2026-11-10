@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#070a19">
+<meta name="description" content="周渝的烟花之夜：一场送给周渝的浪漫电子烟花秀。点击屏幕放烟花，观看爱心烟花与金色文字。">
+<title>周渝的烟花之夜 · 专属电子烟花</title>
+<style>
+*{box-sizing:border-box}html,body{height:100%;margin:0}body{overflow:hidden;background:#040613;color:#fff9eb;font-family:system-ui,-apple-system,"Microsoft YaHei",sans-serif;-webkit-tap-highlight-color:transparent}
+#sky{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:manipulation;cursor:crosshair}
+#vignette{position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,transparent 24%,#01020b4d 80%,#01020bcc 100%);z-index:1}
+header{position:fixed;top:max(14px,env(safe-area-inset-top));left:16px;right:16px;z-index:5;display:flex;justify-content:space-between;align-items:center;gap:10px;pointer-events:none}
+header a,header button{pointer-events:auto}.back,.smallBtn{display:inline-flex;align-items:center;gap:7px;border:1px solid #ffffff36;border-radius:100px;background:#10162bb0;backdrop-filter:blur(12px);color:#f3e8d7;padding:10px 15px;text-decoration:none;font-size:13px;font-weight:650;min-height:40px}.back:hover,.smallBtn:hover{border-color:#f4d59b9c;background:#2b2841c9}.smallBtn{cursor:pointer}.smallBtn:focus-visible,.back:focus-visible,.bigBtn:focus-visible{outline:2px solid #fbe0a1;outline-offset:3px}.controlRow{display:flex;gap:8px}
+#intro{position:fixed;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none;padding:22px;transition:opacity .95s ease,transform .95s ease}
+#intro.hide{opacity:0;transform:translateY(-25px)}.kicker{font-size:12px;letter-spacing:.36em;color:#f7d698;font-weight:750;text-shadow:0 0 12px #d6a84d}
+#intro h1{font-family:Georgia,"Songti SC","SimSun",serif;font-size:clamp(41px,9vw,90px);font-weight:500;letter-spacing:.17em;line-height:1.25;margin:19px 0 18px;text-shadow:0 0 28px #ffca846e,0 2px 8px #000c}
+#intro .sub{font-size:clamp(14px,2.7vw,20px);letter-spacing:.15em;color:#ffe6cd;text-shadow:0 2px 9px #000}.divider{width:130px;height:1px;background:linear-gradient(90deg,transparent,#ffddaa,transparent);margin:20px auto}
+#intro .tip{font-size:12px;color:#c0b8d2;letter-spacing:.06em;line-height:1.9}.message{position:fixed;z-index:4;top:19%;width:100%;pointer-events:none;text-align:center;opacity:0;transition:opacity 1s;text-shadow:0 0 22px #ffcb8066,0 3px 10px #000}.message.show{opacity:1}.message .calligraphy{font-size:clamp(26px,6vw,57px);letter-spacing:.15em;font-family:Georgia,"Songti SC","SimSun",serif;color:#ffe2a0}.message .wish{font-size:clamp(13px,2.4vw,19px);margin-top:13px;color:#f5d8d9;letter-spacing:.1em}
+.bottom{position:fixed;bottom:max(18px,env(safe-area-inset-bottom));left:16px;right:16px;z-index:5;display:flex;align-items:end;justify-content:space-between;gap:12px;pointer-events:none}.bottom>*{pointer-events:auto}.caption{font-size:12px;color:#c6bfd6;text-shadow:0 1px 7px #000c;line-height:1.7}.bigBtn{background:linear-gradient(135deg,#ffe0aa,#dc9a79);border:1px solid #ffebc3;border-radius:30px;padding:12px 19px;box-shadow:0 8px 40px #ffb97524;color:#2b1422;font-size:13px;font-weight:800;cursor:pointer;white-space:nowrap}
+#note{position:fixed;bottom:86px;left:50%;transform:translateX(-50%);z-index:7;background:#1f2039ed;border:1px solid #e2bd8b78;color:#fff1de;border-radius:13px;padding:12px 18px;font-size:13px;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;max-width:95vw}#note.show{opacity:1}
+@media(max-width:550px){header{left:10px;right:10px}.back,.smallBtn{padding:9px 11px;font-size:12px}#intro h1{letter-spacing:.11em}.caption{font-size:11px}.bottom{left:12px;right:12px}.bigBtn{padding:10px 13px;font-size:12px}}
+@media(prefers-reduced-motion:reduce){#intro{transition:none}.message{transition:none}}
+</style>
+</head>
+<body>
+<canvas id="sky" aria-label="自动播放的绚丽电子烟花画面，点击屏幕可燃放烟花"></canvas><div id="vignette"></div>
+<header>
+  <a href="/" class="back">← 游戏大厅</a>
+  <div class="controlRow"><button type="button" class="smallBtn" id="audio" aria-pressed="false">🔇 声音关闭</button><button type="button" class="smallBtn" id="auto" aria-pressed="true">🎆 自动燃放</button></div>
+</header>
+<div id="intro"><div class="kicker">A SKY FULL OF WISHES</div><h1>周渝的烟花之夜</h1><div class="divider"></div><div class="sub">周渝，愿你每天都开心</div><div class="divider"></div><div class="tip">夜空正为你点亮<br>点击任意空白处，放一朵专属烟花 ✨</div></div>
+<div class="message" id="message" aria-live="polite"><div class="calligraphy">周 渝</div><div class="wish">愿你的每一天，都闪闪发光 ✨</div></div>
+<div class="bottom"><div class="caption">✨ 点击夜空燃放 · 爱心烟花 · 金色名字烟花<br>原创 Canvas 特效 · 无需下载 · 手机也能玩</div><button type="button" class="bigBtn" id="show">✨ 再来一场烟花秀</button></div>
+<div id="note" role="status"></div>
+<script>
+(function(){
+'use strict';
+const canvas=document.getElementById('sky'),ctx=canvas.getContext('2d',{alpha:false});
+const intro=document.getElementById('intro'),message=document.getElementById('message'),audioBtn=document.getElementById('audio'),autoBtn=document.getElementById('auto'),showBtn=document.getElementById('show'),note=document.getElementById('note');
+const TAU=Math.PI*2,clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),rand=(a,b)=>a+Math.random()*(b-a);
+const colors=['#ffcf78','#ff79a8','#a58bff','#74dffa','#78fac3','#ff9a67','#ffe7b4','#ffffff'];
+let W=0,H=0,dpr=1,particles=[],rockets=[],stars=[],auto=true,sound=false,ac=null,frame=0,last=0,launchAt=0,showStarted=performance.now(),textDue=0,messageUntil=0,showNumber=0;
+let active=true;
+const randColor=()=>colors[Math.floor(Math.random()*colors.length)];
+function resize(){
+ const oldW=W,oldH=H; W=innerWidth;H=innerHeight;dpr=Math.min(devicePixelRatio||1,2);
+ canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);canvas.style.width=W+'px';canvas.style.height=H+'px';
+ ctx.setTransform(dpr,0,0,dpr,0,0);
+ ctx.fillStyle='#040613';ctx.fillRect(0,0,W,H);
+ if(oldW!==W||oldH!==H){stars=Array.from({length:Math.min(175,Math.round(W*H/5800))},()=>({x:rand(0,W),y:rand(0,H),r:rand(.35,1.5),t:rand(0,10)}));particles=[];rockets=[];}
+}
+function hexRgb(s){s=s.replace('#','');return [parseInt(s.slice(0,2),16),parseInt(s.slice(2,4),16),parseInt(s.slice(4,6),16)];}
+function particle(x,y,vx,vy,color,life,size,gravity=.045,drag=.984){const rgb=hexRgb(color);if(particles.length>=2200)particles.splice(0,200);particles.push({x,y,px:x,py:y,vx,vy,rgb,life,age:0,size,gravity,drag,tw:Math.random()*7});}
+function chime(freq=260){if(!sound)return;try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();if(ac.state==='suspended')ac.resume();const t=ac.currentTime,osc=ac.createOscillator(),gain=ac.createGain();osc.type='sine';osc.frequency.setValueAtTime(freq,t);osc.frequency.exponentialRampToValueAtTime(Math.max(85,freq*.39),t+.38);gain.gain.setValueAtTime(.0001,t);gain.gain.exponentialRampToValueAtTime(.065,t+.035);gain.gain.exponentialRampToValueAtTime(.0001,t+.5);osc.connect(gain);gain.connect(ac.destination);osc.start(t);osc.stop(t+.52);}catch(e){}}
+function bloom(x,y,color,kind='sphere',scale=1){
+ const small=W<600,quality=small?.75:1,count=Math.round((kind==='heart'?105:kind==='willow'?120:kind==='ring'?95:145)*quality);
+ const c=color||randColor();
+ for(let i=0;i<count;i++){
+   let vx,vy,speed,angle=rand(0,TAU);
+   if(kind==='heart'){
+    const t=TAU*i/count,xx=16*Math.pow(Math.sin(t),3),yy=13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t);
+    vx=xx*.30*scale*rand(.9,1.12);vy=-yy*.30*scale*rand(.9,1.12);
+   }else if(kind==='ring'){
+    speed=rand(3.1,3.7)*scale;vx=Math.cos(angle)*speed;vy=Math.sin(angle)*speed;
+   }else if(kind==='willow'){
+    speed=rand(1.5,5)*scale;vx=Math.cos(angle)*speed;vy=Math.sin(angle)*speed-.2;
+   }else{
+    speed=Math.pow(Math.random(),.44)*rand(2.2,5.8)*scale;vx=Math.cos(angle)*speed;vy=Math.sin(angle)*speed;
+   }
+   const tint=kind==='heart'?(Math.random()<.25?'#ffd5e7':'#ff76a9'):kind==='willow'?(Math.random()<.35?'#ffffff':'#ffcc76'):Math.random()<.17?'#ffffff':c;
+   particle(x,y,vx,vy,tint,kind==='willow'?rand(85,130):rand(49,89),rand(.95,2.25),kind==='willow'?.067:.045,kind==='willow'?.984:.981);
+ }
+ for(let i=0;i<24;i++){const a=rand(0,TAU),s=rand(.3,2.1);particle(x,y,Math.cos(a)*s,Math.sin(a)*s,'#ffeccc',rand(20,46),rand(.6,1.8),.024,.97)}
+ chime(kind==='heart'?355:rand(230,390));
+}
+function rocket(x,y,targetX,targetY,kind,color){
+ if(rockets.length>=18)return;
+ const duration=clamp(Math.abs(y-targetY)/rand(8,11),20,95);
+ rockets.push({x,y,px:x,py:y,sx:x,sy:y,tx:targetX,ty:targetY,color:color||randColor(),kind:kind||'sphere',age:0,duration,trail:[]});
+}
+function launchRandom(kind){
+ let tx=rand(W*.13,W*.87),ty=rand(H*.14,H*.61);
+ rocket(rand(W*.14,W*.86),H+15,tx,ty,kind||(['sphere','sphere','willow','ring','heart'][Math.floor(rand(0,5))]));
+}
+function launchAtPoint(x,y){bloom(clamp(x,30,W-30),clamp(y,65,H-40),randColor(),Math.random()<.3?'heart':'sphere',W<500?.72:1);}
+function textFirework(text){
+ if(!W||!H)return;
+ const buff=document.createElement('canvas'),b=buff.getContext('2d',{willReadFrequently:true});
+ const fs=Math.min(W*.24,H*.24,155),width=Math.round(Math.min(W*.88,fs*(text.length+1))),height=Math.round(fs*1.45);
+ buff.width=Math.max(1,width);buff.height=Math.max(1,height);
+ b.fillStyle='#ffffff';b.textAlign='center';b.textBaseline='middle';b.font='900 '+Math.round(fs)+'px "Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif';
+ b.fillText(text,width/2,height/2);
+ const image=b.getImageData(0,0,width,height).data,spacing=W<500?5:4,coords=[];
+ for(let y=0;y<height;y+=spacing)for(let x=0;x<width;x+=spacing)if(image[(y*width+x)*4+3]>110)coords.push([x,y]);
+ if(coords.length===0){messageUntil=performance.now()+4500;return}
+ const pick=Math.max(1,Math.ceil(coords.length/(W<500?400:650)));
+ const cx=W/2-width/2,cy=H*.42-height/2;
+ for(let i=0;i<coords.length;i+=pick){const a=rand(0,TAU),speed=rand(.5,4.5),pt=coords[i];particle(cx+pt[0],cy+pt[1],Math.cos(a)*speed*.17,Math.sin(a)*speed*.17,'#ffe6a4',rand(115,175),rand(1.15,2.1),.002,.964)}
+ messageUntil=performance.now()+5500;
+ chime(500);
+}
+function grandFinale(){
+ for(let i=0;i<6;i++){setTimeout(()=>{if(!active)return;launchRandom(i%2===0?'heart':'willow')},i*320)}
+}
+function beginShow(){
+ showNumber++;const n=showNumber;showStarted=performance.now();intro.classList.remove('hide');message.classList.remove('show');messageUntil=0;textDue=0;
+ setTimeout(()=>{if(n===showNumber)intro.classList.add('hide')},5300);
+ for(let i=0;i<5;i++)setTimeout(()=>{if(n===showNumber)launchRandom(i===3?'heart':'sphere')},700+i*700);
+ setTimeout(()=>{if(n!==showNumber)return;rocket(W*.5,H+15,W*.5,H*.43,'heart','#ff7aa9');bloom(W*.5,H*.38,'#ff7aa9','heart',W<530?.85:1.5)},5500);
+ setTimeout(()=>{if(n!==showNumber)return;message.classList.add('show');textFirework('周渝');},8200);
+ setTimeout(()=>{if(n!==showNumber)return;grandFinale();},12000);
+ setTimeout(()=>{if(n!==showNumber)return;message.classList.remove('show')},15000);
+ launchAt=performance.now()+1600;
+}
+function draw(now){
+ if(!active){requestAnimationFrame(draw);return}
+ const dt=clamp((now-last)/16.666||1,.5,2);last=now;frame++;
+ ctx.globalCompositeOperation='source-over';ctx.fillStyle='rgba(4,6,19,.18)';ctx.fillRect(0,0,W,H);
+ stars.forEach(s=>{const tw=.42+.38*Math.sin(now*.0008+s.t);ctx.fillStyle='rgba(215,220,255,'+tw+')';ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,TAU);ctx.fill()});
+ if(auto&&now>=launchAt){let count=particles.length>1300?1:Math.random()<.24?2:1;for(let i=0;i<count;i++)launchRandom();launchAt=now+rand(540,1100)}
+ for(let i=rockets.length-1;i>=0;i--){
+  let r=rockets[i];r.px=r.x;r.py=r.y;r.age+=dt;const p=clamp(r.age/r.duration,0,1),smooth=1-Math.pow(1-p,1.38);r.x=r.sx+(r.tx-r.sx)*smooth;r.y=r.sy+(r.ty-r.sy)*smooth;
+  ctx.strokeStyle='rgba(255,237,185,.85)';ctx.lineWidth=2.3;ctx.beginPath();ctx.moveTo(r.px,r.py+17);ctx.lineTo(r.x,r.y);ctx.stroke();ctx.fillStyle=r.color;ctx.beginPath();ctx.arc(r.x,r.y,2.7,0,TAU);ctx.fill();
+  if(frame%2===0)particle(r.x,r.y,rand(-.35,.35),rand(.2,.9),r.color,rand(12,26),rand(.5,1.2),.018,.93);
+  if(p>=1){bloom(r.x,r.y,r.color,r.kind,W<500?.78:1);rockets.splice(i,1)}
+ }
+ ctx.globalCompositeOperation='lighter';
+ for(let i=particles.length-1;i>=0;i--){
+  const p=particles[i];p.px=p.x;p.py=p.y;p.x+=p.vx*dt;p.y+=p.vy*dt;p.vx*=Math.pow(p.drag,dt);p.vy=p.vy*Math.pow(p.drag,dt)+p.gravity*dt;p.age+=dt;
+  const life=clamp(1-p.age/p.life,0,1),opacity=Math.pow(life,.7);
+  if(life<=0||p.y>H+30){particles.splice(i,1);continue}
+  const col='rgba('+p.rgb.join(',')+','+opacity+')';
+  ctx.strokeStyle=col;ctx.lineWidth=p.size*clamp(life,.3,1);
+  ctx.beginPath();ctx.moveTo(p.px,p.py);ctx.lineTo(p.x,p.y);ctx.stroke();
+  if(p.age<22||Math.random()<.12){ctx.fillStyle=col;ctx.beginPath();ctx.arc(p.x,p.y,p.size*.52,0,TAU);ctx.fill()}
+ }
+ ctx.globalCompositeOperation='source-over';
+ requestAnimationFrame(draw);
+}
+function toast(txt){note.textContent=txt;note.classList.add('show');setTimeout(()=>note.classList.remove('show'),1800)}
+function toggleSound(){sound=!sound;audioBtn.textContent=sound?'🔊 声音开启':'🔇 声音关闭';audioBtn.setAttribute('aria-pressed',String(sound));if(sound){chime(370);toast('音效已开启，音量适中 ✨')}}
+function toggleAuto(){auto=!auto;autoBtn.textContent=auto?'🎆 自动燃放':'⏸️ 自动暂停';autoBtn.setAttribute('aria-pressed',String(auto));if(auto)launchAt=performance.now()+150;toast(auto?'已恢复自动烟花':'已暂停自动发射，仍可点击燃放')}
+function setActive(value){active=value;if(active){last=performance.now();ctx.fillStyle='#040613';ctx.fillRect(0,0,W,H)}}
+audioBtn.addEventListener('click',toggleSound);autoBtn.addEventListener('click',toggleAuto);showBtn.addEventListener('click',()=>{auto=true;autoBtn.textContent='🎆 自动燃放';autoBtn.setAttribute('aria-pressed','true');beginShow();toast('为周渝再放一场绚烂烟花 ✨')});
+canvas.addEventListener('pointerdown',(e)=>{launchAtPoint(e.clientX,e.clientY)});
+document.addEventListener('visibilitychange',()=>setActive(!document.hidden));window.addEventListener('resize',resize,{passive:true});
+resize();beginShow();requestAnimationFrame(draw);
+})();
+</script>
+</body>
+</html>
