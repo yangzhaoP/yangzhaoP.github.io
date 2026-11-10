@@ -117,3 +117,20 @@ body:before{background-image:radial-gradient(#fbd6a00f 1px,transparent 1px),repe
 .rune-actions .btn{font-size:11px;padding:6px 9px}
 @media(max-width:800px){.rune-inventory{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:480px){.rune-item{padding:8px;gap:6px}.rune-item strong{font-size:11px}.rune-mini{min-width:59px;width:59px;height:90px}.rune-hero{gap:8px;padding:8px}.rune-main>strong{font-size:14px}.rune-actions .btn{font-size:10px;padding:6px}}
+
+/* Original HD character portraits rendered as one tiny verified WebP sprite atlas */
+.zy-photo{display:block;width:100%;height:100%;min-height:0;background-image:url("./character-atlas.webp");background-size:400% 100%;background-repeat:no-repeat;background-position:0% center;filter:drop-shadow(0 6px 12px #02031567);transition:transform .3s ease;position:relative}
+.zy-photo-0{background-position:0% center}.zy-photo-1{background-position:33.3333% center}.zy-photo-2{background-position:66.6667% center}.zy-photo-3{background-position:100% center}
+.hero-card .hero-art .zy-photo{width:100%;height:100%}
+.hero-card:hover .hero-art .zy-photo{transform:scale(1.06)}
+.trailer-hero .zy-photo{height:100%;width:100%;aspect-ratio:230/300}
+.fighter .symbol .zy-photo{width:100%;height:100%;border-radius:5px}
+.rune-mini .zy-photo{width:100%;height:100%}
+.result .symbol .zy-photo{height:100%;width:100%}
+.stage-unit .spirit .zy-photo{width:100%;height:100%}
+.hero-banner{background:linear-gradient(90deg,#1b172df5 0%,#1e1633ce 40%,#1c1d35a6 62%,#1a1b3566 100%),url("./cover-art.webp") center 47%/cover no-repeat;border-color:#dabb9a}
+.hero-banner:before{display:none}
+.hero-banner:after{display:none}
+.hero-banner .eyecatch,.hero-banner h2,.hero-banner p,.hero-banner .buttons{position:relative;z-index:1}
+.hero-banner p{background:linear-gradient(90deg,#251b39a6,transparent);padding:6px 4px 6px 0;border-radius:5px}
+@media(max-width:590px){.hero-banner{background-position:40% center}.hero-banner:after{display:none}.hero-banner p{color:#ffe3d2}.hero-banner h2{font-size:32px}}
