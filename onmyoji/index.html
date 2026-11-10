@@ -22,6 +22,45 @@ a{color:var(--gold);text-decoration:none}a:hover{text-decoration:underline}butto
 .battle-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.fighters{display:grid;gap:9px}.fighter{display:flex;align-items:center;gap:9px;position:relative;text-align:left;width:100%;background:#332a42;border:1px solid #68536c;border-radius:12px;padding:10px;color:var(--ink);min-height:82px}.fighter.selectable:hover{border-color:#e7ba85}.fighter.selected{border-color:#fad38f;background:#45344a}.fighter.down{opacity:.4;filter:grayscale(1)}.fighter .symbol{font-size:33px;min-width:39px;text-align:center}.fighter .desc{flex:1;min-width:0}.fighter .desc b{display:block;font-size:13px}.fighter .desc small{display:block;color:#c7bbcf;font-size:11px;margin:4px 0 5px}.fighter .meter{height:7px}.side-label{letter-spacing:.13em;color:#e8bf91;font-size:12px;margin:5px 0 10px}.versus{font-size:11px;color:#c6afc0;margin-bottom:15px}.battle-controls{margin-top:17px;display:flex;gap:10px;flex-wrap:wrap}.battle-log{max-height:145px;overflow:auto;background:#151521;border:1px solid #5b485e;border-radius:11px;padding:10px 12px;color:#c9bcc7;font-size:12px;line-height:1.8;margin-top:14px}.battle-log div{border-bottom:1px dashed #ffffff14;padding:3px 0}.battle-log div:last-child{border:0}.pill{border-radius:22px;padding:6px 9px;font-size:11px;background:#5d4457;color:#ffdda8}.center{text-align:center}.notice{border-left:3px solid #e4ba7d;background:#75574140;padding:12px 14px;color:#f3dcbf;font-size:13px;line-height:1.6;border-radius:8px;margin:14px 0}.toast{position:fixed;z-index:100;bottom:22px;left:50%;transform:translateX(-50%);background:#fff1d0;color:#3e2b33;padding:12px 19px;border-radius:12px;box-shadow:0 10px 35px #0007;font-size:14px;font-weight:700;max-width:90vw}.toast[hidden]{display:none}.footer{text-align:center;margin-top:20px;font-size:12px;color:#a59baa;line-height:1.9}
 @media(max-width:850px){.layout{grid-template-columns:1fr}.sidebar{position:static;padding:11px;display:flex;align-items:center;gap:8px;overflow:auto}.sidebar h3,.sidebar-note{display:none}.nav{white-space:nowrap;width:auto;margin:0;padding:10px 13px;flex-shrink:0}.content{min-height:560px}.top{align-items:flex-start}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:550px){.shell{padding:11px}.top{gap:10px}.seal{width:47px;height:47px;font-size:27px}.back{font-size:11px;padding:8px}.brand h1{font-size:20px}.brand p{display:none}.resource{min-width:calc(50% - 5px);font-size:12px}.resource .ico{font-size:18px}.grid{grid-template-columns:1fr}.battle-grid{grid-template-columns:1fr}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.hero-art{height:80px;font-size:43px}.hero-body{padding:10px}.hero-body h4{font-size:14px}.btn{padding:10px 13px}.fighter{min-height:73px}.top{padding:8px 0 15px}}
+
+/* Animated battle stage: no network assets, only CSS and original emoji sprites. */
+.battle-scene{height:228px;position:relative;display:grid;grid-template-columns:1fr 80px 1fr;align-items:center;justify-items:center;isolation:isolate;overflow:hidden;margin:0 0 18px;border:1px solid #9c6e7b;border-radius:17px;background:radial-gradient(ellipse at 48% 110%,#82576555,transparent 58%),radial-gradient(circle at 50% -10%,#72496a,#272039 61%,#1a1b30 100%)}
+.battle-scene:before{content:"";position:absolute;inset:10px;background:radial-gradient(circle at 15% 15%,#f9e7cd9c 1px,transparent 2px),radial-gradient(circle at 72% 35%,#d4b4e888 1px,transparent 2px),radial-gradient(circle at 45% 19%,#fff6d988 1px,transparent 2px);background-size:160px 110px,220px 140px,125px 170px;opacity:.5;pointer-events:none}
+.battle-scene:after{content:"";position:absolute;z-index:-1;bottom:-67px;left:11%;width:78%;height:133px;background:radial-gradient(ellipse,#95739d50,transparent 70%);border:1px solid #ad849c39;border-radius:50%}
+.arena-figure{position:relative;display:flex;align-items:center;justify-content:center;flex-direction:column;min-width:0;width:100%;height:100%;gap:6px;z-index:2}
+.arena-figure .spirit{display:grid;place-items:center;width:91px;height:91px;border-radius:50%;border:2px solid #c6a5d1a1;font-size:65px;background:linear-gradient(145deg,#5e486e,#2d294d);filter:drop-shadow(0 10px 13px #0007);box-shadow:inset 0 4px 20px #ffffff1b,0 0 35px #ad7fa953;animation:floatSpirit 2.9s ease-in-out infinite}
+.arena-figure.foe .spirit{background:linear-gradient(145deg,#73414e,#382336);border-color:#e19e9f91;animation-delay:-1s}
+.arena-figure .figure-name{font-size:13px;color:#fce9de;font-weight:800;max-width:95%;text-align:center;text-shadow:0 2px 5px #0008}
+.arena-figure .figure-side{font-size:10px;color:#f0cfac;letter-spacing:.1em}
+.arena-vs{font-size:27px;font-weight:950;color:#f1d5a8;text-shadow:0 0 25px #f5ae6b80;z-index:2}
+.battle-fx{position:absolute;z-index:6;left:50%;top:42%;transform:translate(-50%,-50%);opacity:0;pointer-events:none;white-space:nowrap;font-size:clamp(29px,5vw,50px);font-weight:950;text-shadow:0 3px 8px #180d21,0 0 28px #fff3a1}
+.battle-fx:before,.battle-fx:after{content:"✦";position:absolute;color:#ffeeb0;opacity:0;font-size:23px;top:-27px;left:-32px}
+.battle-fx:after{left:auto;right:-34px;top:27px}
+.scene-wash{position:absolute;inset:0;z-index:5;pointer-events:none;opacity:0}
+.battle-scene.fx-running .battle-fx{animation:fxBurst .72s ease-out both}
+.battle-scene.fx-running .battle-fx:before{animation:sparkle .7s ease-out both}
+.battle-scene.fx-running .battle-fx:after{animation:sparkle .65s .09s ease-out both}
+.battle-scene.fx-running.fx-ally .arena-figure.hero .spirit{animation:heroCharge .69s ease-in-out both}
+.battle-scene.fx-running.fx-enemy .arena-figure.foe .spirit{animation:foeCharge .69s ease-in-out both}
+.battle-scene.fx-running.fx-enemy .arena-figure.hero .spirit,
+.battle-scene.fx-running.fx-hit .arena-figure.foe .spirit{animation:hitShake .58s ease-in-out .18s both}
+.battle-scene.fx-running .scene-wash{animation:flashWash .66s ease-in-out both;background:radial-gradient(circle at center,#fbc28e66,transparent 67%)}
+.battle-scene.fx-running.fx-heal .scene-wash{background:radial-gradient(circle at 30% 50%,#66e9ab8c,transparent 68%)}
+.battle-scene.fx-running.fx-shield .scene-wash{background:radial-gradient(circle at 30% 50%,#99a6ff92,transparent 68%)}
+.battle-scene.fx-running.fx-heal .arena-figure.hero .spirit{animation:healPulse .68s ease-out both}
+.battle-scene.fx-running.fx-shield .arena-figure.hero .spirit{animation:shieldPulse .68s ease-out both}
+@keyframes floatSpirit{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes heroCharge{0%{transform:translateX(0) scale(1)}36%{transform:translateX(37px) rotate(-7deg) scale(1.19)}55%{transform:translateX(65px) rotate(9deg) scale(1.1)}100%{transform:translateX(0) scale(1)}}
+@keyframes foeCharge{0%{transform:translateX(0) scale(1)}39%{transform:translateX(-42px) rotate(8deg) scale(1.15)}57%{transform:translateX(-65px) rotate(-8deg)}100%{transform:translateX(0) scale(1)}}
+@keyframes hitShake{0%,100%{transform:translateX(0)}30%{transform:translateX(-12px) rotate(-12deg);filter:brightness(2)}42%{transform:translateX(10px) rotate(9deg)}55%{transform:translateX(-8px) rotate(-6deg)}75%{transform:translateX(4px)}}
+@keyframes fxBurst{0%{opacity:0;transform:translate(-50%,-50%) scale(.35) rotate(-17deg)}25%{opacity:1;transform:translate(-50%,-50%) scale(1.35) rotate(4deg)}60%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-80%) scale(1.2)}}
+@keyframes sparkle{0%{opacity:0;transform:translate(0,0) scale(.1)}35%{opacity:1;transform:translate(-12px,-8px) scale(1.3)}100%{opacity:0;transform:translate(-23px,-25px) scale(.7)}}
+@keyframes flashWash{0%,100%{opacity:0}25%{opacity:.85}55%{opacity:.35}}
+@keyframes healPulse{0%{filter:brightness(1);transform:scale(1)}43%{filter:brightness(1.6) drop-shadow(0 0 24px #91ffcd);transform:scale(1.19)}100%{filter:brightness(1);transform:scale(1)}}
+@keyframes shieldPulse{0%{box-shadow:0 0 0 0 #aeb9ff88}50%{box-shadow:0 0 0 18px #91a3ff69;transform:scale(1.1)}100%{box-shadow:0 0 0 35px #91a3ff00}}
+@media(max-width:550px){.battle-scene{height:192px;grid-template-columns:1fr 50px 1fr}.arena-figure .spirit{width:74px;height:74px;font-size:54px}.arena-vs{font-size:21px}.arena-figure .figure-name{font-size:11px}}
+@media(prefers-reduced-motion:reduce){.arena-figure .spirit,.battle-scene.fx-running .arena-figure .spirit,.battle-scene.fx-running .battle-fx,.battle-scene.fx-running .scene-wash{animation:none!important}.battle-scene.fx-running .battle-fx{opacity:1}.battle-scene.fx-running .scene-wash{opacity:.3}}
+
 </style>
 </head>
 <body>
@@ -68,7 +107,7 @@ var idmap={};H.forEach(function(h){idmap[h.id]=h;});
 function newState(){return{coins:800,jade:1100,stamina:18,maxStage:1,wins:0,pulls:0,pity:0,gift:'',team:['s1','s2','s3'],owned:{s1:{level:1,copies:1},s2:{level:1,copies:1},s3:{level:1,copies:1}}};}
 function int(v,f){var n=Number(v);return Number.isFinite(n)&&n>=0?Math.floor(n):f;}
 function load(){try{var raw=JSON.parse(localStorage.getItem(KEY));if(!raw||typeof raw!=='object'||!raw.owned||!raw.team)return newState();var init=newState();init.coins=int(raw.coins,800);init.jade=int(raw.jade,1100);init.stamina=Math.min(99,int(raw.stamina,18));init.maxStage=Math.max(1,int(raw.maxStage,1));init.wins=int(raw.wins,0);init.pulls=int(raw.pulls,0);init.pity=Math.min(49,int(raw.pity,0));init.gift=typeof raw.gift==='string'?raw.gift:'';init.owned={};Object.keys(raw.owned).forEach(function(id){if(idmap[id])init.owned[id]={level:Math.max(1,Math.min(30,int(raw.owned[id].level,1))),copies:Math.max(1,int(raw.owned[id].copies,1))};});['s1','s2','s3'].forEach(function(id){if(!init.owned[id])init.owned[id]={level:1,copies:1};});init.team=raw.team.filter(function(id,i,a){return !!init.owned[id]&&a.indexOf(id)===i;}).slice(0,3);if(init.team.length===0)init.team=['s1','s2','s3'];return init;}catch(e){return newState();}}
-var data=load(),tab='home',battle=null,chosen=0,target=0,lastResult=null,lastSummons=[],pendingEnemy=false,toastTimer;
+var data=load(),tab='home',battle=null,chosen=0,target=0,lastResult=null,lastSummons=[],pendingEnemy=false,animationBusy=false,toastTimer;
 function save(){try{localStorage.setItem(KEY,JSON.stringify(data));}catch(e){}}
 function el(id){return document.getElementById(id);}
 function notify(s){var n=el('toast');n.textContent=s;n.hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(function(){n.hidden=true;},2600);}
@@ -103,16 +142,32 @@ function stageEnemies(stage){var sprites=[['山狐','🦊'],['雾鬼','👻'],['
 function health(f){return Math.max(0,Math.round(f.hp/f.maxHp*100));}
 function fighter(x,i,ally){var sel=ally?i===chosen:i===target,cl=x.hp<=0?'down':sel?'selected selectable':'selectable';
 return '<button class="fighter '+cl+'" '+(x.hp<=0?'disabled':'')+' data-act="'+(ally?'choose-ally':'choose-target')+'" data-i="'+i+'"><span class="symbol">'+x.emoji+'</span><div class="desc"><b>'+x.name+(x.shield>0?' 🛡️':'')+'</b><small>HP '+x.hp+' / '+x.maxHp+(ally?' · '+(x.acted?'已行动':'待行动'):'')+'</small><div class="meter '+(!ally?'red':'')+'"><span class="fill" style="width:'+health(x)+'%"></span></div></div></button>';}
+function battleScene(){
+var a=battle.previewAlly||battle.allies[chosen]||battle.allies.find(function(x){return x.hp>0;});
+var e=battle.previewEnemy||battle.enemies[target]||battle.enemies.find(function(x){return x.hp>0;});
+return '<div class="battle-scene" id="battle-scene" aria-label="战斗动画舞台">'+
+'<div class="arena-figure hero"><span class="figure-side">己方式灵</span><span class="spirit" aria-hidden="true">'+(a?a.emoji:'✨')+'</span><span class="figure-name">'+(a?a.name:'式灵')+'</span></div>'+
+'<div class="arena-vs" aria-hidden="true">⚔</div>'+
+'<div class="arena-figure foe"><span class="figure-side">妖境魔物</span><span class="spirit" aria-hidden="true">'+(e?e.emoji:'👹')+'</span><span class="figure-name">'+(e?e.name:'妖怪')+'</span></div>'+
+'<div class="scene-wash" aria-hidden="true"></div><div class="battle-fx" id="battle-fx" aria-hidden="true"></div></div>';
+}
+function playBattleFx(kind,enemy,done){
+var stage=el('battle-scene'),fx=el('battle-fx');
+var effect=enemy?'hit':kind==='normal'?'hit':kind;
+var labels={hit:'⚔️ 斩！',strike:'⚡ 破！',burst:'🌙 绝技！',aoe:'💥 群攻！',heal:'🌸 回春！',guard:'🛡️ 护阵！',shield:'🛡️ 护阵！'};
+if(stage&&fx){fx.textContent=labels[effect]||'✨ 灵术！';stage.className='battle-scene fx-running '+(enemy?'fx-enemy':'fx-ally')+' fx-'+(effect==='guard'?'shield':effect);}
+setTimeout(done,730);
+}
 function dungeon(){
 if(!battle){
 var desc='<div class="panel center"><div style="font-size:67px">🏯</div><h2>妖境 · 第 '+data.maxStage+' 关</h2><p class="muted">每次挑战消耗 2 体力；胜利获得 130 勾玉、'+(120+data.maxStage*30)+' 金币。<br>每 5 关出现强力首领。</p><p class="tiny">挑战前请在式灵录里选择三名伙伴。</p>'+teamStrip()+btn('进入妖境 · 消耗2体力','start-battle','gold')+' '+btn('静心修行 · 恢复3体力','rest','outline')+'</div>';
 if(lastResult)desc='<div class="notice">'+lastResult+'</div>'+desc;
 return header('妖境探险','以智谋搭配技能，挑战不断变强的妖怪。')+desc;
 }
-var chosenHero=battle.allies[chosen];var can=battle.phase==='player'&&chosenHero&&chosenHero.hp>0&&!chosenHero.acted;
+var chosenHero=battle.allies[chosen];var can=battle.phase==='player'&&!animationBusy&&chosenHero&&chosenHero.hp>0&&!chosenHero.acted;
 return header('妖境 · 第 '+battle.stage+' 关','第 '+battle.round+' 回合 · '+(battle.phase==='enemy'?'妖怪正在行动':'请选择己方式灵和攻击目标'),' <span class="pill">✨ 灵力 '+battle.energy+' / 7</span>')+
-'<p class="versus">提示：点左侧选择己方式灵，点右侧选择目标。普通攻击恢复 1 点灵力，技能消耗 2 点。</p>'+
-'<div class="battle-grid"><div><div class="side-label">己方 · 式灵</div><div class="fighters">'+battle.allies.map(function(x,i){return fighter(x,i,true);}).join('')+'</div></div><div><div class="side-label">敌方 · 妖怪</div><div class="fighters">'+battle.enemies.map(function(x,i){return fighter(x,i,false);}).join('')+'</div></div></div>'+
+'<p class="versus">🎬 点击普攻或技能即可观看战斗动画。点左侧选己方，右侧选敌人；普通攻击恢复 1 灵力，技能消耗 2 灵力。</p>'+
+battleScene()+'<div class="battle-grid"><div><div class="side-label">己方 · 式灵</div><div class="fighters">'+battle.allies.map(function(x,i){return fighter(x,i,true);}).join('')+'</div></div><div><div class="side-label">敌方 · 妖怪</div><div class="fighters">'+battle.enemies.map(function(x,i){return fighter(x,i,false);}).join('')+'</div></div></div>'+
 '<div class="battle-controls">'+btn('普通攻击 · +1灵力','normal','outline',can?'':'disabled')+btn(chosenHero?chosenHero.skill+' · 2灵力':'灵术','special','gold',can&&battle.energy>=2?'':'disabled')+btn('撤退','retreat','outline')+'</div>'+
 '<div class="battle-log" aria-label="战斗记录">'+battle.log.slice(-8).reverse().map(function(x){return '<div>'+x+'</div>';}).join('')+'</div>';
 }
@@ -130,12 +185,27 @@ function team(id){if(!data.owned[id])return;var ix=data.team.indexOf(id);if(ix>=
 function summon(count){var cost=count===10?900:100;if(data.jade<cost)return notify('勾玉不够，可以挑战妖境或领取每日福袋');data.jade-=cost;lastSummons=[];var hasHigh=false;for(var i=0;i<count;i++){var roll=Math.random(),g=data.pity>=49?'SSR':roll<.04?'SSR':roll<.22?'SR':'R';if(count===10&&i===9&&!hasHigh&&g==='R')g='SR';var pool=H.filter(function(x){return x.grade===g;});var h=pool[Math.floor(Math.random()*pool.length)];lastSummons.push(h);if(g!=='R')hasHigh=true;data.pulls++;data.pity=g==='SSR'?0:data.pity+1;var entry=data.owned[h.id];if(entry){entry.copies++;data.coins+=80;}else{data.owned[h.id]={level:1,copies:1};}}
 save();render();notify('召唤完成！'+(lastSummons.some(function(x){return x.grade==='SSR';})?'恭喜获得 SSR！':'去式灵录查看新伙伴吧'));}
 function rest(){if(data.stamina>=20)return notify('体力充足，继续挑战吧');if(data.coins<60)return notify('修行需要 60 金币');data.coins-=60;data.stamina=Math.min(20,data.stamina+3);save();render();notify('静心修行：体力 +3');}
-function startBattle(){if(data.team.length!==3)return notify('需要三名式灵才能挑战，请在式灵录完成编队');if(data.stamina<2)return notify('体力不足，可以领取福袋或静心修行');data.stamina-=2;save();lastResult=null;battle={stage:data.maxStage,allies:data.team.map(function(id){var p=pow(id),h=idmap[id];return{id:id,name:h.name,emoji:h.emoji,hp:p.hp,maxHp:p.hp,atk:p.atk,def:p.def,shield:0,acted:false,skill:h.skill,mode:h.mode};}),enemies:stageEnemies(data.maxStage),energy:3,round:1,phase:'player',log:['妖境之门开启。准备迎战！']};chosen=0;target=0;pendingEnemy=false;render();}
+function startBattle(){animationBusy=false;if(data.team.length!==3)return notify('需要三名式灵才能挑战，请在式灵录完成编队');if(data.stamina<2)return notify('体力不足，可以领取福袋或静心修行');data.stamina-=2;save();lastResult=null;battle={stage:data.maxStage,allies:data.team.map(function(id){var p=pow(id),h=idmap[id];return{id:id,name:h.name,emoji:h.emoji,hp:p.hp,maxHp:p.hp,atk:p.atk,def:p.def,shield:0,acted:false,skill:h.skill,mode:h.mode};}),enemies:stageEnemies(data.maxStage),energy:3,round:1,phase:'player',log:['妖境之门开启。准备迎战！']};chosen=0;target=0;pendingEnemy=false;render();}
 function nextAlive(side,index){if(side[index]&&side[index].hp>0)return index;var i=side.findIndex(function(e){return e.hp>0;});return i;}
 function hit(attacker,victim,multi){var dmg=Math.max(1,Math.round((attacker.atk*multi-victim.def*.45)*(.9+Math.random()*.2)));var shield=Math.min(dmg,victim.shield||0);victim.shield=(victim.shield||0)-shield;victim.hp=Math.max(0,victim.hp-(dmg-shield));return dmg-shield;}
 function log(t){battle.log.push(t);if(battle.log.length>35)battle.log.shift();}
-function endBattle(win){var stage=battle.stage;if(win){data.wins++;var coin=120+stage*30;data.coins+=coin;data.jade+=130;data.maxStage=Math.max(data.maxStage,stage+1);lastResult='🏆 妖境挑战成功！获得 130 勾玉、'+coin+' 金币，已解锁第 '+data.maxStage+' 关。';}else lastResult='💔 挑战失败。升级式灵，调整阵容后再战吧！';battle=null;pendingEnemy=false;save();render();notify(win?'挑战成功！':'队伍落败');}
+function endBattle(win){animationBusy=false;var stage=battle.stage;if(win){data.wins++;var coin=120+stage*30;data.coins+=coin;data.jade+=130;data.maxStage=Math.max(data.maxStage,stage+1);lastResult='🏆 妖境挑战成功！获得 130 勾玉、'+coin+' 金币，已解锁第 '+data.maxStage+' 关。';}else lastResult='💔 挑战失败。升级式灵，调整阵容后再战吧！';battle=null;pendingEnemy=false;save();render();notify(win?'挑战成功！':'队伍落败');}
 function takeAction(action){
+if(!battle||battle.phase!=='player'||pendingEnemy||animationBusy)return;
+var actor=battle.allies[chosen],victim=battle.enemies[target];
+if(!actor||actor.hp<=0||actor.acted||!victim||victim.hp<=0)return;
+if(action==='special'&&battle.energy<2)return notify('灵力不足，先使用普通攻击');
+var original=battle;
+var mode=action==='normal'?'normal':actor.mode;
+animationBusy=true;
+render();
+playBattleFx(mode,false,function(){
+if(!battle||battle!==original||battle.phase!=='player')return;
+animationBusy=false;
+resolveAction(action);
+});
+}
+function resolveAction(action){
 if(!battle||battle.phase!=='player'||pendingEnemy)return;
 chosen=nextAlive(battle.allies,chosen);target=nextAlive(battle.enemies,target);var a=battle.allies[chosen],e=battle.enemies[target];
 if(!a||a.acted||!e)return;
@@ -155,9 +225,33 @@ if(battle.allies.filter(function(f){return f.hp>0;}).every(function(f){return f.
 function nextUnacted(){var i=battle.allies.findIndex(function(f){return f.hp>0&&!f.acted;});return i<0?0:i;}
 function enemyTurn(){
 if(!battle||battle.phase!=='enemy')return;
-battle.enemies.forEach(function(e){if(e.hp<=0)return;var living=battle.allies.filter(function(f){return f.hp>0;});if(!living.length)return;var targetF=living[Math.floor(Math.random()*living.length)];var dmg=hit(e,targetF,1);log(e.name+' 袭击 '+targetF.name+'，造成 '+dmg+' 点伤害。');});
-if(battle.allies.every(function(f){return f.hp<=0})){endBattle(false);return;}
-battle.round++;battle.phase='player';battle.energy=Math.min(7,battle.energy+2);battle.allies.forEach(function(f){f.acted=false;});chosen=nextUnacted();target=nextAlive(battle.enemies,target);pendingEnemy=false;log('第 '+battle.round+' 回合开始，灵力恢复 2 点。');render();
+var match=battle,foes=battle.enemies.filter(function(e){return e.hp>0;});
+function attackNext(i){
+if(!battle||battle!==match||battle.phase!=='enemy')return;
+if(i>=foes.length){
+battle.previewAlly=null;battle.previewEnemy=null;
+if(battle.allies.every(function(f){return f.hp<=0;})){endBattle(false);return;}
+battle.round++;battle.phase='player';battle.energy=Math.min(7,battle.energy+2);
+battle.allies.forEach(function(f){f.acted=false;});
+chosen=nextUnacted();target=nextAlive(battle.enemies,target);
+pendingEnemy=false;animationBusy=false;
+log('第 '+battle.round+' 回合开始，灵力恢复 2 点。');render();return;
+}
+var e=foes[i],living=battle.allies.filter(function(f){return f.hp>0;});
+if(!living.length){endBattle(false);return;}
+var victim=living[Math.floor(Math.random()*living.length)];
+battle.previewAlly=victim;battle.previewEnemy=e;
+animationBusy=true;render();
+playBattleFx('normal',true,function(){
+if(!battle||battle!==match||battle.phase!=='enemy')return;
+var dmg=hit(e,victim,1);
+log(e.name+' 袭击 '+victim.name+'，造成 '+dmg+' 点伤害。');
+animationBusy=false;render();
+if(battle.allies.every(function(f){return f.hp<=0;})){endBattle(false);return;}
+setTimeout(function(){attackNext(i+1);},160);
+});
+}
+attackNext(0);
 }
 document.addEventListener('click',function(evt){var b=evt.target.closest('button');if(!b)return;var next=b.getAttribute('data-tab');if(next){goto(next);return;}var act=b.getAttribute('data-act');if(!act)return;
 if(act==='go-dungeon')goto('dungeon');
@@ -169,10 +263,10 @@ else if(act==='draw1')summon(1);
 else if(act==='draw10')summon(10);
 else if(act==='rest')rest();
 else if(act==='start-battle')startBattle();
-else if(act==='choose-ally'){if(battle&&battle.phase==='player'){var i=Number(b.getAttribute('data-i'));if(battle.allies[i].hp>0&&!battle.allies[i].acted){chosen=i;render();}}}
-else if(act==='choose-target'){if(battle){var j=Number(b.getAttribute('data-i'));if(battle.enemies[j].hp>0){target=j;render();}}}
+else if(act==='choose-ally'){if(battle&&!animationBusy&&battle.phase==='player'){var i=Number(b.getAttribute('data-i'));if(battle.allies[i].hp>0&&!battle.allies[i].acted){chosen=i;render();}}}
+else if(act==='choose-target'){if(battle&&!animationBusy){var j=Number(b.getAttribute('data-i'));if(battle.enemies[j].hp>0){target=j;render();}}}
 else if(act==='normal'||act==='special')takeAction(act);
-else if(act==='retreat'){if(battle){battle=null;pendingEnemy=false;lastResult='你选择了撤退，本次体力不退还。';render();}}
+else if(act==='retreat'){if(battle&&!animationBusy){battle=null;pendingEnemy=false;lastResult='你选择了撤退，本次体力不退还。';render();}}
 else if(act==='reset-save'){if(confirm('确认清除本游戏的所有进度？操作不可撤销。')){data=newState();battle=null;lastResult=null;lastSummons=[];save();goto('home');notify('存档已重置');}}
 });
 render();
