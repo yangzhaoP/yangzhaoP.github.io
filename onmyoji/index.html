@@ -242,7 +242,7 @@ return '<div class="battle-scene v2" id="battle-scene" aria-label="六人和风�
 '<div class="stage-team enemies">'+battle.enemies.map(function(x,i){return stageUnit(x,i,false)}).join('')+'</div>'+
 '<div class="scene-wash" aria-hidden="true"></div><div class="battle-fx" id="battle-fx" aria-hidden="true"></div></div>';
 }
-function playBattleFx(kind,enemy,done){
+function playBattleFx(kind,enemy,done){soundFx(kind==='heal'?'heal':kind==='normal'?'normal':'special');
 var stage=el('battle-scene'),fx=el('battle-fx');
 var effect=enemy?'hit':kind==='normal'?'hit':kind;
 var labels={hit:'⚔️ 斩！',strike:'⚡ 破！',burst:'🌙 绝技！',aoe:'💥 群攻！',heal:'🌸 回春！',guard:'🛡️ 护阵！',shield:'🛡️ 护阵！'};
@@ -278,11 +278,11 @@ function team(id){if(!data.owned[id])return;var ix=data.team.indexOf(id);if(ix>=
 function summon(count){var cost=count===10?900:100;if(data.jade<cost)return notify('勾玉不够，可以挑战妖境或领取每日福袋');data.jade-=cost;lastSummons=[];var hasHigh=false;for(var i=0;i<count;i++){var roll=Math.random(),g=data.pity>=49?'SSR':roll<.04?'SSR':roll<.22?'SR':'R';if(count===10&&i===9&&!hasHigh&&g==='R')g='SR';var pool=H.filter(function(x){return x.grade===g;});var h=pool[Math.floor(Math.random()*pool.length)];lastSummons.push(h);if(g!=='R')hasHigh=true;data.pulls++;data.pity=g==='SSR'?0:data.pity+1;var entry=data.owned[h.id];if(entry){entry.copies++;data.coins+=80;}else{data.owned[h.id]={level:1,copies:1};}}
 save();render();notify('召唤完成！'+(lastSummons.some(function(x){return x.grade==='SSR';})?'恭喜获得 SSR！':'去式灵录查看新伙伴吧'));}
 function rest(){if(data.stamina>=20)return notify('体力充足，继续挑战吧');if(data.coins<60)return notify('修行需要 60 金币');data.coins-=60;data.stamina=Math.min(20,data.stamina+3);save();render();notify('静心修行：体力 +3');}
-function startBattle(){animationBusy=false;autoPlay=false;if(data.team.length!==3)return notify('需要三名式灵才能挑战，请在式灵录完成编队');if(data.stamina<2)return notify('体力不足，可以领取福袋或静心修行');data.stamina-=2;save();lastResult=null;battle={stage:data.maxStage,allies:data.team.map(function(id){var p=pow(id),h=idmap[id];return{id:id,name:h.name,emoji:h.emoji,hp:p.hp,maxHp:p.hp,atk:p.atk,def:p.def,spd:p.spd,shield:0,acted:false,skill:h.skill,mode:h.mode};}),enemies:stageEnemies(data.maxStage),energy:3,round:1,phase:'player',log:['妖境之门开启。准备迎战！']};chosen=0;target=0;pendingEnemy=false;buildTimeline();advanceTimeline();}
+function startBattle(){animationBusy=false;autoPlay=false;if(data.team.length!==3)return notify('需要三名式灵才能挑战，请在式灵录完成编队');if(data.stamina<2)return notify('体力不足，可以领取福袋或静心修行');data.stamina-=2;save();lastResult=null;battle={stage:data.maxStage,allies:data.team.map(function(id){var p=pow(id),h=idmap[id];return{id:id,name:h.name,emoji:h.emoji,hp:p.hp,maxHp:p.hp,atk:p.atk,def:p.def,spd:p.spd,crit:p.crit,shield:0,acted:false,skill:h.skill,mode:h.mode};}),enemies:stageEnemies(data.maxStage),energy:3,round:1,phase:'player',log:['妖境之门开启。准备迎战！']};chosen=0;target=0;pendingEnemy=false;buildTimeline();advanceTimeline();}
 function nextAlive(side,index){if(side[index]&&side[index].hp>0)return index;var i=side.findIndex(function(e){return e.hp>0;});return i;}
-function hit(attacker,victim,multi){var dmg=Math.max(1,Math.round((attacker.atk*multi-victim.def*.45)*(.9+Math.random()*.2)));var shield=Math.min(dmg,victim.shield||0);victim.shield=(victim.shield||0)-shield;victim.hp=Math.max(0,victim.hp-(dmg-shield));return dmg-shield;}
+function hit(attacker,victim,multi){var crit=attacker.crit>0&&Math.random()*100<attacker.crit;var dmg=Math.max(1,Math.round((attacker.atk*multi-victim.def*.48)*(.91+Math.random()*.19)*(crit?1.55:1)));var shield=Math.min(dmg,victim.shield||0);victim.shield=(victim.shield||0)-shield;victim.hp=Math.max(0,victim.hp-(dmg-shield));victim.lastCrit=crit;return dmg-shield;}
 function log(t){battle.log.push(t);if(battle.log.length>35)battle.log.shift();}
-function endBattle(win){animationBusy=false;autoPlay=false;var stage=battle.stage;if(win){data.wins++;var coin=120+stage*30;data.coins+=coin;data.jade+=130;data.maxStage=Math.max(data.maxStage,stage+1);var extra='';if(Math.random()<.48){var rune=RUNES[Math.floor(Math.random()*RUNES.length)];data.runes[rune.id]++;extra='、'+rune.name;}lastResult='🏆 妖境挑战成功！获得 130 勾玉、'+coin+' 金币'+extra+'，已解锁第 '+data.maxStage+' 关。';}else lastResult='💔 挑战失败。升级式灵，调整阵容后再战吧！';battle=null;pendingEnemy=false;save();render();notify(win?'挑战成功！':'队伍落败');}
+function endBattle(win){animationBusy=false;autoPlay=false;var stage=battle.stage;if(win){data.wins++;var coin=120+stage*30;data.coins+=coin;data.jade+=130;data.maxStage=Math.max(data.maxStage,stage+1);var extra='';if(Math.random()<.48){var rune=RUNES[Math.floor(Math.random()*RUNES.length)];data.runes[rune.id]++;extra='、'+rune.name;}if(data.soulBag.length<200&&(Math.random()<.78||stage%5===0)){var set=window.ZYSeason.sets[Math.floor(Math.random()*window.ZYSeason.sets.length)],slot=1+Math.floor(Math.random()*6),soul=window.ZYSeason.makeSoul(data.soulSeq++,slot,set.id,stage);data.soulBag.push(soul);extra+='、'+set.name+soul.slot+'号位御魂';}lastResult='🏆 妖境挑战成功！获得 130 勾玉、'+coin+' 金币'+extra+'，已解锁第 '+data.maxStage+' 关。';}else lastResult='💔 挑战失败。升级式灵，调整阵容后再战吧！';battle=null;pendingEnemy=false;save();render();notify(win?'挑战成功！':'队伍落败');}
 function takeAction(action){
 if(!battle||battle.phase!=='player'||pendingEnemy||animationBusy)return;
 var actor=battle.allies[chosen],victim=battle.enemies[target];
@@ -303,13 +303,13 @@ if(!battle||battle.phase!=='player'||pendingEnemy)return;
 chosen=nextAlive(battle.allies,chosen);target=nextAlive(battle.enemies,target);var a=battle.allies[chosen],e=battle.enemies[target];
 if(!a||a.acted||!e)return;
 if(action==='special'&&battle.energy<2)return notify('灵力不足，先使用普通攻击');
-if(action==='normal'){var n=hit(a,e,1);battle.energy=Math.min(7,battle.energy+1);log(a.name+' 普攻 '+e.name+'，造成 '+n+' 点伤害。');}
+if(action==='normal'){var n=hit(a,e,1);battle.energy=Math.min(7,battle.energy+1);log(a.name+' 普攻 '+e.name+'，造成 '+n+' 点伤害'+(e.lastCrit?'，暴击！':'')+'。');}
 else{
 battle.energy-=2;
 if(a.mode==='heal'){var base=Math.round(a.atk*1.1+23);battle.allies.forEach(function(f){if(f.hp>0)f.hp=Math.min(f.maxHp,f.hp+base);});log(a.name+' 施展「'+a.skill+'」，全队恢复 '+base+' 点生命。');}
 else if(a.mode==='guard'){var shield=Math.round(a.atk*.65+24);battle.allies.forEach(function(f){if(f.hp>0)f.shield+=shield;});log(a.name+' 施展「'+a.skill+'」，全队获得 '+shield+' 点护盾。');}
 else if(a.mode==='aoe'){var total=0;battle.enemies.forEach(function(f){if(f.hp>0)total+=hit(a,f,1.02);});log(a.name+' 施展「'+a.skill+'」，群体共造成 '+total+' 点伤害。');}
-else{var ratio=a.mode==='burst'?2.7:1.85;var dmg=hit(a,e,ratio);log(a.name+' 施展「'+a.skill+'」，对 '+e.name+' 造成 '+dmg+' 点伤害！');}
+else{var ratio=a.mode==='burst'?2.7:1.85;var dmg=hit(a,e,ratio);log(a.name+' 施展「'+a.skill+'」，对 '+e.name+' 造成 '+dmg+' 点伤害'+(e.lastCrit?'，暴击！':'')+'！');}
 }
 a.acted=true;if(battle.enemies.every(function(f){return f.hp<=0;})){endBattle(true);return;}battle.cursor++;advanceTimeline();}
 function autoTick(){autoTimer=null;if(!battle||!autoPlay||battle.phase!=='player'||animationBusy||pendingEnemy)return;var idx=chosen;if(!battle.allies[idx]||battle.allies[idx].hp<=0||battle.allies[idx].acted)return;chosen=idx;var enemies=battle.enemies.filter(function(x){return x.hp>0});if(!enemies.length)return;var lowest=enemies.slice().sort(function(a,b){return a.hp-b.hp})[0];target=battle.enemies.indexOf(lowest);var ally=battle.allies[idx];var lowHp=battle.allies.some(function(x){return x.hp>0&&x.hp<x.maxHp*.72});var skill=battle.energy>=2&&(ally.mode==='heal'?lowHp:ally.mode==='guard'?battle.allies.some(function(x){return x.hp>0&&x.shield<15}):true);takeAction(skill?'special':'normal');}
