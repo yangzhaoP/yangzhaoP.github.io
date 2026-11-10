@@ -79,7 +79,7 @@ a{color:var(--gold);text-decoration:none}a:hover{text-decoration:underline}butto
   <h3>浮世绘卷</h3>
   <button class="nav active" data-tab="home"><span class="ni">🏮</span> 庭院</button>
   <button class="nav" data-tab="summon"><span class="ni">📜</span> 式灵召唤</button>
-  <button class="nav" data-tab="roster"><span class="ni">🪭</span> 式灵录</button>
+  <button class="nav" data-tab="roster"><span class="ni">🪭</span> 式灵录</button><button class="nav" data-tab="runes"><span class="ni">🔮</span> 御灵符印</button>
   <button class="nav" data-tab="dungeon"><span class="ni">⚔️</span> 妖境探险</button>
   <button class="nav" data-tab="guide"><span class="ni">📖</span> 游戏说明</button>
   <p class="sidebar-note">纯免费单机体验，无需登录。游戏进度保存在当前浏览器，清除浏览器数据会丢失存档。</p>
@@ -109,14 +109,15 @@ var H=[
 {id:'s12',name:'霜弦姬',grade:'SSR',type:'月',emoji:'🎻',role:'群攻',skill:'月下霜弦',mode:'aoe',hp:165,atk:58,def:9,desc:'一曲霜弦，百鬼止步。'}
 ];
 var idmap={};H.forEach(function(h){idmap[h.id]=h;});
-function newState(){return{coins:800,jade:1100,stamina:18,maxStage:1,wins:0,pulls:0,pity:0,gift:'',team:['s1','s2','s3'],owned:{s1:{level:1,copies:1},s2:{level:1,copies:1},s3:{level:1,copies:1}}};}
+function newState(){return{coins:800,jade:1100,stamina:18,maxStage:1,wins:0,pulls:0,pity:0,gift:'',team:['s1','s2','s3'],runes:{fire:1,heal:1,guard:1,wind:0},equip:{},owned:{s1:{level:1,copies:1},s2:{level:1,copies:1},s3:{level:1,copies:1}}};}
+var RUNES=[{id:'fire',name:'炽焰符印',icon:'🔥',desc:'攻击 +12',atk:12,hp:0,def:0,spd:0},{id:'heal',name:'桃华符印',icon:'🌸',desc:'生命 +65',atk:0,hp:65,def:0,spd:0},{id:'guard',name:'山岳符印',icon:'🛡️',desc:'防御 +9',atk:0,hp:0,def:9,spd:0},{id:'wind',name:'疾风符印',icon:'🍃',desc:'速度 +18',atk:0,hp:0,def:0,spd:18}];var runeMap={};RUNES.forEach(function(o){runeMap[o.id]=o;});
 function int(v,f){var n=Number(v);return Number.isFinite(n)&&n>=0?Math.floor(n):f;}
-function load(){try{var raw=JSON.parse(localStorage.getItem(KEY));if(!raw||typeof raw!=='object'||!raw.owned||!raw.team)return newState();var init=newState();init.coins=int(raw.coins,800);init.jade=int(raw.jade,1100);init.stamina=Math.min(99,int(raw.stamina,18));init.maxStage=Math.max(1,int(raw.maxStage,1));init.wins=int(raw.wins,0);init.pulls=int(raw.pulls,0);init.pity=Math.min(49,int(raw.pity,0));init.gift=typeof raw.gift==='string'?raw.gift:'';init.owned={};Object.keys(raw.owned).forEach(function(id){if(idmap[id])init.owned[id]={level:Math.max(1,Math.min(30,int(raw.owned[id].level,1))),copies:Math.max(1,int(raw.owned[id].copies,1))};});['s1','s2','s3'].forEach(function(id){if(!init.owned[id])init.owned[id]={level:1,copies:1};});init.team=raw.team.filter(function(id,i,a){return !!init.owned[id]&&a.indexOf(id)===i;}).slice(0,3);if(init.team.length===0)init.team=['s1','s2','s3'];return init;}catch(e){return newState();}}
+function load(){try{var raw=JSON.parse(localStorage.getItem(KEY));if(!raw||typeof raw!=='object'||!raw.owned||!raw.team)return newState();var init=newState();init.coins=int(raw.coins,800);init.jade=int(raw.jade,1100);init.stamina=Math.min(99,int(raw.stamina,18));init.maxStage=Math.max(1,int(raw.maxStage,1));init.wins=int(raw.wins,0);init.pulls=int(raw.pulls,0);init.pity=Math.min(49,int(raw.pity,0));init.gift=typeof raw.gift==='string'?raw.gift:'';init.owned={};Object.keys(raw.owned).forEach(function(id){if(idmap[id])init.owned[id]={level:Math.max(1,Math.min(30,int(raw.owned[id].level,1))),copies:Math.max(1,int(raw.owned[id].copies,1))};});['s1','s2','s3'].forEach(function(id){if(!init.owned[id])init.owned[id]={level:1,copies:1};});init.team=raw.team.filter(function(id,i,a){return !!init.owned[id]&&a.indexOf(id)===i;}).slice(0,3);if(init.team.length===0)init.team=['s1','s2','s3'];if(raw.runes&&typeof raw.runes==='object'){RUNES.forEach(function(q){init.runes[q.id]=Math.min(99,int(raw.runes[q.id],init.runes[q.id]));});}if(raw.equip&&typeof raw.equip==='object'){var used={};Object.keys(raw.equip).forEach(function(id){var rune=raw.equip[id];if(init.owned[id]&&runeMap[rune]&&(used[rune]||0)<init.runes[rune]){init.equip[id]=rune;used[rune]=(used[rune]||0)+1;}});}return init;}catch(e){return newState();}}
 var data=load(),tab='home',battle=null,chosen=0,target=0,lastResult=null,lastSummons=[],pendingEnemy=false,animationBusy=false,toastTimer;
 function save(){try{localStorage.setItem(KEY,JSON.stringify(data));}catch(e){}}
 function el(id){return document.getElementById(id);}
 function notify(s){var n=el('toast');n.textContent=s;n.hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(function(){n.hidden=true;},2600);}
-function pow(id){var h=idmap[id],lv=data.owned[id]?data.owned[id].level:1;return{hp:h.hp+(lv-1)*16,atk:h.atk+(lv-1)*5,def:h.def+(lv-1)*2};}
+function pow(id){var h=idmap[id],lv=data.owned[id]?data.owned[id].level:1;var q=runeMap[data.equip[id]]||{hp:0,atk:0,def:0,spd:0};return{hp:h.hp+(lv-1)*16+q.hp,atk:h.atk+(lv-1)*5+q.atk,def:h.def+(lv-1)*2+q.def,spd:80+(h.grade==='SSR'?15:h.grade==='SR'?7:0)+q.spd};}
 function grade(h){return '<span class="rarity '+h.grade+'">'+h.grade+'</span>';}
 function header(title,desc,right){return '<div class="section-head"><div><h2>'+title+'</h2><p>'+desc+'</p></div>'+(right||'')+'</div>';}
 function btn(text,action,extra,attr){return '<button class="btn '+(extra||'')+'" data-act="'+action+'" '+(attr||'')+'>'+text+'</button>';}
@@ -128,7 +129,7 @@ function heroCard(h,kind){var item=data.owned[h.id],mine=!!item,power=mine?pow(h
 var actions='';
 if(kind==='roster'&&mine){actions='<div class="buttons">'+btn('升级 '+(item.level*75)+'金币','train','small outline','data-id="'+h.id+'"')+btn(isTeam?'下阵':'上阵','team','small','data-id="'+h.id+'"')+'</div>';}
 var badge=mine?'<span class="tiny">Lv.'+item.level+' · '+h.role+(item.copies>1?' · 召唤×'+item.copies:'')+'</span>':'<span class="tiny">尚未召唤</span>';
-return '<article class="hero-card '+(!mine?'locked ':'')+(isTeam?'selected':'')+'"><div class="hero-art">'+artwork(h)+grade(h)+'</div><div class="hero-body"><h4>'+h.name+'</h4><p>'+h.type+' · '+h.skill+'</p>'+badge+(power?'<p style="margin-top:8px">生命 '+power.hp+' · 攻击 '+power.atk+'</p>':'')+actions+'</div></article>';}
+return '<article class="hero-card '+(!mine?'locked ':'')+(isTeam?'selected':'')+'"><div class="hero-art">'+artwork(h)+grade(h)+'</div><div class="hero-body"><h4>'+h.name+'</h4><p>'+h.type+' · '+h.skill+'</p>'+badge+(power?'<p style="margin-top:8px">生命 '+power.hp+' · 攻击 '+power.atk+' · 速度 '+power.spd+'</p>':'')+actions+'</div></article>';}
 function teamStrip(){return '<div class="teamstrip">'+data.team.map(function(id){return '<span class="chip"><span class="dot"></span>'+idmap[id].emoji+' '+idmap[id].name+' Lv.'+data.owned[id].level+'</span>';}).join('')+'</div>';}
 function home(){
 return '<div class="hero-banner"><div class="eyecatch">百鬼夜行 · 浮生一卷</div><h2>执符而行，纵横阴阳</h2><p>妖气漫过山海，古老的式灵再次苏醒。召唤你的伙伴，组成三人小队，穿越妖境，谱写周渝的传奇。</p><div class="buttons">'+btn('⚔️ 前往妖境','go-dungeon','gold')+btn('📜 召唤式灵','go-summon','outline')+'</div></div>'+
@@ -136,6 +137,26 @@ return '<div class="hero-banner"><div class="eyecatch">百鬼夜行 · 浮生一
 '<div class="grid"><div class="tile"><span class="symbol">📜</span><h3>召唤百鬼</h3><p>R、SR、SSR 三种稀有度，10 连召唤保底至少一只 SR，50 抽必出 SSR。</p></div><div class="tile"><span class="symbol">⚔️</span><h3>三人共斗</h3><p>普攻积攒灵力，释放治疗、护盾和强力群攻，赢取勾玉和金币。</p></div><div class="tile"><span class="symbol">🌸</span><h3>养成式灵</h3><p>使用金币提升式灵等级，调整上阵阵容，攻克不断变强的妖境。</p></div></div>'+
 '<div class="divider"></div>'+header('出战队伍','你可以在「式灵录」调整三人阵容。')+teamStrip()+
 '<div class="panel"><h3>🎁 每日参拜</h3><p class="muted">每天可领取免费勾玉、金币和体力，不需要登录。</p>'+btn(data.gift===new Date().toLocaleDateString('sv-SE')?'今天已经领取':'领取今日福袋','gift','gold',data.gift===new Date().toLocaleDateString('sv-SE')?'disabled':'')+'</div>';
+}
+function runesView(){
+var collection='<div class="rune-inventory">'+RUNES.map(function(q){return '<div class="rune-item"><span class="rune-icon">'+q.icon+'</span><div><strong>'+q.name+'</strong><div class="tiny">'+q.desc+' · 持有 '+data.runes[q.id]+' 枚</div></div></div>'}).join('')+'</div>';
+var heroes='<div class="rune-heroes">'+Object.keys(data.owned).map(function(id){
+var h=idmap[id],now=data.equip[id],p=pow(id);
+return '<div class="rune-hero"><div class="rune-mini">'+artwork(h)+'</div><div class="rune-main"><strong>'+h.name+'</strong><div class="tiny">生命 '+p.hp+' · 攻击 '+p.atk+' · 防御 '+p.def+' · 速度 '+p.spd+'</div>'+
+'<div class="tiny">当前：'+(now?runeMap[now].icon+' '+runeMap[now].name:'尚未装备')+'</div><div class="rune-actions">'+RUNES.map(function(q){
+var used=Object.keys(data.equip).filter(function(other){return other!==id&&data.equip[other]===q.id}).length;
+return btn((now===q.id?'卸下':'装备')+q.icon,'equip','small '+(now===q.id?'gold':'outline'),'data-id="'+id+'" data-rune="'+q.id+'" '+(now!==q.id&&used>=data.runes[q.id]?'disabled':''));
+}).join('')+'</div></div></div>';
+}).join('')+'</div>';
+return header('御灵符印','专属强化道具：选择一枚符印增强式灵，挑战妖境有机会获得更多。')+'<div class="panel"><h3>持有符印</h3>'+collection+'</div><div class="panel"><h3>式灵装备</h3>'+heroes+'</div>';
+}
+function equipRune(id,rune){
+if(battle)return notify('请战斗结束后更换符印');
+if(!data.owned[id]||!runeMap[rune])return;
+if(data.equip[id]===rune){delete data.equip[id];save();render();notify('符印已卸下');return;}
+var used=Object.keys(data.equip).filter(function(other){return other!==id&&data.equip[other]===rune}).length;
+if(used>=data.runes[rune])return notify('符印不足，挑战妖境可获得更多');
+data.equip[id]=rune;save();render();notify(idmap[id].name+' 装备了 '+runeMap[rune].name);
 }
 function roster(){
 return header('式灵录','收集原创式灵，升级并组成最多三人的出战队伍。','<span class="pill">已收集 '+Object.keys(data.owned).length+' / '+H.length+'</span>')+
@@ -189,10 +210,11 @@ battleScene()+'<div class="battle-grid"><div><div class="side-label">己方 · �
 function guide(){return header('冒险指南','这是独立制作的原创和风小游戏，不含任何官方游戏素材。')+
 '<div class="panel"><h3>🏮 怎样开始？</h3><p class="muted">首次进入已经拥有竹影武士、青灯书生和桃花灵，可以直接去「妖境探险」进行三人回合制战斗。</p></div>'+
 '<div class="panel"><h3>📜 召唤规则</h3><p class="muted">单抽消耗 100 勾玉，十连消耗 900 勾玉。SSR 自上次获得 SSR 起，最多 50 抽必出。一次十连至少包含 SR 或 SSR。重复式灵获得金币。</p></div>'+
+'<div class="panel"><h3>🔮 御灵符印</h3><p class="muted">挑战妖境有机会获得符印，可装备提升生命、攻击、防御或速度。存档与之前兼容。</p></div>'+
 '<div class="panel"><h3>⚔️ 战斗与养成</h3><p class="muted">点击己方式灵选择行动者，再选择敌人，使用普攻或技能。普攻增加 1 灵力，技能消耗 2 灵力。治疗与护盾技能作用于己方，无需选择敌人。战斗胜利可赚取勾玉和金币，用金币升级式灵。</p></div>'+
 '<div class="panel"><h3>💾 存档与隐私</h3><p class="muted">游戏在浏览器 localStorage 中保存式灵、货币与关卡进度。不同设备、无痕模式和不同浏览器的存档互不相通。没有账号系统、服务器数据库、广告或实际付费。</p>'+btn('清除当前游戏存档','reset-save','outline')+'</div>';
 }
-function render(){resources();nav();el('view').innerHTML=tab==='home'?home():tab==='roster'?roster():tab==='summon'?summonView():tab==='dungeon'?dungeon():guide();}
+function render(){resources();nav();el('view').innerHTML=tab==='home'?home():tab==='roster'?roster():tab==='runes'?runesView():tab==='summon'?summonView():tab==='dungeon'?dungeon():guide();}
 function goto(x){tab=x;render();window.scrollTo({top:0,behavior:'smooth'});}
 function gift(){var today=new Date().toLocaleDateString('sv-SE');if(data.gift===today)return notify('今天的福袋已领过啦');data.gift=today;data.jade+=350;data.coins+=400;data.stamina=Math.min(99,data.stamina+6);save();render();notify('参拜成功！勾玉 +350、金币 +400、体力 +6');}
 function train(id){var h=data.owned[id];if(!h)return;if(h.level>=30)return notify('式灵已达最高等级');var cost=h.level*75;if(data.coins<cost)return notify('金币不足，前往妖境挑战吧');data.coins-=cost;h.level++;save();render();notify(idmap[id].name+' 已升至 Lv.'+h.level);}
@@ -204,7 +226,7 @@ function startBattle(){animationBusy=false;if(data.team.length!==3)return notify
 function nextAlive(side,index){if(side[index]&&side[index].hp>0)return index;var i=side.findIndex(function(e){return e.hp>0;});return i;}
 function hit(attacker,victim,multi){var dmg=Math.max(1,Math.round((attacker.atk*multi-victim.def*.45)*(.9+Math.random()*.2)));var shield=Math.min(dmg,victim.shield||0);victim.shield=(victim.shield||0)-shield;victim.hp=Math.max(0,victim.hp-(dmg-shield));return dmg-shield;}
 function log(t){battle.log.push(t);if(battle.log.length>35)battle.log.shift();}
-function endBattle(win){animationBusy=false;var stage=battle.stage;if(win){data.wins++;var coin=120+stage*30;data.coins+=coin;data.jade+=130;data.maxStage=Math.max(data.maxStage,stage+1);lastResult='🏆 妖境挑战成功！获得 130 勾玉、'+coin+' 金币，已解锁第 '+data.maxStage+' 关。';}else lastResult='💔 挑战失败。升级式灵，调整阵容后再战吧！';battle=null;pendingEnemy=false;save();render();notify(win?'挑战成功！':'队伍落败');}
+function endBattle(win){animationBusy=false;var stage=battle.stage;if(win){data.wins++;var coin=120+stage*30;data.coins+=coin;data.jade+=130;data.maxStage=Math.max(data.maxStage,stage+1);var extra='';if(Math.random()<.48){var rune=RUNES[Math.floor(Math.random()*RUNES.length)];data.runes[rune.id]++;extra='、'+rune.name;}lastResult='🏆 妖境挑战成功！获得 130 勾玉、'+coin+' 金币'+extra+'，已解锁第 '+data.maxStage+' 关。';}else lastResult='💔 挑战失败。升级式灵，调整阵容后再战吧！';battle=null;pendingEnemy=false;save();render();notify(win?'挑战成功！':'队伍落败');}
 function takeAction(action){
 if(!battle||battle.phase!=='player'||pendingEnemy||animationBusy)return;
 var actor=battle.allies[chosen],victim=battle.enemies[target];
@@ -274,6 +296,7 @@ else if(act==='go-summon')goto('summon');
 else if(act==='gift')gift();
 else if(act==='train')train(b.getAttribute('data-id'));
 else if(act==='team')team(b.getAttribute('data-id'));
+else if(act==='equip')equipRune(b.getAttribute('data-id'),b.getAttribute('data-rune'));
 else if(act==='draw1')summon(1);
 else if(act==='draw10')summon(10);
 else if(act==='rest')rest();
