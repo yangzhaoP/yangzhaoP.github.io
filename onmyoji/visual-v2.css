@@ -1,0 +1,101 @@
+
+/* 周渝之纵横阴阳师 · 原创高画质网页UI */
+:root{--bg:#0b101f;--panel:#1b2032;--soft:#283149;--line:#75617b;--ink:#fff3df;--sub:#c5b9d4;--gold:#f7dba2;--red:#de777f;--aqua:#a8e8dc;--purple:#d4b4fb}
+html{background:#0a1020}
+body{background:radial-gradient(ellipse at 54% -12%,#54405a 0%,#1e1831 34%,#101526 73%,#09121e 100%);background-attachment:fixed;letter-spacing:.015em}
+body:before{background-image:radial-gradient(#fbd6a00f 1px,transparent 1px),repeating-linear-gradient(90deg,transparent 0,transparent 135px,#d3a77b08 136px,#d3a77b08 137px);background-size:34px 34px,auto}
+.shell{max-width:1270px}
+.top{padding:15px 8px 25px}
+.brand h1{font-family:Georgia,"Songti SC","SimSun",serif;font-size:clamp(26px,3.4vw,43px);color:#fff3df;text-shadow:0 0 22px #e5a9694e}
+.brand p{letter-spacing:.1em;color:#d1bfd0}
+.seal{background:radial-gradient(circle,#91565b,#31213e);border:2px solid #f5c891;box-shadow:0 0 25px #eba8663b,0 0 0 6px #f1c4870c}
+.resources .resource{background:linear-gradient(150deg,#37283dc9,#1b2639d9);border-color:#796184;box-shadow:inset 0 1px #fbd8a91b}
+.resource strong{color:#ffdf9d;font-weight:900}
+.layout{grid-template-columns:220px minmax(0,1fr)}
+.sidebar{background:linear-gradient(155deg,#2f253e,#151e34);border:1px solid #765c76;box-shadow:0 19px 50px #04070e76}
+.content{background:linear-gradient(165deg,#2a2437e9,#161e32ed);border:1px solid #75576d;box-shadow:0 30px 75px #03050a88;min-height:610px}
+.nav.active{background:linear-gradient(110deg,#94705c,#63475c);border:1px solid #e2b47b;box-shadow:inset 0 0 15px #fce0ac18}
+.section-head h2{font-family:Georgia,"Songti SC","SimSun",serif;letter-spacing:.085em;color:#ffe5ba;font-size:clamp(25px,3vw,36px)}
+.section-head p{color:#d7c2cd}
+.panel{background:linear-gradient(135deg,#3a2c42aa,#1c2a3cab);border-color:#886b7a;box-shadow:0 8px 30px #0002}
+.hero-banner{min-height:350px;display:flex;flex-direction:column;justify-content:center;background:radial-gradient(circle at 79% 25%,#fff6c7a2 0 5%,#cbb1a86a 7%,transparent 29%),linear-gradient(115deg,#352439 0%,#43304e 45%,#262b49 100%);position:relative;isolation:isolate;border-color:#cf9d76;box-shadow:inset 0 0 72px #060b1b78,0 20px 40px #0003}
+.hero-banner:before{content:"";position:absolute;right:8%;top:12%;width:32%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 27%,#fff8e2,#e7cdb6 50%,#c9a2ad 68%,#544568 100%);filter:drop-shadow(0 0 40px #f9d8b08a);opacity:.45;z-index:-1}
+.hero-banner:after{content:"⛩";font-size:240px;position:absolute;right:8%;bottom:-45px;color:#e7ba9160;opacity:.46;line-height:1;text-shadow:0 3px 18px #2b1224;z-index:-1}
+.hero-banner h2{font-family:"Songti SC",Georgia,serif;font-size:clamp(30px,5vw,51px);text-shadow:0 4px 20px #170b1b}
+.hero-banner p{font-size:15px;color:#f3dce4;max-width:550px}
+.hero-banner .eyecatch{letter-spacing:.23em}
+.hero-banner>.buttons{margin-top:12px}
+.hero-banner .btn.gold{box-shadow:0 12px 22px #110b1980}
+.visual-trailer{background:linear-gradient(135deg,#4b354d88,#1929419c);border:1px solid #967687;border-radius:15px;padding:13px;margin:17px 0}
+.trailer-head{display:flex;align-items:center;justify-content:space-between;gap:8px;color:#f8dba5;font-weight:800;font-size:13px;margin-bottom:12px}
+.trailer-arts{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.trailer-hero{position:relative;border-radius:12px;overflow:hidden;border:1px solid #a58a88;background:#312542;max-height:245px;min-width:0}
+.trailer-hero .zy-portrait{display:block;width:100%;height:100%;aspect-ratio:230/300}
+.trailer-hero figcaption{position:absolute;left:0;right:0;bottom:0;text-align:center;font-size:12px;font-weight:750;color:white;padding:18px 4px 8px;background:linear-gradient(transparent,#080f24d9)}
+.tile{background:linear-gradient(150deg,#46324b,#22283b);border-color:#806779}
+.tile .symbol{font-size:31px}
+.cards{grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px}
+.hero-card{border:1px solid #79637e;background:linear-gradient(145deg,#3e2b46,#24273d);box-shadow:0 13px 25px #0002}
+.hero-card.selected{border-color:#f0c57e;box-shadow:0 0 0 2px #f0ca8e36,0 11px 20px #0004}
+.hero-card .hero-art{display:block;height:190px;overflow:hidden;position:relative;background:radial-gradient(circle at 70% 15%,#d4b8aa7c,transparent 40%),linear-gradient(130deg,#584260,#252d46)}
+.hero-card .hero-art .zy-portrait{width:100%;height:100%;display:block;object-fit:cover;transition:transform .3s ease}
+.hero-card:hover .hero-art .zy-portrait{transform:scale(1.06)}
+.hero-card .hero-art .rarity{position:absolute;right:10px;top:9px;z-index:2;box-shadow:0 3px 15px #0009}
+.rarity.SSR{background:#5c3820;border:1px solid #fbd99c;color:#fff0bb}
+.rarity.SR{background:#4d305e;border:1px solid #dfb3fb;color:#eed1ff}
+.hero-card.locked{opacity:.6;filter:grayscale(.65)}
+.hero-card h4{font-family:"Songti SC","SimSun",serif;font-size:18px}
+.hero-card .hero-body{padding:14px}
+.hero-card .hero-body p{line-height:1.6}
+.teamstrip{gap:10px}
+.chip{background:#4b3852;border:1px solid #b48a85;color:#ffebdb;padding:8px 13px}
+.btn{border-color:#bd8979;border-radius:10px}
+.btn.gold{border-color:#ffdea3;box-shadow:0 5px 16px #e1aa6150}
+.btn:focus-visible,.nav:focus-visible{outline:3px solid #f6c28a;outline-offset:3px}
+.zy-portrait{display:block;width:100%;height:100%;filter:drop-shadow(0 6px 10px #0d0b2780)}
+.fighter{background:linear-gradient(125deg,#3a2e48,#243247);border:1px solid #765f7d;gap:10px}
+.fighter .symbol{display:grid;place-items:center;width:44px;height:59px;min-width:44px;font-size:31px;border-radius:8px;background:#3d3552;overflow:hidden}
+.fighter .symbol .zy-portrait{width:100%;height:100%}
+.fighter.selected{background:linear-gradient(115deg,#614253,#37304b);border-color:#f4c48b}
+.fighter .desc small{font-size:11px}
+.summon-circle{background:radial-gradient(circle,#e4caad9c,#6d4873 35%,#281e45 69%);border-color:#f0d29c;box-shadow:0 0 0 12px #d1a9750a,0 0 42px #e9b37460}
+.summon-area{background:radial-gradient(circle at 50% 22%,#84607390,transparent 48%),linear-gradient(#31233f,#1e2840)}
+.result-list .result{overflow:hidden;border:1px solid #997387;box-shadow:0 8px 20px #0004;animation:reveal .47s backwards}
+.result:nth-child(2){animation-delay:.08s}.result:nth-child(3){animation-delay:.16s}
+.result .symbol{height:128px;display:block;overflow:hidden;margin:-13px -7px 8px;background:#42324f}
+.result .symbol .zy-portrait{width:100%;height:100%}
+.result.ssr{border-color:#eac177;box-shadow:0 0 18px #e4b96b59}
+@keyframes reveal{from{opacity:0;transform:translateY(14px) scale(.9)}to{opacity:1;transform:translateY(0) scale(1)}}
+.battle-scene.v2{height:370px;display:block;position:relative;overflow:hidden;border-radius:19px;border:1px solid #9d8089;margin:0 0 16px;background:radial-gradient(ellipse at 52% 18%,#e5b5bc45,transparent 39%),linear-gradient(180deg,#2e2d50 0%,#372e4b 40%,#25344e 71%,#25253e 100%)}
+.battle-scene.v2:before{content:"";position:absolute;left:44%;top:3%;width:100px;height:100px;border-radius:50%;background:radial-gradient(circle,#fff6e2,#e9cfbd 47%,#a996c1);box-shadow:0 0 62px #fff6de8c;opacity:.65}
+.battle-scene.v2:after{content:"";position:absolute;inset:auto -4% -37% -4%;height:60%;border-radius:50%;border:1px solid #edd1a46d;background:repeating-radial-gradient(ellipse at center,#d3bd9b25 0 2px,transparent 3px 36px);transform:perspective(480px) rotateX(54deg);pointer-events:none}
+.stage-bg-torii{position:absolute;top:5%;left:43%;width:14%;height:47%;border-top:14px solid #6f4359;border-left:9px solid #6f4359;border-right:9px solid #6f4359;opacity:.6;filter:drop-shadow(0 0 10px #eaae8a66)}
+.stage-bg-torii:after{content:"";position:absolute;left:-34%;top:-28px;width:168%;height:9px;background:#d09981;transform:skew(-15deg)}
+.stage-ground{position:absolute;inset:auto 0 0;height:33%;background:linear-gradient(transparent,#0e15278c);pointer-events:none}
+.stage-team{position:absolute;z-index:3;left:1.5%;top:34%;width:46%;display:flex;align-items:end;justify-content:center;gap:4px;height:55%}
+.stage-team.enemies{left:auto;right:1.5%;top:18%}
+.stage-unit{width:31%;max-width:122px;min-width:0;position:relative;text-align:center;filter:drop-shadow(0 5px 10px #0507139e);transform-origin:center bottom}
+.stage-unit:nth-child(2){transform:translateY(-14px) scale(1.08);z-index:2}
+.stage-unit .spirit{width:100%;height:143px;overflow:hidden;border:1px solid #ca9d9988;border-radius:64px 64px 9px 9px;background:linear-gradient(#59436b,#181e35);box-shadow:0 10px 26px #0006;transition:filter .2s,transform .25s}
+.stage-unit .spirit .zy-portrait{width:100%;height:100%;object-fit:cover}
+.stage-unit .stage-name{display:block;font-size:11px;font-weight:800;color:#fff1e4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 2px 5px #000;line-height:22px}
+.stage-unit .stage-hp{height:6px;border-radius:10px;border:1px solid #d9bd9994;background:#191525;overflow:hidden}
+.stage-unit .stage-hp span{display:block;height:100%;background:linear-gradient(90deg,#66caa8,#b7eed3)}
+.stage-team.enemies .stage-unit .stage-hp span{background:linear-gradient(90deg,#d86872,#ffb2b0)}
+.stage-unit.current .spirit{border:2px solid #ffdb92;box-shadow:0 0 27px #ffe19d76}
+.stage-unit.marked .spirit{border:2px solid #ff9097;box-shadow:0 0 21px #ff839456}
+.stage-unit.down{opacity:.38;filter:grayscale(1)}
+.stage-vs{position:absolute;left:50%;top:55%;transform:translate(-50%,-50%);font-size:26px;color:#ffe9be;text-shadow:0 0 30px #fee9a8af;z-index:3;font-weight:900}
+.battle-scene.fx-running.fx-ally .stage-unit.current .spirit{animation:heroCharge .69s ease-in-out both}
+.battle-scene.fx-running.fx-enemy .stage-team.enemies .stage-unit.marked .spirit{animation:foeCharge .69s ease-in-out both}
+.battle-scene.fx-running.fx-ally .stage-unit.marked .spirit,
+.battle-scene.fx-running.fx-enemy .stage-unit.current .spirit{animation:hitShake .58s ease-in-out .19s both}
+.battle-scene.v2 .scene-wash{z-index:7}.battle-scene.v2 .battle-fx{z-index:8}
+.battle-controls{background:#141b2abf;border:1px solid #92758a;border-radius:13px;padding:12px}
+.battle-log{border-color:#75627d}
+.battle-status{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:11px}
+.battle-status b{font-size:11px;color:#fbdead}
+.battle-status .turn-chip{font-size:11px;border-radius:20px;padding:4px 8px;background:#51415c;color:#eae0ee}
+@media(max-width:850px){.layout{grid-template-columns:1fr}.sidebar{background:#242039}.sidebar .nav{font-size:12px}}
+@media(max-width:550px){.hero-banner{min-height:290px;padding:18px}.hero-banner:after{font-size:170px;right:-2%;bottom:-6px}.trailer-arts{gap:5px}.trailer-hero figcaption{font-size:10px}.cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.hero-card .hero-art{height:150px}.hero-card .hero-body{padding:10px}.hero-card .hero-body h4{font-size:15px}.hero-card .hero-body .btn{padding:6px 8px;font-size:10px}.result-list{grid-template-columns:repeat(3,minmax(0,1fr))}.battle-scene.v2{height:265px}.stage-team{top:33%;height:57%;gap:2px}.stage-team.enemies{top:20%}.stage-unit .spirit{height:93px}.stage-unit .stage-name{font-size:9px;line-height:17px}.stage-vs{font-size:17px}.stage-bg-torii{border-top-width:9px}.content{padding:12px}.fighter .symbol{height:51px;width:39px;min-width:39px}}
+@media(prefers-reduced-motion:reduce){.hero-card .zy-portrait,.result-list .result{transition:none;animation:none}}
