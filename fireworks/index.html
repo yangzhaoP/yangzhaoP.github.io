@@ -10,7 +10,7 @@
 #sky{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:manipulation;cursor:crosshair}
 #vignette{position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,transparent 24%,#01020b4d 80%,#01020bcc 100%);z-index:1}
 header{position:fixed;top:max(14px,env(safe-area-inset-top));left:16px;right:16px;z-index:5;display:flex;justify-content:space-between;align-items:center;gap:10px;pointer-events:none}
-header a,header button{pointer-events:auto}.back,.smallBtn{display:inline-flex;align-items:center;gap:7px;border:1px solid #ffffff36;border-radius:100px;background:#10162bb0;backdrop-filter:blur(12px);color:#f3e8d7;padding:10px 15px;text-decoration:none;font-size:13px;font-weight:650;min-height:40px}.back:hover,.smallBtn:hover{border-color:#f4d59b9c;background:#2b2841c9}.smallBtn{cursor:pointer}.smallBtn:focus-visible,.back:focus-visible,.bigBtn:focus-visible{outline:2px solid #fbe0a1;outline-offset:3px}.controlRow{display:flex;gap:8px}
+header a,header button{pointer-events:auto}.back,.smallBtn{display:inline-flex;align-items:center;gap:7px;border:1px solid #ffffff36;border-radius:100px;background:#10162bb0;backdrop-filter:blur(12px);color:#f3e8d7;padding:10px 15px;text-decoration:none;font-size:13px;font-weight:650;min-height:40px}.back:hover,.smallBtn:hover{border-color:#f4d59b9c;background:#2b2841c9}.smallBtn{cursor:pointer}.smallBtn:focus-visible,.back:focus-visible,.bigBtn:focus-visible{outline:2px solid #fbe0a1;outline-offset:3px}.controlRow{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
 #intro{position:fixed;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none;padding:22px;transition:opacity .95s ease,transform .95s ease}
 #intro.hide{opacity:0;transform:translateY(-25px)}.kicker{font-size:12px;letter-spacing:.36em;color:#f7d698;font-weight:750;text-shadow:0 0 12px #d6a84d}
 #intro h1{font-family:Georgia,"Songti SC","SimSun",serif;font-size:clamp(41px,9vw,90px);font-weight:500;letter-spacing:.17em;line-height:1.25;margin:19px 0 18px;text-shadow:0 0 28px #ffca846e,0 2px 8px #000c}
@@ -18,7 +18,7 @@ header a,header button{pointer-events:auto}.back,.smallBtn{display:inline-flex;a
 #intro .tip{font-size:12px;color:#c0b8d2;letter-spacing:.06em;line-height:1.9}.message{position:fixed;z-index:4;top:19%;width:100%;pointer-events:none;text-align:center;opacity:0;transition:opacity 1s;text-shadow:0 0 22px #ffcb8066,0 3px 10px #000}.message.show{opacity:1}.message .calligraphy{font-size:clamp(26px,6vw,57px);letter-spacing:.15em;font-family:Georgia,"Songti SC","SimSun",serif;color:#ffe2a0}.message .wish{font-size:clamp(13px,2.4vw,19px);margin-top:13px;color:#f5d8d9;letter-spacing:.1em}
 .bottom{position:fixed;bottom:max(18px,env(safe-area-inset-bottom));left:16px;right:16px;z-index:5;display:flex;align-items:end;justify-content:space-between;gap:12px;pointer-events:none}.bottom>*{pointer-events:auto}.caption{font-size:12px;color:#c6bfd6;text-shadow:0 1px 7px #000c;line-height:1.7}.bigBtn{background:linear-gradient(135deg,#ffe0aa,#dc9a79);border:1px solid #ffebc3;border-radius:30px;padding:12px 19px;box-shadow:0 8px 40px #ffb97524;color:#2b1422;font-size:13px;font-weight:800;cursor:pointer;white-space:nowrap}
 #note{position:fixed;bottom:86px;left:50%;transform:translateX(-50%);z-index:7;background:#1f2039ed;border:1px solid #e2bd8b78;color:#fff1de;border-radius:13px;padding:12px 18px;font-size:13px;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;max-width:95vw}#note.show{opacity:1}
-@media(max-width:550px){header{left:10px;right:10px}.back,.smallBtn{padding:9px 11px;font-size:12px}#intro h1{letter-spacing:.11em}.caption{font-size:11px}.bottom{left:12px;right:12px}.bigBtn{padding:10px 13px;font-size:12px}}
+@media(max-width:550px){header{left:10px;right:10px;align-items:flex-start}.controlRow{max-width:72%}.smallBtn{padding:8px 9px!important;font-size:11px!important}.back,.smallBtn{padding:9px 11px;font-size:12px}#intro h1{letter-spacing:.11em}.caption{font-size:11px}.bottom{left:12px;right:12px}.bigBtn{padding:10px 13px;font-size:12px}}
 @media(prefers-reduced-motion:reduce){#intro{transition:none}.message{transition:none}}
 </style>
 </head>
@@ -26,21 +26,22 @@ header a,header button{pointer-events:auto}.back,.smallBtn{display:inline-flex;a
 <canvas id="sky" aria-label="自动播放的绚丽电子烟花画面，点击屏幕可燃放烟花"></canvas><div id="vignette"></div>
 <header>
   <a href="/" class="back">← 游戏大厅</a>
-  <div class="controlRow"><button type="button" class="smallBtn" id="audio" aria-pressed="false">🔇 声音关闭</button><button type="button" class="smallBtn" id="auto" aria-pressed="true">🎆 自动燃放</button></div>
+  <div class="controlRow"><button type="button" class="smallBtn" id="grand" aria-pressed="true">✨ 盛大模式</button><button type="button" class="smallBtn" id="audio" aria-pressed="false">🔇 声音关闭</button><button type="button" class="smallBtn" id="auto" aria-pressed="true">🎆 自动燃放</button></div>
 </header>
 <div id="intro"><div class="kicker">A SKY FULL OF WISHES</div><h1>周渝的烟花之夜</h1><div class="divider"></div><div class="sub">周渝，愿你每天都开心</div><div class="divider"></div><div class="tip">夜空正为你点亮<br>点击任意空白处，放一朵专属烟花 ✨</div></div>
 <div class="message" id="message" aria-live="polite"><div class="calligraphy">周 渝</div><div class="wish">愿你的每一天，都闪闪发光 ✨</div></div>
-<div class="bottom"><div class="caption">✨ 点击夜空燃放 · 爱心烟花 · 金色名字烟花<br>原创 Canvas 特效 · 无需下载 · 手机也能玩</div><button type="button" class="bigBtn" id="show">✨ 再来一场烟花秀</button></div>
+<div class="bottom"><div class="caption">✨ 点击放烟花 · 菊花、垂柳、棕榈、爱心 · 金色文字<br>原创 Canvas 特效 · 无需下载 · 手机也能玩</div><button type="button" class="bigBtn" id="show">✨ 再来一场烟花秀</button></div>
 <div id="note" role="status"></div>
 <script>
 (function(){
 'use strict';
 const canvas=document.getElementById('sky'),ctx=canvas.getContext('2d',{alpha:false});
-const intro=document.getElementById('intro'),message=document.getElementById('message'),audioBtn=document.getElementById('audio'),autoBtn=document.getElementById('auto'),showBtn=document.getElementById('show'),note=document.getElementById('note');
+const intro=document.getElementById('intro'),message=document.getElementById('message'),audioBtn=document.getElementById('audio'),grandBtn=document.getElementById('grand'),autoBtn=document.getElementById('auto'),showBtn=document.getElementById('show'),note=document.getElementById('note');
 const TAU=Math.PI*2,clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),rand=(a,b)=>a+Math.random()*(b-a);
 const colors=['#ffcf78','#ff79a8','#a58bff','#74dffa','#78fac3','#ff9a67','#ffe7b4','#ffffff'];
 let W=0,H=0,dpr=1,particles=[],rockets=[],stars=[],auto=true,sound=false,ac=null,frame=0,last=0,launchAt=0,showStarted=performance.now(),textDue=0,messageUntil=0,showNumber=0;
-let active=true;
+let active=true,grandMode=true,skyFlash=0,flashRgb=[255,190,145];
+const types=['chrysanthemum','chrysanthemum','peony','willow','palm','ring','crossette','strobe','heart'];
 const randColor=()=>colors[Math.floor(Math.random()*colors.length)];
 function resize(){
  const oldW=W,oldH=H; W=innerWidth;H=innerHeight;dpr=Math.min(devicePixelRatio||1,2);
@@ -50,39 +51,72 @@ function resize(){
  if(oldW!==W||oldH!==H){stars=Array.from({length:Math.min(175,Math.round(W*H/5800))},()=>({x:rand(0,W),y:rand(0,H),r:rand(.35,1.5),t:rand(0,10)}));particles=[];rockets=[];}
 }
 function hexRgb(s){s=s.replace('#','');return [parseInt(s.slice(0,2),16),parseInt(s.slice(2,4),16),parseInt(s.slice(4,6),16)];}
-function particle(x,y,vx,vy,color,life,size,gravity=.045,drag=.984){const rgb=hexRgb(color);if(particles.length>=2200)particles.splice(0,200);particles.push({x,y,px:x,py:y,vx,vy,rgb,life,age:0,size,gravity,drag,tw:Math.random()*7});}
+function particle(x,y,vx,vy,color,life,size,gravity=.045,drag=.984){const rgb=hexRgb(color);if(particles.length>=(W<650?1650:3500))particles.splice(0,200);particles.push({x,y,px:x,py:y,vx,vy,rgb,life,age:0,size,gravity,drag,tw:Math.random()*7});}
 function chime(freq=260){if(!sound)return;try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();if(ac.state==='suspended')ac.resume();const t=ac.currentTime,osc=ac.createOscillator(),gain=ac.createGain();osc.type='sine';osc.frequency.setValueAtTime(freq,t);osc.frequency.exponentialRampToValueAtTime(Math.max(85,freq*.39),t+.38);gain.gain.setValueAtTime(.0001,t);gain.gain.exponentialRampToValueAtTime(.065,t+.035);gain.gain.exponentialRampToValueAtTime(.0001,t+.5);osc.connect(gain);gain.connect(ac.destination);osc.start(t);osc.stop(t+.52);}catch(e){}}
-function bloom(x,y,color,kind='sphere',scale=1){
- const small=W<600,quality=small?.75:1,count=Math.round((kind==='heart'?105:kind==='willow'?120:kind==='ring'?95:145)*quality);
+function bloom(x,y,color,kind='chrysanthemum',scale=1){
+ if(kind==='sphere')kind='chrysanthemum';
+ const mobile=W<650,quality=mobile?.66:1,extra=grandMode?1.2:.78;
  const c=color||randColor();
+ const count=Math.round((kind==='heart'?130:kind==='willow'?200:kind==='ring'?165:kind==='palm'?135:kind==='crossette'?110:kind==='strobe'?155:230)*quality*extra);
+ const size=(mobile?Math.min(W,H)/540:1)*scale;
+ const rgb=hexRgb(c);flashRgb=rgb;skyFlash=Math.max(skyFlash,grandMode?.32:.19);
  for(let i=0;i<count;i++){
-   let vx,vy,speed,angle=rand(0,TAU);
+   let vx,vy,speed,tint=c,life=rand(58,102),gravity=.036,drag=.985;
+   const angle=i*2.399963+rand(-.07,.07);
    if(kind==='heart'){
     const t=TAU*i/count,xx=16*Math.pow(Math.sin(t),3),yy=13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t);
-    vx=xx*.30*scale*rand(.9,1.12);vy=-yy*.30*scale*rand(.9,1.12);
+    vx=xx*.30*size*rand(.94,1.05);vy=-yy*.30*size*rand(.94,1.05);
+    tint=Math.random()<.26?'#ffdbe8':'#ff73ab';life=rand(76,112);gravity=.017;
    }else if(kind==='ring'){
-    speed=rand(3.1,3.7)*scale;vx=Math.cos(angle)*speed;vy=Math.sin(angle)*speed;
+    speed=rand(4.35,4.7)*size;vx=Math.cos(angle)*speed;vy=Math.sin(angle)*speed;life=rand(60,85);
    }else if(kind==='willow'){
-    speed=rand(1.5,5)*scale;vx=Math.cos(angle)*speed;vy=Math.sin(angle)*speed-.2;
+    speed=rand(2.6,6.9)*size;vx=Math.cos(angle)*speed;vy=Math.sin(angle)*speed;
+    gravity=.065;drag=.987;life=rand(100,160);tint=Math.random()<.3?'#fff9c9':'#ffd17a';
+   }else if(kind==='palm'){
+    const branch=Math.floor(i/10),a=branch*TAU/Math.ceil(count/10)+rand(-.09,.09);
+    speed=rand(3.2,7.9)*size;vx=Math.cos(a)*speed;vy=Math.sin(a)*speed;
+    life=rand(85,143);gravity=.061;drag=.982;tint=Math.random()<.38?'#fff6c7':c;
+   }else if(kind==='crossette'){
+    speed=rand(3.4,5.5)*size;vx=Math.cos(angle)*speed;vy=Math.sin(angle)*speed;
+    life=rand(47,70);tint=Math.random()<.28?'#fff2cc':c;
    }else{
-    speed=Math.pow(Math.random(),.44)*rand(2.2,5.8)*scale;vx=Math.cos(angle)*speed;vy=Math.sin(angle)*speed;
+    const band=Math.random()<.23?rand(.34,.58):rand(.7,1);
+    speed=band*rand(4.2,7.6)*size;vx=Math.cos(angle)*speed;vy=Math.sin(angle)*speed;
+    life=kind==='strobe'?rand(83,136):rand(72,120);drag=kind==='strobe'?.976:.984;
+    tint=Math.random()<.14?'#ffffff':Math.random()<.12?'#ffe7aa':c;
    }
-   const tint=kind==='heart'?(Math.random()<.25?'#ffd5e7':'#ff76a9'):kind==='willow'?(Math.random()<.35?'#ffffff':'#ffcc76'):Math.random()<.17?'#ffffff':c;
-   particle(x,y,vx,vy,tint,kind==='willow'?rand(85,130):rand(49,89),rand(.95,2.25),kind==='willow'?.067:.045,kind==='willow'?.984:.981);
+   const pSize=kind==='willow'?rand(1.0,2.0):rand(.85,2.1);
+   particle(x,y,vx,vy,tint,life,pSize,gravity,drag);
+   if(kind==='crossette'&&i%4===0){
+     const delay=500+rand(0,140);
+     setTimeout(()=>{
+       if(!active)return;
+       const px=x+vx*24,py=y+vy*26;
+       for(let j=0;j<4;j++){const a=j*Math.PI/2;particle(px,py,Math.cos(a)*rand(2,3.4),Math.sin(a)*rand(2,3.4),c,rand(45,68),1.25,.032,.971)}
+     },delay);
+   }
  }
- for(let i=0;i<24;i++){const a=rand(0,TAU),s=rand(.3,2.1);particle(x,y,Math.cos(a)*s,Math.sin(a)*s,'#ffeccc',rand(20,46),rand(.6,1.8),.024,.97)}
- chime(kind==='heart'?355:rand(230,390));
+ // Bright center flash, glitter core and crown sparks.
+ for(let i=0;i<Math.round(38*quality);i++){
+  const a=rand(0,TAU),spd=rand(.2,2.9)*size;
+  particle(x,y,Math.cos(a)*spd,Math.sin(a)*spd,Math.random()<.3?'#ffffff':'#ffefb3',rand(24,60),rand(.8,2.3),.025,.97);
+ }
+ if(kind==='peony'||kind==='chrysanthemum'){
+   const n=Math.round(65*quality);
+   for(let i=0;i<n;i++){const a=TAU*i/n,spd=rand(2.1,3.3)*size;particle(x,y,Math.cos(a)*spd,Math.sin(a)*spd,'#f8ebba',rand(58,88),rand(.7,1.25),.035,.977)}
+ }
+ chime(kind==='heart'?360:rand(205,395));
 }
 function rocket(x,y,targetX,targetY,kind,color){
  if(rockets.length>=18)return;
  const duration=clamp(Math.abs(y-targetY)/rand(8,11),20,95);
- rockets.push({x,y,px:x,py:y,sx:x,sy:y,tx:targetX,ty:targetY,color:color||randColor(),kind:kind||'sphere',age:0,duration,trail:[]});
+ rockets.push({x,y,px:x,py:y,sx:x,sy:y,tx:targetX,ty:targetY,color:color||randColor(),kind:kind||'chrysanthemum',age:0,duration,trail:[]});
 }
 function launchRandom(kind){
  let tx=rand(W*.13,W*.87),ty=rand(H*.14,H*.61);
- rocket(rand(W*.14,W*.86),H+15,tx,ty,kind||(['sphere','sphere','willow','ring','heart'][Math.floor(rand(0,5))]));
+ rocket(rand(W*.14,W*.86),H+15,tx,ty,kind||types[Math.floor(Math.random()*types.length)]);
 }
-function launchAtPoint(x,y){bloom(clamp(x,30,W-30),clamp(y,65,H-40),randColor(),Math.random()<.3?'heart':'sphere',W<500?.72:1);}
+function launchAtPoint(x,y){const k=Math.random()<.25?'heart':types[Math.floor(Math.random()*types.length)];rocket(rand(W*.25,W*.75),H+12,clamp(x,30,W-30),clamp(y,65,H-45),k,randColor());}
 function textFirework(text){
  if(!W||!H)return;
  const buff=document.createElement('canvas'),b=buff.getContext('2d',{willReadFrequently:true});
@@ -100,13 +134,13 @@ function textFirework(text){
  chime(500);
 }
 function grandFinale(){
- for(let i=0;i<6;i++){setTimeout(()=>{if(!active)return;launchRandom(i%2===0?'heart':'willow')},i*320)}
+ for(let i=0;i<11;i++){setTimeout(()=>{if(!active)return;launchRandom(i%4===0?'heart':i%3===0?'willow':'chrysanthemum')},i*230)}
 }
 function beginShow(){
  showNumber++;const n=showNumber;showStarted=performance.now();intro.classList.remove('hide');message.classList.remove('show');messageUntil=0;textDue=0;
  setTimeout(()=>{if(n===showNumber)intro.classList.add('hide')},5300);
- for(let i=0;i<5;i++)setTimeout(()=>{if(n===showNumber)launchRandom(i===3?'heart':'sphere')},700+i*700);
- setTimeout(()=>{if(n!==showNumber)return;rocket(W*.5,H+15,W*.5,H*.43,'heart','#ff7aa9');bloom(W*.5,H*.38,'#ff7aa9','heart',W<530?.85:1.5)},5500);
+ for(let i=0;i<5;i++)setTimeout(()=>{if(n===showNumber)launchRandom(i===3?'heart':i%2===0?'chrysanthemum':'peony')},700+i*700);
+ setTimeout(()=>{if(n!==showNumber)return;rocket(W*.5,H+15,W*.5,H*.36,'heart','#ff7aa9');bloom(W*.5,H*.38,'#ff7aa9','heart',W<530?.85:1.25)},5500);
  setTimeout(()=>{if(n!==showNumber)return;message.classList.add('show');textFirework('周渝');},8200);
  setTimeout(()=>{if(n!==showNumber)return;grandFinale();},12000);
  setTimeout(()=>{if(n!==showNumber)return;message.classList.remove('show')},15000);
@@ -115,13 +149,14 @@ function beginShow(){
 function draw(now){
  if(!active){requestAnimationFrame(draw);return}
  const dt=clamp((now-last)/16.666||1,.5,2);last=now;frame++;
- ctx.globalCompositeOperation='source-over';ctx.fillStyle='rgba(4,6,19,.18)';ctx.fillRect(0,0,W,H);
+ ctx.globalCompositeOperation='source-over';ctx.fillStyle='rgba(4,6,19,'+(grandMode?'.125':'.18')+')';ctx.fillRect(0,0,W,H);
+ if(skyFlash>.004){ctx.fillStyle='rgba('+flashRgb[0]+','+flashRgb[1]+','+flashRgb[2]+','+Math.min(skyFlash,.27)+')';ctx.fillRect(0,0,W,H);skyFlash*=.82;}
  stars.forEach(s=>{const tw=.42+.38*Math.sin(now*.0008+s.t);ctx.fillStyle='rgba(215,220,255,'+tw+')';ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,TAU);ctx.fill()});
- if(auto&&now>=launchAt){let count=particles.length>1300?1:Math.random()<.24?2:1;for(let i=0;i<count;i++)launchRandom();launchAt=now+rand(540,1100)}
+ if(auto&&now>=launchAt){let count=particles.length>(W<650?1100:2600)?1:grandMode&&Math.random()<.46?2:1;for(let i=0;i<count;i++)launchRandom();launchAt=now+(grandMode?rand(390,680):rand(850,1200))}
  for(let i=rockets.length-1;i>=0;i--){
   let r=rockets[i];r.px=r.x;r.py=r.y;r.age+=dt;const p=clamp(r.age/r.duration,0,1),smooth=1-Math.pow(1-p,1.38);r.x=r.sx+(r.tx-r.sx)*smooth;r.y=r.sy+(r.ty-r.sy)*smooth;
   ctx.strokeStyle='rgba(255,237,185,.85)';ctx.lineWidth=2.3;ctx.beginPath();ctx.moveTo(r.px,r.py+17);ctx.lineTo(r.x,r.y);ctx.stroke();ctx.fillStyle=r.color;ctx.beginPath();ctx.arc(r.x,r.y,2.7,0,TAU);ctx.fill();
-  if(frame%2===0)particle(r.x,r.y,rand(-.35,.35),rand(.2,.9),r.color,rand(12,26),rand(.5,1.2),.018,.93);
+  if(frame%2===0){for(let k=0;k<3;k++)particle(r.x+rand(-2,2),r.y+rand(-2,2),rand(-1.1,1.1),rand(.35,2),k===0?'#fff6e1':r.color,rand(19,41),rand(.65,1.5),.014,.94)}
   if(p>=1){bloom(r.x,r.y,r.color,r.kind,W<500?.78:1);rockets.splice(i,1)}
  }
  ctx.globalCompositeOperation='lighter';
@@ -129,7 +164,8 @@ function draw(now){
   const p=particles[i];p.px=p.x;p.py=p.y;p.x+=p.vx*dt;p.y+=p.vy*dt;p.vx*=Math.pow(p.drag,dt);p.vy=p.vy*Math.pow(p.drag,dt)+p.gravity*dt;p.age+=dt;
   const life=clamp(1-p.age/p.life,0,1),opacity=Math.pow(life,.7);
   if(life<=0||p.y>H+30){particles.splice(i,1);continue}
-  const col='rgba('+p.rgb.join(',')+','+opacity+')';
+  const blinking=p.life>80&&p.age>p.life*.5&&Math.sin(p.age*3.7+p.tw)>0.73?.28:1;
+  const col='rgba('+p.rgb.join(',')+','+(opacity*blinking)+')';
   ctx.strokeStyle=col;ctx.lineWidth=p.size*clamp(life,.3,1);
   ctx.beginPath();ctx.moveTo(p.px,p.py);ctx.lineTo(p.x,p.y);ctx.stroke();
   if(p.age<22||Math.random()<.12){ctx.fillStyle=col;ctx.beginPath();ctx.arc(p.x,p.y,p.size*.52,0,TAU);ctx.fill()}
@@ -141,7 +177,7 @@ function toast(txt){note.textContent=txt;note.classList.add('show');setTimeout((
 function toggleSound(){sound=!sound;audioBtn.textContent=sound?'🔊 声音开启':'🔇 声音关闭';audioBtn.setAttribute('aria-pressed',String(sound));if(sound){chime(370);toast('音效已开启，音量适中 ✨')}}
 function toggleAuto(){auto=!auto;autoBtn.textContent=auto?'🎆 自动燃放':'⏸️ 自动暂停';autoBtn.setAttribute('aria-pressed',String(auto));if(auto)launchAt=performance.now()+150;toast(auto?'已恢复自动烟花':'已暂停自动发射，仍可点击燃放')}
 function setActive(value){active=value;if(active){last=performance.now();ctx.fillStyle='#040613';ctx.fillRect(0,0,W,H)}}
-audioBtn.addEventListener('click',toggleSound);autoBtn.addEventListener('click',toggleAuto);showBtn.addEventListener('click',()=>{auto=true;autoBtn.textContent='🎆 自动燃放';autoBtn.setAttribute('aria-pressed','true');beginShow();toast('为周渝再放一场绚烂烟花 ✨')});
+grandBtn.addEventListener('click',()=>{grandMode=!grandMode;grandBtn.textContent=grandMode?'✨ 盛大模式':'🌙 轻柔模式';grandBtn.setAttribute('aria-pressed',String(grandMode));toast(grandMode?'盛大烟花模式已开启':'轻柔烟花模式已开启')});audioBtn.addEventListener('click',toggleSound);autoBtn.addEventListener('click',toggleAuto);showBtn.addEventListener('click',()=>{auto=true;autoBtn.textContent='🎆 自动燃放';autoBtn.setAttribute('aria-pressed','true');beginShow();toast('为周渝再放一场绚烂烟花 ✨')});
 canvas.addEventListener('pointerdown',(e)=>{launchAtPoint(e.clientX,e.clientY)});
 document.addEventListener('visibilitychange',()=>setActive(!document.hidden));window.addEventListener('resize',resize,{passive:true});
 resize();beginShow();requestAnimationFrame(draw);
