@@ -43,7 +43,10 @@ a{color:var(--gold);text-decoration:none}a:hover{text-decoration:underline}butto
 .battle-scene.fx-running.fx-ally .arena-figure.hero .spirit{animation:heroCharge .69s ease-in-out both}
 .battle-scene.fx-running.fx-enemy .arena-figure.foe .spirit{animation:foeCharge .69s ease-in-out both}
 .battle-scene.fx-running.fx-enemy .arena-figure.hero .spirit,
-.battle-scene.fx-running.fx-hit .arena-figure.foe .spirit{animation:hitShake .58s ease-in-out .18s both}
+.battle-scene.fx-running.fx-ally.fx-hit .arena-figure.foe .spirit,
+.battle-scene.fx-running.fx-ally.fx-strike .arena-figure.foe .spirit,
+.battle-scene.fx-running.fx-ally.fx-burst .arena-figure.foe .spirit,
+.battle-scene.fx-running.fx-ally.fx-aoe .arena-figure.foe .spirit{animation:hitShake .58s ease-in-out .18s both}
 .battle-scene.fx-running .scene-wash{animation:flashWash .66s ease-in-out both;background:radial-gradient(circle at center,#fbc28e66,transparent 67%)}
 .battle-scene.fx-running.fx-heal .scene-wash{background:radial-gradient(circle at 30% 50%,#66e9ab8c,transparent 68%)}
 .battle-scene.fx-running.fx-shield .scene-wash{background:radial-gradient(circle at 30% 50%,#99a6ff92,transparent 68%)}
