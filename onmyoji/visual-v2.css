@@ -99,3 +99,21 @@ body:before{background-image:radial-gradient(#fbd6a00f 1px,transparent 1px),repe
 @media(max-width:850px){.layout{grid-template-columns:1fr}.sidebar{background:#242039}.sidebar .nav{font-size:12px}}
 @media(max-width:550px){.hero-banner{min-height:290px;padding:18px}.hero-banner:after{font-size:170px;right:-2%;bottom:-6px}.trailer-arts{gap:5px}.trailer-hero figcaption{font-size:10px}.cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.hero-card .hero-art{height:150px}.hero-card .hero-body{padding:10px}.hero-card .hero-body h4{font-size:15px}.hero-card .hero-body .btn{padding:6px 8px;font-size:10px}.result-list{grid-template-columns:repeat(3,minmax(0,1fr))}.battle-scene.v2{height:265px}.stage-team{top:33%;height:57%;gap:2px}.stage-team.enemies{top:20%}.stage-unit .spirit{height:93px}.stage-unit .stage-name{font-size:9px;line-height:17px}.stage-vs{font-size:17px}.stage-bg-torii{border-top-width:9px}.content{padding:12px}.fighter .symbol{height:51px;width:39px;min-width:39px}}
 @media(prefers-reduced-motion:reduce){.hero-card .zy-portrait,.result-list .result{transition:none;animation:none}}
+
+/* Rune and equipment atelier */
+.rune-inventory{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+.rune-item{display:flex;align-items:center;gap:9px;min-width:0;padding:11px;background:linear-gradient(135deg,#53405e,#29273f);border-radius:11px;border:1px solid #957a92}
+.rune-item strong{font-size:13px;display:block}
+.rune-icon{font-size:25px;flex-shrink:0}
+.rune-item .tiny{line-height:1.6}
+.rune-heroes{display:grid;gap:11px}
+.rune-hero{display:flex;align-items:center;gap:14px;background:linear-gradient(135deg,#3a2c4d,#212e40);border:1px solid #8e718c;border-radius:13px;padding:10px}
+.rune-mini{height:112px;min-width:79px;width:79px;background:#303048;border-radius:10px;overflow:hidden}
+.rune-mini .zy-portrait{width:100%;height:100%}
+.rune-main{flex:1;min-width:0}
+.rune-main>strong{display:block;font-size:17px;color:#ffe4b1;margin-bottom:5px}
+.rune-main .tiny{margin:4px 0}
+.rune-actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.rune-actions .btn{font-size:11px;padding:6px 9px}
+@media(max-width:800px){.rune-inventory{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:480px){.rune-item{padding:8px;gap:6px}.rune-item strong{font-size:11px}.rune-mini{min-width:59px;width:59px;height:90px}.rune-hero{gap:8px;padding:8px}.rune-main>strong{font-size:14px}.rune-actions .btn{font-size:10px;padding:6px}}
