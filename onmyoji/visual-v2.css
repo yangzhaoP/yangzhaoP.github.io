@@ -242,3 +242,14 @@ body:before{background-image:radial-gradient(#fbd6a00f 1px,transparent 1px),repe
 .dungeon-choice>span{font-size:34px}.dungeon-choice strong{font-size:16px}.dungeon-choice small{font-size:11px;color:#e5d2d5;text-align:center}.dungeon-choice i{font-style:normal;font-size:11px;color:#ffe6af}
 .hero-body .buttons{gap:5px;margin-top:10px}.hero-body .btn{font-size:11px;padding:7px 8px}
 @media(max-width:560px){.dungeon-choices{gap:6px}.dungeon-choice{min-height:120px;padding:11px 4px}.dungeon-choice>span{font-size:28px}.dungeon-choice strong{font-size:12px}.dungeon-choice small{font-size:9px}.dungeon-choice i{font-size:10px}}
+
+
+/* Ultimate sword magic and responsive skill panel */
+.battle-scene.fx-running.fx-ultimate{border-color:#ffd3a2;box-shadow:0 0 28px #e4aae9,inset 0 0 55px #ffc9b956;animation:ultShake .65s both}
+.battle-scene.fx-running.fx-ultimate .scene-wash{background:radial-gradient(ellipse at 50% 45%,#ffe3acbb,#ff86cd99 30%,#6c6cde73 62%,transparent 80%);animation:flashWash .72s ease-in-out both}
+.battle-scene.fx-running.fx-ultimate .battle-fx{color:#fff8d9;filter:drop-shadow(0 0 18px #fbe79a);animation:fxBurst .75s ease-out both}
+.battle-scene.fx-running.fx-ultimate .stage-team.allies .stage-unit.current .spirit{animation:heroCharge .72s ease-in-out both}
+.battle-scene.fx-running.fx-ultimate .stage-team.enemies .stage-unit.marked .spirit{animation:hitShake .6s ease-in-out .18s both}
+@keyframes ultShake{0%,100%{transform:translateX(0)}18%{transform:translateX(-4px)}32%{transform:translateX(4px)}50%{transform:translateX(-2px)}64%{transform:translateX(2px)}}
+.battle-controls .btn{white-space:normal;line-height:1.3;min-height:43px}
+@media(max-width:550px){.battle-controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.battle-controls .btn{width:100%;font-size:11px;padding:9px 7px}}
