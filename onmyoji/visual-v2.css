@@ -196,3 +196,39 @@ body:before{background-image:radial-gradient(#fbd6a00f 1px,transparent 1px),repe
 .result .symbol{height:120px}
 .rune-mini{width:65px;min-width:65px;height:94px}
 }
+
+
+/* Mature RPG systems: the soul chamber, storybook and achievement board */
+.top-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:flex-end}
+.top-actions .back{color:#eadecf;cursor:pointer;font:inherit;font-size:13px;white-space:nowrap}
+.soul-tabs{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px}
+.soul-tabs .btn{font-size:12px;padding:8px 11px}
+.soul-stats{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;padding:12px 14px;margin-bottom:17px;border-radius:12px;background:#171e2dbc;border:1px solid #9a7a88}
+.soul-stats strong{color:#ffe0a6;font-size:16px}.soul-stats span{font-size:12px;color:#f2d9d7}
+.soul-slots{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}
+.soul-slot{background:radial-gradient(circle at 50% 30%,#554565,#282840);border:1px solid #9d819a;border-radius:15px;text-align:center;min-height:151px;padding:10px 6px;box-shadow:inset 0 0 19px #10121c4f;display:flex;flex-direction:column;align-items:center;gap:4px;justify-content:center}
+.soul-slot-number{font-size:11px;letter-spacing:.1em;color:#dcc6c3}.soul-slot-icon{width:43px;height:43px;border-radius:50%;display:grid;place-items:center;background:#7d617566;border:2px solid #b79aa7;font-size:26px;filter:drop-shadow(0 2px 8px #fbdfa744)}
+.soul-slot b{font-size:12px;color:#ffe8c8}.soul-slot .tiny{font-size:10px;line-height:1.45;min-height:26px}
+.soul-slot .btn{margin-top:3px;font-size:10px;padding:5px 9px}
+.soul-sets{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:14px}
+.soul-set{display:flex;flex-direction:column;gap:4px;padding:10px;border-radius:10px;border:1px solid #806b89;background:#322c41}
+.soul-set b{color:#ffe8c4;font-size:13px}.soul-set small{font-size:11px;color:#c3bad1}
+.soul-bag{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:13px}
+.soul-item{display:flex;gap:10px;padding:11px;border:1px solid #826d8d;background:linear-gradient(125deg,#3e334f,#222b43);border-radius:12px;min-width:0}
+.soul-item-icon{width:55px;min-width:55px;height:55px;border:1px solid #d6b788;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle,#7a506a,#31243d);font-size:29px;box-shadow:0 0 10px #bb976b52}
+.soul-item-info{min-width:0;flex:1}.soul-item-info strong{font-size:14px;color:#f6ddbd}.soul-item-info .tiny{margin-top:4px;font-size:11px}
+.soul-item-actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}.soul-item-actions .btn{font-size:11px;padding:7px 9px}
+.story-chapters{display:grid;gap:17px}
+.story-chapter{display:flex;gap:18px;border:1px solid #a38191;border-radius:15px;padding:22px;background:linear-gradient(110deg,#513946ee,#29243df0),url('./assets/hero-splash.webp');background-size:cover;background-blend-mode:multiply;box-shadow:inset 0 0 30px #301a3480}
+.story-chapter:nth-child(even){background-image:linear-gradient(110deg,#37334bed,#2b2a48e3),url('./assets/hero-splash.webp')}
+.story-chapter.story-locked{filter:grayscale(.8);opacity:.68}
+.story-index{font-size:39px;font-family:Georgia,serif;color:#ffdfac;line-height:1;flex-shrink:0}
+.story-copy{flex:1}.story-copy h3{font-family:"Songti SC","SimSun",serif;font-size:23px;color:#fff0d2;margin:5px 0 10px}
+.story-copy p{font-size:14px;line-height:2;color:#f6e5e3;letter-spacing:.04em}.story-copy small{color:#f1c6a8}
+.quest-list{display:grid;gap:11px}.quest{display:flex;align-items:center;gap:13px;background:linear-gradient(90deg,#3f304a,#222e42);border:1px solid #826d88;border-radius:12px;padding:13px}
+.quest-mark{width:50px;min-width:50px;height:50px;display:grid;place-items:center;border:1px solid #d8b482;background:#6d5061;border-radius:50%;font-size:23px;color:#ffe3ab}
+.quest-detail{flex:1;min-width:0}.quest-detail strong{font-size:15px;color:#ffe3bc}.quest-detail .tiny{font-size:11px;margin:5px 0}
+.quest-detail .meter{max-width:380px;height:7px}.quest-detail small{display:block;margin-top:5px;font-size:11px;color:#dfc8ae}
+.quest .btn{white-space:nowrap}
+@media(max-width:800px){.soul-slots{grid-template-columns:repeat(3,minmax(0,1fr))}.soul-bag{grid-template-columns:1fr}}
+@media(max-width:530px){.soul-tabs .btn{font-size:11px;padding:7px}.soul-slot{padding:8px 4px;min-height:135px}.soul-slot-icon{width:37px;height:37px;font-size:22px}.soul-sets{grid-template-columns:1fr}.story-chapter{gap:11px;padding:15px}.story-index{font-size:27px}.story-copy h3{font-size:19px}.story-copy p{font-size:12px}.quest{padding:9px;gap:8px}.quest-mark{width:39px;min-width:39px;height:39px;font-size:20px}.quest-detail strong{font-size:12px}.quest .btn{font-size:10px;padding:6px 7px}.top-actions{gap:4px}.top-actions .back{font-size:10px;padding:8px}}
