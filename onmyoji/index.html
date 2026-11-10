@@ -250,7 +250,7 @@ function playBattleFx(kind,enemy,done){soundFx(kind==='heal'?'heal':kind==='norm
 var stage=el('battle-scene'),fx=el('battle-fx');
 var effect=enemy?'hit':kind==='normal'?'hit':kind;
 var labels={ultimate:'✨ 奥义爆发！',hit:'⚔️ 斩！',strike:'⚡ 破！',burst:'🌙 绝技！',aoe:'💥 群攻！',heal:'🌸 回春！',guard:'🛡️ 护阵！',shield:'🛡️ 护阵！'};
-if(stage&&fx){fx.textContent=labels[effect]||'✨ 灵术！';stage.className='battle-scene fx-running '+(enemy?'fx-enemy':'fx-ally')+' fx-'+(effect==='guard'?'shield':effect);}
+if(stage&&fx){fx.textContent=labels[effect]||'✨ 灵术！';stage.className='battle-scene v2 fx-running '+(enemy?'fx-enemy':'fx-ally')+' fx-'+(effect==='guard'?'shield':effect);}
 setTimeout(done,730);
 }
 function dungeon(){
