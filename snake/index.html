@@ -42,7 +42,7 @@ if(!snakeAvatar.naturalWidth){snakeAvatar.onerror();return;}
 avatarReady=true;avatarFailed=false;if(avatarTimer!==null)clearTimeout(avatarTimer);
 if(typeof snake!=='undefined'&&snake)paint();
 if(requestedStart){requestedStart=false;start();}
-else if(overlayBtn.textContent==='重试加载照片'){show('准备好了吗？','头像已经准备好了，开始挑战吧！','🎮','开始游戏')}
+else if(overlayBtn.textContent==='重试加载照片'||overlayBtn.textContent==='重新加载'){show('准备好了吗？','头像已经准备好了，开始挑战吧！','🎮','开始游戏')}
 };
 snakeAvatar.onerror=()=>{
 avatarReady=false;avatarFailed=true;requestedStart=false;
