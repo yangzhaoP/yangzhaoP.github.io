@@ -31,6 +31,8 @@ default:return '';
 }}
 function portrait(id){
 const p=specs[id]||specs.s1;
+const portraits={s1:0,s3:1,s10:2,s12:3};
+if(Object.prototype.hasOwnProperty.call(portraits,id))return '<span class="zy-photo zy-photo-'+portraits[id]+'" role="img" aria-label="'+p[4]+'精美立绘"></span>';
 const a=p[0],dark=p[1],gold=p[2],type=p[3],uid='p'+id;
 return '<svg class="zy-portrait" viewBox="0 0 230 300" role="img" aria-label="'+p[4]+'角色立绘" xmlns="http://www.w3.org/2000/svg">'+
 '<defs><radialGradient id="'+uid+'-bg"><stop stop-color="'+a+'" stop-opacity=".56"/><stop offset="1" stop-color="'+dark+'"/></radialGradient>'+
