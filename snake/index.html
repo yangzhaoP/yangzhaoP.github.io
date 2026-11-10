@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0b1020">
 <meta name="description" content="免费在线贪吃蛇小游戏，电脑手机都能玩，无需下载。">
-<title>贪吃周渝 · 在线小游戏</title>
+<title>贪吃周渝 · 在线小游戏（照片版）</title>
 <style>
 :root{color-scheme:dark;--bg:#0b1020;--panel:#131b30;--line:#2a3652;--text:#f1f6ff;--muted:#9aabc8;--mint:#64edba;--gold:#fbd16e}
 *{box-sizing:border-box}body{margin:0;min-height:100svh;background:radial-gradient(circle at 50% -20%,#263456 0%,#0b1020 55%);font-family:system-ui,-apple-system,"Microsoft Yahei",sans-serif;color:var(--text);display:flex;justify-content:center;padding:28px 16px 34px}
@@ -29,7 +29,27 @@
 <p class="footer">纯静态网页 · 无广告 · 不收集个人信息 · 本地保存最高分</p>
 </main>
 <script>
-(()=>{'use strict';const snakeAvatar=new Image();let avatarReady=false,avatarFailed=false;snakeAvatar.onload=()=>{avatarReady=true;if(typeof snake!=='undefined'&&snake)paint()};snakeAvatar.onerror=()=>{avatarFailed=true;show('头像加载失败','请刷新重试。','⚠️','重试')};snakeAvatar.src='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA8KCw0LCQ8NDA0REA8SFyYYFxUVFy4hIxsmNzA5ODYwNTQ8RFZJPEBSQTQ1S2ZMUllcYWJhOkhqcmlecVZfYV3/2wBDARARERcUFywYGCxdPjU+XV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV3/wAARCAAqACgDASIAAhEBAxEB/8QAGQAAAwEBAQAAAAAAAAAAAAAAAAMFBgQB/8QAKhAAAQQBBAIABAcAAAAAAAAAAQACAxEEBRIhMRNBFCJxkQYjMkJRwdH/xAAYAQADAQEAAAAAAAAAAAAAAAABAgQAA//EABwRAAICAwEBAAAAAAAAAAAAAAABAhEDIUESUf/aAAwDAQACEQMRAD8AwnwMm0uLmgBJ8ZvsKxqlxxFraFkKVSOq0DfTwQOPTguzTtHl1CV0Uc0THjmn3z9OEiNpvgFUNJkdFquOQOS8BZGdpHSPwZnHqfH+7v8AELatNG7FITUhFJmD1Ab4b7PBXVpeJBLE0SsBF3yFOMnka2yaHdrQ6bDG/CGRXzDjvj7LlVKjvHbH/B44/LjiAIH8Ke3SpI9ZbKOI2kPJ/paJmPAZ/MI276oGlxZ82z5Qas32mgrdC5XURsk28U57mtBBO09oUryPcXNPsoVfhECmyPAzyNAa0kk0ABdqhiySQxGHY4Nd66VrR4Ym6jkbY2Db1TRx2m40Ubsk2xp59hSMvTF4kjnt2xNcPrymZGiyzubIySj7DulZDWtYNoA49BNZ+kIKTi7QZJSVMkw6DG6Ksh53X+3pCsIReSX0VY4rh//Z';
+(()=>{'use strict';const snakeAvatar=new Image();
+let avatarReady=false,avatarFailed=false,requestedStart=false,retryCount=0,avatarTimer=null;
+function loadAvatar(){
+avatarReady=false;avatarFailed=false;
+if(avatarTimer!==null)clearTimeout(avatarTimer);
+avatarTimer=setTimeout(()=>{if(!avatarReady&&!avatarFailed){avatarFailed=true;requestedStart=false;show('头像加载超时','照片没有及时加载，请点下方按钮重试。','⚠️','重试加载照片')}},7000);
+snakeAvatar.src='/snake/avatar.jpg?v=20261110-fixed-1'+(retryCount?'&retry='+retryCount:'');
+}
+snakeAvatar.onload=()=>{
+if(!snakeAvatar.naturalWidth){snakeAvatar.onerror();return;}
+avatarReady=true;avatarFailed=false;if(avatarTimer!==null)clearTimeout(avatarTimer);
+if(typeof snake!=='undefined'&&snake)paint();
+if(requestedStart){requestedStart=false;start();}
+else if(overlayBtn.textContent==='重试加载照片'){show('准备好了吗？','头像已经准备好了，开始挑战吧！','🎮','开始游戏')}
+};
+snakeAvatar.onerror=()=>{
+avatarReady=false;avatarFailed=true;requestedStart=false;
+if(avatarTimer!==null)clearTimeout(avatarTimer);
+show('头像加载失败','请重试加载照片。游戏文件已经和照片放在同一个网站上。','⚠️','重试加载照片')
+};
+loadAvatar();
 const N=20, canvas=document.getElementById('game'),ctx=canvas.getContext('2d'),scoreEl=document.getElementById('score'),bestEl=document.getElementById('best'),levelEl=document.getElementById('level'),overlay=document.getElementById('overlay'),title=document.getElementById('overlay-title'),desc=document.getElementById('overlay-desc'),emoji=document.getElementById('emoji'),overlayBtn=document.getElementById('overlay-btn');
 let snake,food,dir,nextDir,score=0,best=0,state='ready',timer=null,tickMs=155,turnQueued=false;
 try{best=Number(localStorage.getItem('pyz-snake-best')||0)||0}catch(e){} bestEl.textContent=best;
@@ -38,7 +58,15 @@ function placeFood(){const spaces=[];for(let y=0;y<N;y++)for(let x=0;x<N;x++)if(
 function stop(){if(timer!==null){clearTimeout(timer);timer=null}}
 function schedule(){stop();if(state==='running')timer=setTimeout(step,tickMs)}
 function show(heading,message,symbol,button){title.textContent=heading;desc.textContent=message;emoji.textContent=symbol;overlayBtn.textContent=button;overlay.hidden=false}
-function start(){reset();state='running';overlay.hidden=true;schedule()}
+function start(){
+if(!avatarReady){
+ requestedStart=true;
+ if(avatarFailed){retryCount++;show('头像重新加载中','正在重新请求照片…','🖼️','重新加载');loadAvatar()}
+ else show('头像加载中','照片加载完成后，游戏将自动开始。','🖼️','重新加载');
+ return;
+}
+reset();state='running';overlay.hidden=true;schedule();
+}
 function pause(){if(state==='running'){state='paused';stop();show('已暂停','休息一下，继续挑战！','⏸️','继续游戏')}else if(state==='paused'){state='running';overlay.hidden=true;schedule()}else start()}
 function gameOver(won=false){state='over';stop();show(won?'全部吃光了！':'游戏结束',won?'恭喜通关，得分 '+score+'！':'本局得分 '+score+'，再来挑战一次吧！',won?'🏆':'💥','再玩一次')}
 function changeDirection(x,y){if(state==='ready'||state==='over')start();if(state!=='running'||turnQueued)return;if(x===-dir.x&&y===-dir.y)return;if(x===dir.x&&y===dir.y)return;nextDir={x,y};turnQueued=true}
@@ -55,7 +83,7 @@ const dirs={ArrowUp:[0,-1],ArrowDown:[0,1],ArrowLeft:[-1,0],ArrowRight:[1,0],w:[
 document.addEventListener('keydown',e=>{if(e.key===' '){e.preventDefault();pause();return}const d=dirs[e.key]||dirs[e.key.toLowerCase()];if(d){e.preventDefault();changeDirection(...d)}});
 document.querySelectorAll('[data-dir]').forEach(b=>b.addEventListener('click',()=>{const d={up:[0,-1],down:[0,1],left:[-1,0],right:[1,0]}[b.dataset.dir];changeDirection(...d)}));
 let touch=null;document.getElementById('stage').addEventListener('touchstart',e=>{touch={x:e.changedTouches[0].clientX,y:e.changedTouches[0].clientY}},{passive:true});document.getElementById('stage').addEventListener('touchend',e=>{if(!touch)return;const dx=e.changedTouches[0].clientX-touch.x,dy=e.changedTouches[0].clientY-touch.y;touch=null;if(Math.max(Math.abs(dx),Math.abs(dy))<20)return;if(Math.abs(dx)>Math.abs(dy))changeDirection(Math.sign(dx),0);else changeDirection(0,Math.sign(dy))},{passive:true});
-overlayBtn.addEventListener('click',()=>state==='paused'?pause():start());document.getElementById('pause').addEventListener('click',pause);document.getElementById('restart').addEventListener('click',start);document.addEventListener('visibilitychange',()=>{if(document.hidden&&state==='running')pause()});reset();
+overlayBtn.addEventListener('click',()=>{if(state==='paused')pause();else if(!avatarReady&&overlayBtn.textContent==='重新加载'){retryCount++;loadAvatar();show('头像重新加载中','正在重新请求照片…','🖼️','重新加载')}else start()});document.getElementById('pause').addEventListener('click',pause);document.getElementById('restart').addEventListener('click',start);document.addEventListener('visibilitychange',()=>{if(document.hidden&&state==='running')pause()});reset();
 })();
 </script>
 </body>
