@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0b1020">
 <meta name="description" content="免费在线贪吃蛇小游戏，电脑手机都能玩，无需下载。">
-<title>像素贪吃蛇 · 在线小游戏</title>
+<title>贪吃周渝 · 在线小游戏</title>
 <style>
 :root{color-scheme:dark;--bg:#0b1020;--panel:#131b30;--line:#2a3652;--text:#f1f6ff;--muted:#9aabc8;--mint:#64edba;--gold:#fbd16e}
 *{box-sizing:border-box}body{margin:0;min-height:100svh;background:radial-gradient(circle at 50% -20%,#263456 0%,#0b1020 55%);font-family:system-ui,-apple-system,"Microsoft Yahei",sans-serif;color:var(--text);display:flex;justify-content:center;padding:28px 16px 34px}
@@ -18,10 +18,10 @@
 </head>
 <body>
 <main class="shell">
-<header><div class="eyebrow">FREE ONLINE GAME · 01</div><h1>🐍 像素贪吃蛇</h1><p>吃掉苹果，挑战最高分！无需下载，手机电脑直接玩。</p></header>
+<header><div class="eyebrow">FREE ONLINE GAME · 01</div><h1>🧒 贪吃周渝</h1><p>吃掉苹果，挑战最高分！无需下载，手机电脑直接玩。</p></header>
 <section class="panel" aria-label="贪吃蛇游戏">
 <div class="stats"><div class="stat"><span>本局得分</span><strong id="score">0</strong></div><div class="stat"><span>历史最高</span><strong id="best">0</strong></div><div class="stat"><span>当前等级</span><strong id="level">1</strong></div></div>
-<div class="stage" id="stage"><canvas id="game" width="600" height="600" aria-label="贪吃蛇游戏棋盘"></canvas><div class="overlay" id="overlay"><div class="overlay-box"><div class="emoji" id="emoji">🎮</div><h2 id="overlay-title">准备好了吗？</h2><p id="overlay-desc">方向键或 WASD 控制方向，手机使用下方按钮，也可以在棋盘上滑动。</p><button class="btn" id="overlay-btn" type="button">开始游戏</button></div></div></div>
+<div class="stage" id="stage"><canvas id="game" width="600" height="600" aria-label="贪吃周渝游戏棋盘"></canvas><div class="overlay" id="overlay"><div class="overlay-box"><div class="emoji" id="emoji">🎮</div><h2 id="overlay-title">准备好了吗？</h2><p id="overlay-desc">方向键或 WASD 控制方向，手机使用下方按钮，也可以在棋盘上滑动。</p><button class="btn" id="overlay-btn" type="button">开始游戏</button></div></div></div>
 <div class="actions"><button class="btn alt" type="button" id="pause">暂停 / 继续</button><button class="btn alt" type="button" id="restart">重新开始</button></div>
 <div class="pad" aria-label="手机方向控制"><button class="control" data-dir="up" aria-label="向上">↑</button><button class="control" data-dir="left" aria-label="向左">←</button><button class="control" data-dir="down" aria-label="向下">↓</button><button class="control" data-dir="right" aria-label="向右">→</button></div>
 <p class="hint">电脑：<kbd>↑</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd> 或 WASD ｜ 空格暂停<br>手机：点击方向按钮或滑动棋盘</p>
@@ -29,7 +29,7 @@
 <p class="footer">纯静态网页 · 无广告 · 不收集个人信息 · 本地保存最高分</p>
 </main>
 <script>
-(()=>{'use strict';
+(()=>{'use strict';const snakeAvatar=new Image();snakeAvatar.onload=()=>{if(snake)paint()};snakeAvatar.src='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAAwADADASIAAhEBAxEB/8QAGgAAAwEBAQEAAAAAAAAAAAAABAYHBQIDAf/EAC4QAAIBAwIEBQMEAwAAAAAAAAECAwAEEQUSBhMhMQciQVFhFHGRNEJDgZKx8f/EABgBAAMBAQAAAAAAAAAAAAAAAAIEBQMA/8QAHREAAgMBAAMBAAAAAAAAAAAAAAECAxESBBQxIf/aAAwDAQACEQMRAD8Ahy6RduPKi/5UPJaSRuVbbkezU5akBZW0xRcEIMY9zSl1Y5Jo3zmoFdbjPFbWRu238139FNjOFx969FB9DRcZJjoAg/TuAta1W0S6tBayRN2P1CjH3FGjwt4mbOIbbocfqFph8Nb0pqVxZhjsePfj0DD/ALVRiLq7eXA+a05Rg7JbhFNaPOs3brgoPT2NZWkaQl+7K7Ht0xR11dBrTG3uhGD80fw9YTcrfbxmWQftD7cVhDVBIb+zCbDw/jYAzXBx8Cvt/wAKxW1nIYAxZU6H3NOMdpczaZIEKNKhK4J9R9qNtrCWLT1e7EXOK9RHnA/NcmG4rCf+HsTxa1cTMh2rEULegORVHnv52ES20asxfaxY4CisRha6WBDbxlS+6RznuaFOpEwEqcFj0/uqFVTlHWRr7ubMROYoX5Y3NnavTNNfBt4La9kW4AAYZHzWXpujalPM1qtnLz+nldCMdcZPxWzPw1f6fcvCx5jg/wAak9aSZThLHo1adfpzZ4tshAlJ3Ae9at3cxi3xnc3pjuaXtI0fWwq7Ukwep34FNdjozowacjPwcmg+P9GJS1CBJdG5vH6AjJU+9cpaSQhCqM43AjGe9Up+FdLmuDNJB5yuCVbb/r1rVt7K2trdYIoEWNRgDaDTvtxisRJfguUtbP/Z';
 const N=20, canvas=document.getElementById('game'),ctx=canvas.getContext('2d'),scoreEl=document.getElementById('score'),bestEl=document.getElementById('best'),levelEl=document.getElementById('level'),overlay=document.getElementById('overlay'),title=document.getElementById('overlay-title'),desc=document.getElementById('overlay-desc'),emoji=document.getElementById('emoji'),overlayBtn=document.getElementById('overlay-btn');
 let snake,food,dir,nextDir,score=0,best=0,state='ready',timer=null,tickMs=155,turnQueued=false;
 try{best=Number(localStorage.getItem('pyz-snake-best')||0)||0}catch(e){} bestEl.textContent=best;
@@ -50,7 +50,7 @@ paint();schedule()}
 function roundRect(x,y,w,h,r,color){ctx.fillStyle=color;ctx.beginPath();ctx.roundRect(x,y,w,h,r);ctx.fill()}
 function paint(){const w=canvas.width,cell=w/N;ctx.fillStyle='#0b1426';ctx.fillRect(0,0,w,w);ctx.strokeStyle='#16233a';ctx.lineWidth=1;for(let i=1;i<N;i++){const p=i*cell;ctx.beginPath();ctx.moveTo(p,0);ctx.lineTo(p,w);ctx.moveTo(0,p);ctx.lineTo(w,p);ctx.stroke()}
 if(food){const cx=(food.x+.5)*cell,cy=(food.y+.5)*cell;ctx.fillStyle='#ff7489';ctx.beginPath();ctx.arc(cx,cy,cell*.33,0,2*Math.PI);ctx.fill();ctx.fillStyle='#83e9a5';ctx.beginPath();ctx.ellipse(cx+5,cy-10,6,3,-.5,0,2*Math.PI);ctx.fill()}
-snake.forEach((s,i)=>{const pad=2,x=s.x*cell+pad,y=s.y*cell+pad;roundRect(x,y,cell-pad*2,cell-pad*2,i===0?9:7,i===0?'#a3ffdb':i%2===0?'#43d6a2':'#56e6b2');if(i===0){const c=cell;const front=dir.x!==0?{x:dir.x>0?.70:.30,y:.5}:{x:.5,y:dir.y>0?.70:.30};ctx.fillStyle='#103b35';if(dir.x!==0){for(const dy of [-.17,.17]){ctx.beginPath();ctx.arc((s.x+front.x)*c,(s.y+.5+dy)*c,2.7,0,2*Math.PI);ctx.fill()}}else{for(const dx of [-.17,.17]){ctx.beginPath();ctx.arc((s.x+.5+dx)*c,(s.y+front.y)*c,2.7,0,2*Math.PI);ctx.fill()}}}})}
+snake.forEach((s,i)=>{const pad=2,x=s.x*cell+pad,y=s.y*cell+pad;if(i===0){ctx.save();ctx.beginPath();ctx.roundRect(x,y,cell-pad*2,cell-pad*2,8);ctx.clip();if(snakeAvatar.complete&&snakeAvatar.naturalWidth){ctx.drawImage(snakeAvatar,x,y,cell-pad*2,cell-pad*2)}else{roundRect(x,y,cell-pad*2,cell-pad*2,8,'#a3ffdb')}ctx.restore();}else{roundRect(x,y,cell-pad*2,cell-pad*2,7,i%2===0?'#43d6a2':'#56e6b2')}})}
 const dirs={ArrowUp:[0,-1],ArrowDown:[0,1],ArrowLeft:[-1,0],ArrowRight:[1,0],w:[0,-1],s:[0,1],a:[-1,0],d:[1,0]};
 document.addEventListener('keydown',e=>{if(e.key===' '){e.preventDefault();pause();return}const d=dirs[e.key]||dirs[e.key.toLowerCase()];if(d){e.preventDefault();changeDirection(...d)}});
 document.querySelectorAll('[data-dir]').forEach(b=>b.addEventListener('click',()=>{const d={up:[0,-1],down:[0,1],left:[-1,0],right:[1,0]}[b.dataset.dir];changeDirection(...d)}));
