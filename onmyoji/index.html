@@ -123,7 +123,7 @@ function header(title,desc,right){return '<div class="section-head"><div><h2>'+t
 function btn(text,action,extra,attr){return '<button class="btn '+(extra||'')+'" data-act="'+action+'" '+(attr||'')+'>'+text+'</button>';}
 function resources(){el('resources').innerHTML='<div class="resource"><span class="ico">💠</span> 勾玉 <strong>'+data.jade+'</strong></div><div class="resource"><span class="ico">🪙</span> 金币 <strong>'+data.coins+'</strong></div><div class="resource"><span class="ico">🍡</span> 体力 <strong>'+data.stamina+'</strong></div><div class="resource"><span class="ico">🏯</span> 通关 <strong>'+data.wins+'</strong></div>';}
 function nav(){document.querySelectorAll('[data-tab]').forEach(function(e){e.classList.toggle('active',e.getAttribute('data-tab')===tab);});}
-function artwork(h){return window.ZYArt?window.ZYArt.portrait(h.id):h.emoji;}
+function artwork(h){if(!h)return '✨';var order=['s1','s2','s3','s4','s5','s6','s7','s8','s9','s10','s11','s12'];var i=order.indexOf(h.id);if(i<0)return h.emoji;return '<span class="zy-real-art" role="img" aria-label="'+h.name+'角色立绘" style="--sx:'+(i%6*20)+'%;--sy:'+(i<6?'0':'100')+'%"></span>';}
 function enemyArt(i){return window.ZYArt?window.ZYArt.monster(i):'👹';}
 function heroCard(h,kind){var item=data.owned[h.id],mine=!!item,power=mine?pow(h.id):null,isTeam=data.team.indexOf(h.id)>=0;
 var actions='';
