@@ -3,60 +3,42 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0b1020">
-<meta name="description" content="免费在线贪吃蛇小游戏，电脑手机都能玩，无需下载。">
-<title>贪吃周渝 · 在线小游戏</title>
+<meta name="theme-color" content="#0e1222">
+<meta name="description" content="周渝的小游戏世界，免费在线畅玩贪吃周渝与周渝之纵横阴阳师。手机电脑都能玩。">
+<title>周渝游戏馆 · 两款免费在线小游戏</title>
 <style>
-:root{color-scheme:dark;--bg:#0b1020;--panel:#131b30;--line:#2a3652;--text:#f1f6ff;--muted:#9aabc8;--mint:#64edba;--gold:#fbd16e}
-*{box-sizing:border-box}body{margin:0;min-height:100svh;background:radial-gradient(circle at 50% -20%,#263456 0%,#0b1020 55%);font-family:system-ui,-apple-system,"Microsoft Yahei",sans-serif;color:var(--text);display:flex;justify-content:center;padding:28px 16px 34px}
-.shell{width:min(100%,660px)}header{text-align:center;margin-bottom:18px}.eyebrow{font-size:12px;letter-spacing:.22em;color:var(--mint);font-weight:700}h1{margin:7px 0 8px;font-size:clamp(30px,6vw,44px);letter-spacing:.03em}header p{margin:0;color:var(--muted);font-size:14px;line-height:1.7}
-.panel{background:rgba(19,27,48,.94);border:1px solid var(--line);box-shadow:0 22px 65px #0005;border-radius:22px;padding:clamp(14px,4vw,24px)}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}.stat{padding:12px 8px;background:#0d1529;border:1px solid #24314d;border-radius:13px;text-align:center}.stat span{display:block;font-size:12px;color:var(--muted)}.stat strong{display:block;margin-top:5px;font-size:25px;font-variant-numeric:tabular-nums}.stat:nth-child(2) strong{color:var(--gold)}.stat:nth-child(3) strong{color:var(--mint)}
-.stage{position:relative;max-width:510px;margin:auto;aspect-ratio:1;background:#0b1426;border:2px solid #344463;border-radius:14px;overflow:hidden;touch-action:none}canvas{width:100%;height:100%;display:block}.overlay{position:absolute;inset:0;background:rgba(5,10,24,.8);display:flex;align-items:center;justify-content:center;text-align:center;padding:20px;backdrop-filter:blur(3px)}.overlay[hidden]{display:none}.overlay-box{max-width:320px}.overlay .emoji{font-size:44px}.overlay h2{margin:10px 0;font-size:28px}.overlay p{color:#c0cee6;line-height:1.7;font-size:14px}.btn{border:0;border-radius:13px;padding:12px 22px;color:#091523;background:var(--mint);font-size:15px;font-weight:800;cursor:pointer;transition:transform .1s,filter .1s}.btn:hover{filter:brightness(1.09)}.btn:active,.control:active{transform:scale(.95)}.actions{display:flex;gap:10px;justify-content:center;margin:16px 0}.btn.alt{background:#293755;color:#f0f6ff;border:1px solid #405171}.btn:focus-visible,.control:focus-visible{outline:3px solid white;outline-offset:3px}
-.pad{display:grid;grid-template-columns:repeat(3,58px);grid-template-rows:repeat(2,54px);gap:8px;justify-content:center;margin:12px auto 4px}.control{border:1px solid #425374;border-radius:12px;background:#253351;color:#f3f8ff;font-size:23px;font-weight:700;touch-action:manipulation;cursor:pointer}.control[data-dir=up]{grid-column:2}.control[data-dir=left]{grid-column:1;grid-row:2}.control[data-dir=down]{grid-column:2;grid-row:2}.control[data-dir=right]{grid-column:3;grid-row:2}
-.hint{text-align:center;color:var(--muted);font-size:13px;line-height:1.8;margin-top:15px}.footer{text-align:center;font-size:12px;color:#7184a8;margin-top:20px}kbd{border:1px solid #405171;background:#253351;border-radius:5px;padding:2px 6px;color:#e5edff}button:disabled{opacity:.45;cursor:not-allowed}@media(min-width:740px){.pad{display:none}}@media(max-width:420px){body{padding:17px 10px 24px}.panel{border-radius:16px}.stats{gap:7px}.stat{padding:9px 5px}.stat strong{font-size:21px}}
+:root{color-scheme:dark;--bg:#0c1020;--ink:#f5f6fb;--muted:#a8b4d1;--line:#465069}
+*{box-sizing:border-box}html{min-height:100%}body{margin:0;min-height:100svh;background:radial-gradient(ellipse 80% 56% at 50% 0%,#273557 0%,#10172a 62%,#0b101e 100%);color:var(--ink);font-family:system-ui,-apple-system,"Microsoft YaHei",sans-serif;overflow-x:hidden}
+body:after{content:"";position:fixed;z-index:-1;inset:0;background-image:radial-gradient(#c5cbec1c 1px,transparent 1px);background-size:25px 25px;mask-image:linear-gradient(#000 0%,transparent 90%)}
+.wrap{width:min(1100px,100%);margin:auto;padding:clamp(25px,5vw,65px) 18px 50px}.top{text-align:center;max-width:720px;margin:0 auto 35px}.eyebrow{font-size:12px;color:#9fedd1;letter-spacing:.23em;font-weight:800}.logo{display:inline-grid;place-items:center;width:73px;height:73px;margin:17px auto 9px;background:linear-gradient(140deg,#365d76,#5e3c7a);border:1px solid #8db3c6;border-radius:23px;font-size:42px;box-shadow:0 16px 45px #0004;transform:rotate(-4deg)}h1{font-size:clamp(34px,6vw,56px);margin:8px 0 15px;letter-spacing:.035em}.top p{font-size:clamp(14px,2vw,17px);color:#aab9d4;line-height:1.8;margin:0}.games{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}.game{display:block;overflow:hidden;position:relative;color:inherit;text-decoration:none;border:1px solid #5b6980;border-radius:23px;background:#1c253a;min-height:424px;box-shadow:0 25px 58px #0004;transition:transform .25s ease,box-shadow .25s ease,border-color .25s}.game:hover{transform:translateY(-7px);border-color:#d8c6bc;box-shadow:0 35px 70px #0006}.game:focus-visible{outline:3px solid #b8e5d8;outline-offset:5px}.visual{height:214px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}.snake .visual{background:radial-gradient(circle at 50% 45%,#23565a,#13363e 42%,#172b40 100%)}.snake .visual:after{content:"";position:absolute;inset:0;background-image:linear-gradient(#f5fff308 1px,transparent 1px),linear-gradient(90deg,#f5fff308 1px,transparent 1px);background-size:26px 26px}.yinyang .visual{background:radial-gradient(circle at 50% 30%,#a9758466,#4a3048 62%,#27223d 100%)}.visual .picture{font-size:92px;position:relative;z-index:2;filter:drop-shadow(0 10px 18px #0008);transition:transform .3s}.game:hover .picture{transform:scale(1.12) rotate(-5deg)}.ring{position:absolute;width:240px;height:240px;border-radius:50%;border:2px dashed #d8b07980;box-shadow:0 0 0 18px #c6aa6d10,0 0 0 48px #d1b17708}.snake .ring{border-color:#8ce4c150}.pixel{position:absolute;width:37px;height:37px;border-radius:9px;background:#4be8ae;box-shadow:44px 0 0 #67edbe,88px 0 0 #9df6d5;left:25%;bottom:30px;z-index:1;transform:rotate(-10deg)}.spark{position:absolute;font-size:40px;right:15%;top:32px;transform:rotate(-16deg);z-index:1}.game-body{padding:24px 25px 27px}.number{display:inline-block;border:1px solid #8290a17b;padding:4px 9px;border-radius:20px;color:#b0c4d6;font-size:11px;letter-spacing:.06em;font-weight:800}.game h2{font-size:clamp(24px,3.5vw,31px);margin:13px 0 9px}.game p{font-size:14px;color:#b4c2d5;line-height:1.8;min-height:50px;margin:0 0 17px}.meta{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}.tags{font-size:12px;color:#92a9c0}.play{display:inline-flex;align-items:center;gap:6px;padding:10px 17px;background:#9becce;color:#13302c;border-radius:12px;font-weight:850;font-size:14px}.yinyang .play{background:#f8cf9c;color:#463027}.info{margin:27px auto 0;max-width:700px;text-align:center;color:#91a3bf;font-size:13px;line-height:1.9}.info strong{color:#dce9ee}footer{text-align:center;margin-top:40px;color:#8190a7;font-size:12px}
+@media(max-width:750px){.games{grid-template-columns:1fr;max-width:520px;margin:auto}.game{min-height:auto}.visual{height:178px}.game-body{padding:20px}.game p{min-height:0}}@media(prefers-reduced-motion:reduce){.game,.picture{transition:none}}
 </style>
 </head>
 <body>
-<main class="shell">
-<header><div class="eyebrow">FREE ONLINE GAME · 01</div><h1>🧒 贪吃周渝</h1><p>吃掉苹果，挑战最高分！无需下载，手机电脑直接玩。</p></header>
-<section class="panel" aria-label="贪吃蛇游戏">
-<div class="stats"><div class="stat"><span>本局得分</span><strong id="score">0</strong></div><div class="stat"><span>历史最高</span><strong id="best">0</strong></div><div class="stat"><span>当前等级</span><strong id="level">1</strong></div></div>
-<div class="stage" id="stage"><canvas id="game" width="600" height="600" aria-label="贪吃周渝游戏棋盘"></canvas><div class="overlay" id="overlay"><div class="overlay-box"><div class="emoji" id="emoji">🎮</div><h2 id="overlay-title">准备好了吗？</h2><p id="overlay-desc">方向键或 WASD 控制方向，手机使用下方按钮，也可以在棋盘上滑动。</p><button class="btn" id="overlay-btn" type="button">开始游戏</button></div></div></div>
-<div class="actions"><button class="btn alt" type="button" id="pause">暂停 / 继续</button><button class="btn alt" type="button" id="restart">重新开始</button></div>
-<div class="pad" aria-label="手机方向控制"><button class="control" data-dir="up" aria-label="向上">↑</button><button class="control" data-dir="left" aria-label="向左">←</button><button class="control" data-dir="down" aria-label="向下">↓</button><button class="control" data-dir="right" aria-label="向右">→</button></div>
-<p class="hint">电脑：<kbd>↑</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd> 或 WASD ｜ 空格暂停<br>手机：点击方向按钮或滑动棋盘</p>
+<main class="wrap">
+<header class="top">
+<div class="eyebrow">WELCOME TO THE LITTLE ARCADE</div>
+<div class="logo" aria-hidden="true">🎮</div>
+<h1>周渝游戏馆</h1>
+<p>两款免费的独立网页小游戏。无需下载、无需登录，<br>电脑和手机打开浏览器就能玩。</p>
+</header>
+<section class="games" aria-label="选择游戏">
+<a class="game snake" href="/snake/" aria-label="开始玩贪吃周渝">
+  <div class="visual"><span class="ring" aria-hidden="true"></span><span class="picture" aria-hidden="true">🧒</span><span class="pixel" aria-hidden="true"></span><span class="spark" aria-hidden="true">🍎</span></div>
+  <div class="game-body"><span class="number">GAME 01 · 休闲益智</span><h2>贪吃周渝</h2>
+    <p>熟悉的贪吃蛇，独特的照片蛇头。吃苹果、冲分数，挑战自己的最高记录。</p>
+    <div class="meta"><span class="tags">🐍 操作简单　📱 触屏支持</span><span class="play">开始游戏 →</span></div>
+  </div>
+</a>
+<a class="game yinyang" href="/onmyoji/" aria-label="开始玩周渝之纵横阴阳师">
+  <div class="visual"><span class="ring" aria-hidden="true"></span><span class="picture" aria-hidden="true">⛩️</span><span class="spark" aria-hidden="true">✨</span></div>
+  <div class="game-body"><span class="number">GAME 02 · 和风冒险</span><h2>周渝之纵横阴阳师</h2>
+    <p>召唤原创式灵，组成三人小队，通过回合制战斗挑战妖境，还能养成升级。</p>
+    <div class="meta"><span class="tags">📜 式灵召唤　⚔️ 回合战斗</span><span class="play">开启冒险 →</span></div>
+  </div>
+</a>
 </section>
-<p class="footer">纯静态网页 · 无广告 · 不收集个人信息 · 本地保存最高分</p>
+<p class="info"><strong>关于存档：</strong>两款游戏分别在当前浏览器本地保存进度；换设备不会自动同步。<br>网站为静态网页，无广告、无充值、无需数据库。</p>
+<footer>周渝游戏馆 · 保留一点童心，随时开玩</footer>
 </main>
-<script>
-(()=>{'use strict';const snakeAvatar=new Image();let avatarReady=false,avatarFailed=false;snakeAvatar.onload=()=>{avatarReady=true;if(typeof snake!=='undefined'&&snake)paint()};snakeAvatar.onerror=()=>{avatarFailed=true;show('头像加载失败','请刷新重试。','⚠️','重试')};snakeAvatar.src='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA8KCw0LCQ8NDA0REA8SFyYYFxUVFy4hIxsmNzA5ODYwNTQ8RFZJPEBSQTQ1S2ZMUllcYWJhOkhqcmlecVZfYV3/2wBDARARERcUFywYGCxdPjU+XV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV3/wAARCAAqACgDASIAAhEBAxEB/8QAGQAAAwEBAQAAAAAAAAAAAAAAAAMFBgQB/8QAKhAAAQQBBAIABAcAAAAAAAAAAQACAxEEBRIhMRNBFCJxkQYjMkJRwdH/xAAYAQADAQEAAAAAAAAAAAAAAAABAgQAA//EABwRAAICAwEBAAAAAAAAAAAAAAABAhEDIUESUf/aAAwDAQACEQMRAD8AwnwMm0uLmgBJ8ZvsKxqlxxFraFkKVSOq0DfTwQOPTguzTtHl1CV0Uc0THjmn3z9OEiNpvgFUNJkdFquOQOS8BZGdpHSPwZnHqfH+7v8AELatNG7FITUhFJmD1Ab4b7PBXVpeJBLE0SsBF3yFOMnka2yaHdrQ6bDG/CGRXzDjvj7LlVKjvHbH/B44/LjiAIH8Ke3SpI9ZbKOI2kPJ/paJmPAZ/MI276oGlxZ82z5Qas32mgrdC5XURsk28U57mtBBO09oUryPcXNPsoVfhECmyPAzyNAa0kk0ABdqhiySQxGHY4Nd66VrR4Ym6jkbY2Db1TRx2m40Ubsk2xp59hSMvTF4kjnt2xNcPrymZGiyzubIySj7DulZDWtYNoA49BNZ+kIKTi7QZJSVMkw6DG6Ksh53X+3pCsIReSX0VY4rh//Z';
-const N=20, canvas=document.getElementById('game'),ctx=canvas.getContext('2d'),scoreEl=document.getElementById('score'),bestEl=document.getElementById('best'),levelEl=document.getElementById('level'),overlay=document.getElementById('overlay'),title=document.getElementById('overlay-title'),desc=document.getElementById('overlay-desc'),emoji=document.getElementById('emoji'),overlayBtn=document.getElementById('overlay-btn');
-let snake,food,dir,nextDir,score=0,best=0,state='ready',timer=null,tickMs=155,turnQueued=false;
-try{best=Number(localStorage.getItem('pyz-snake-best')||0)||0}catch(e){} bestEl.textContent=best;
-function reset(){stop();snake=[{x:9,y:10},{x:8,y:10},{x:7,y:10}];dir={x:1,y:0};nextDir={...dir};score=0;tickMs=155;turnQueued=false;scoreEl.textContent='0';levelEl.textContent='1';placeFood();paint()}
-function placeFood(){const spaces=[];for(let y=0;y<N;y++)for(let x=0;x<N;x++)if(!snake.some(s=>s.x===x&&s.y===y))spaces.push({x,y});food=spaces.length?spaces[Math.floor(Math.random()*spaces.length)]:null}
-function stop(){if(timer!==null){clearTimeout(timer);timer=null}}
-function schedule(){stop();if(state==='running')timer=setTimeout(step,tickMs)}
-function show(heading,message,symbol,button){title.textContent=heading;desc.textContent=message;emoji.textContent=symbol;overlayBtn.textContent=button;overlay.hidden=false}
-function start(){if(!avatarReady){show('头像加载中','照片就绪后开始游戏。','🖼️','重试');return}reset();state='running';overlay.hidden=true;schedule()}
-function pause(){if(state==='running'){state='paused';stop();show('已暂停','休息一下，继续挑战！','⏸️','继续游戏')}else if(state==='paused'){state='running';overlay.hidden=true;schedule()}else start()}
-function gameOver(won=false){state='over';stop();show(won?'全部吃光了！':'游戏结束',won?'恭喜通关，得分 '+score+'！':'本局得分 '+score+'，再来挑战一次吧！',won?'🏆':'💥','再玩一次')}
-function changeDirection(x,y){if(state==='ready'||state==='over')start();if(state!=='running'||turnQueued)return;if(x===-dir.x&&y===-dir.y)return;if(x===dir.x&&y===dir.y)return;nextDir={x,y};turnQueued=true}
-function step(){if(state!=='running')return;dir=nextDir;turnQueued=false;const head={x:snake[0].x+dir.x,y:snake[0].y+dir.y};const eat=food&&head.x===food.x&&head.y===food.y;const body=eat?snake:snake.slice(0,-1);
-if(head.x<0||head.x>=N||head.y<0||head.y>=N||body.some(s=>s.x===head.x&&s.y===head.y)){gameOver();return}
-snake.unshift(head);
-if(eat){score+=10;scoreEl.textContent=score;if(score>best){best=score;bestEl.textContent=best;try{localStorage.setItem('pyz-snake-best',String(best))}catch(e){}}tickMs=Math.max(65,155-Math.floor(score/50)*9);levelEl.textContent=String(1+Math.floor(score/50));placeFood();if(!food){paint();gameOver(true);return}}else snake.pop();
-paint();schedule()}
-function roundRect(x,y,w,h,r,color){ctx.fillStyle=color;ctx.beginPath();ctx.roundRect(x,y,w,h,r);ctx.fill()}
-function paint(){const w=canvas.width,cell=w/N;ctx.fillStyle='#0b1426';ctx.fillRect(0,0,w,w);ctx.strokeStyle='#16233a';ctx.lineWidth=1;for(let i=1;i<N;i++){const p=i*cell;ctx.beginPath();ctx.moveTo(p,0);ctx.lineTo(p,w);ctx.moveTo(0,p);ctx.lineTo(w,p);ctx.stroke()}
-if(food){const cx=(food.x+.5)*cell,cy=(food.y+.5)*cell;ctx.fillStyle='#ff7489';ctx.beginPath();ctx.arc(cx,cy,cell*.33,0,2*Math.PI);ctx.fill();ctx.fillStyle='#83e9a5';ctx.beginPath();ctx.ellipse(cx+5,cy-10,6,3,-.5,0,2*Math.PI);ctx.fill()}
-snake.forEach((s,i)=>{const pad=2,x=s.x*cell+pad,y=s.y*cell+pad;if(i===0){ctx.save();ctx.beginPath();ctx.roundRect(x,y,cell-pad*2,cell-pad*2,8);ctx.clip();if(avatarReady&&snakeAvatar.naturalWidth){ctx.drawImage(snakeAvatar,x,y,cell-pad*2,cell-pad*2)}else{roundRect(x,y,cell-pad*2,cell-pad*2,8,'#304463');ctx.fillStyle='#ffffff';ctx.font='14px sans-serif';ctx.textAlign='center';ctx.fillText('…',x+(cell-pad*2)/2,y+19)}ctx.restore();}else{roundRect(x,y,cell-pad*2,cell-pad*2,7,i%2===0?'#43d6a2':'#56e6b2')}})}
-const dirs={ArrowUp:[0,-1],ArrowDown:[0,1],ArrowLeft:[-1,0],ArrowRight:[1,0],w:[0,-1],s:[0,1],a:[-1,0],d:[1,0]};
-document.addEventListener('keydown',e=>{if(e.key===' '){e.preventDefault();pause();return}const d=dirs[e.key]||dirs[e.key.toLowerCase()];if(d){e.preventDefault();changeDirection(...d)}});
-document.querySelectorAll('[data-dir]').forEach(b=>b.addEventListener('click',()=>{const d={up:[0,-1],down:[0,1],left:[-1,0],right:[1,0]}[b.dataset.dir];changeDirection(...d)}));
-let touch=null;document.getElementById('stage').addEventListener('touchstart',e=>{touch={x:e.changedTouches[0].clientX,y:e.changedTouches[0].clientY}},{passive:true});document.getElementById('stage').addEventListener('touchend',e=>{if(!touch)return;const dx=e.changedTouches[0].clientX-touch.x,dy=e.changedTouches[0].clientY-touch.y;touch=null;if(Math.max(Math.abs(dx),Math.abs(dy))<20)return;if(Math.abs(dx)>Math.abs(dy))changeDirection(Math.sign(dx),0);else changeDirection(0,Math.sign(dy))},{passive:true});
-overlayBtn.addEventListener('click',()=>state==='paused'?pause():start());document.getElementById('pause').addEventListener('click',pause);document.getElementById('restart').addEventListener('click',start);document.addEventListener('visibilitychange',()=>{if(document.hidden&&state==='running')pause()});reset();
-})();
-</script>
-</body>
-</html>
+</body></html>
