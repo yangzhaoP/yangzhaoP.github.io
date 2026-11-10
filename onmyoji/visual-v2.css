@@ -232,3 +232,13 @@ body:before{background-image:radial-gradient(#fbd6a00f 1px,transparent 1px),repe
 .quest .btn{white-space:nowrap}
 @media(max-width:800px){.soul-slots{grid-template-columns:repeat(3,minmax(0,1fr))}.soul-bag{grid-template-columns:1fr}}
 @media(max-width:530px){.soul-tabs .btn{font-size:11px;padding:7px}.soul-slot{padding:8px 4px;min-height:135px}.soul-slot-icon{width:37px;height:37px;font-size:22px}.soul-sets{grid-template-columns:1fr}.story-chapter{gap:11px;padding:15px}.story-index{font-size:27px}.story-copy h3{font-size:19px}.story-copy p{font-size:12px}.quest{padding:9px;gap:8px}.quest-mark{width:39px;min-width:39px;height:39px;font-size:20px}.quest-detail strong{font-size:12px}.quest .btn{font-size:10px;padding:6px 7px}.top-actions{gap:4px}.top-actions .back{font-size:10px;padding:8px}}
+
+
+.dungeon-choices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:17px}
+.dungeon-choice{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;padding:20px 9px;border:1px solid #907085;background:linear-gradient(150deg,#4e3548,#242941);border-radius:13px;color:#fff1e3;min-height:145px;transition:transform .2s,box-shadow .2s}
+.dungeon-choice:hover:not(:disabled){transform:translateY(-3px);box-shadow:0 10px 25px #0005}
+.dungeon-choice.active{border:2px solid #f7d492;box-shadow:0 0 18px #f6d49637;background:linear-gradient(140deg,#755049,#39304c)}
+.dungeon-choice:disabled{opacity:.4;filter:grayscale(1);cursor:not-allowed}
+.dungeon-choice>span{font-size:34px}.dungeon-choice strong{font-size:16px}.dungeon-choice small{font-size:11px;color:#e5d2d5;text-align:center}.dungeon-choice i{font-style:normal;font-size:11px;color:#ffe6af}
+.hero-body .buttons{gap:5px;margin-top:10px}.hero-body .btn{font-size:11px;padding:7px 8px}
+@media(max-width:560px){.dungeon-choices{gap:6px}.dungeon-choice{min-height:120px;padding:11px 4px}.dungeon-choice>span{font-size:28px}.dungeon-choice strong{font-size:12px}.dungeon-choice small{font-size:9px}.dungeon-choice i{font-size:10px}}
