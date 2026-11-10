@@ -65,6 +65,7 @@ a{color:var(--gold);text-decoration:none}a:hover{text-decoration:underline}butto
 @media(prefers-reduced-motion:reduce){.arena-figure .spirit,.battle-scene.fx-running .arena-figure .spirit,.battle-scene.fx-running .battle-fx,.battle-scene.fx-running .scene-wash{animation:none!important}.battle-scene.fx-running .battle-fx{opacity:1}.battle-scene.fx-running .scene-wash{opacity:.3}}
 
 </style>
+<link rel="stylesheet" href="./visual-v2.css?v=1">
 </head>
 <body>
 <div class="shell">
@@ -88,6 +89,7 @@ a{color:var(--gold);text-decoration:none}a:hover{text-decoration:underline}butto
 <footer class="footer">© 周渝之纵横阴阳师 · 原创式灵与世界观 · 非官方《阴阳师》游戏 · 不含充值或广告</footer>
 </div>
 <div id="toast" class="toast" hidden role="status"></div>
+<script src="./visual-art.js?v=1"></script>
 <script>
 (function(){
 'use strict';
@@ -120,14 +122,17 @@ function header(title,desc,right){return '<div class="section-head"><div><h2>'+t
 function btn(text,action,extra,attr){return '<button class="btn '+(extra||'')+'" data-act="'+action+'" '+(attr||'')+'>'+text+'</button>';}
 function resources(){el('resources').innerHTML='<div class="resource"><span class="ico">💠</span> 勾玉 <strong>'+data.jade+'</strong></div><div class="resource"><span class="ico">🪙</span> 金币 <strong>'+data.coins+'</strong></div><div class="resource"><span class="ico">🍡</span> 体力 <strong>'+data.stamina+'</strong></div><div class="resource"><span class="ico">🏯</span> 通关 <strong>'+data.wins+'</strong></div>';}
 function nav(){document.querySelectorAll('[data-tab]').forEach(function(e){e.classList.toggle('active',e.getAttribute('data-tab')===tab);});}
+function artwork(h){return window.ZYArt?window.ZYArt.portrait(h.id):h.emoji;}
+function enemyArt(i){return window.ZYArt?window.ZYArt.monster(i):'👹';}
 function heroCard(h,kind){var item=data.owned[h.id],mine=!!item,power=mine?pow(h.id):null,isTeam=data.team.indexOf(h.id)>=0;
 var actions='';
 if(kind==='roster'&&mine){actions='<div class="buttons">'+btn('升级 '+(item.level*75)+'金币','train','small outline','data-id="'+h.id+'"')+btn(isTeam?'下阵':'上阵','team','small','data-id="'+h.id+'"')+'</div>';}
 var badge=mine?'<span class="tiny">Lv.'+item.level+' · '+h.role+(item.copies>1?' · 召唤×'+item.copies:'')+'</span>':'<span class="tiny">尚未召唤</span>';
-return '<article class="hero-card '+(!mine?'locked ':'')+(isTeam?'selected':'')+'"><div class="hero-art">'+h.emoji+grade(h)+'</div><div class="hero-body"><h4>'+h.name+'</h4><p>'+h.type+' · '+h.skill+'</p>'+badge+(power?'<p style="margin-top:8px">生命 '+power.hp+' · 攻击 '+power.atk+'</p>':'')+actions+'</div></article>';}
+return '<article class="hero-card '+(!mine?'locked ':'')+(isTeam?'selected':'')+'"><div class="hero-art">'+artwork(h)+grade(h)+'</div><div class="hero-body"><h4>'+h.name+'</h4><p>'+h.type+' · '+h.skill+'</p>'+badge+(power?'<p style="margin-top:8px">生命 '+power.hp+' · 攻击 '+power.atk+'</p>':'')+actions+'</div></article>';}
 function teamStrip(){return '<div class="teamstrip">'+data.team.map(function(id){return '<span class="chip"><span class="dot"></span>'+idmap[id].emoji+' '+idmap[id].name+' Lv.'+data.owned[id].level+'</span>';}).join('')+'</div>';}
 function home(){
 return '<div class="hero-banner"><div class="eyecatch">百鬼夜行 · 浮生一卷</div><h2>执符而行，纵横阴阳</h2><p>妖气漫过山海，古老的式灵再次苏醒。召唤你的伙伴，组成三人小队，穿越妖境，谱写周渝的传奇。</p><div class="buttons">'+btn('⚔️ 前往妖境','go-dungeon','gold')+btn('📜 召唤式灵','go-summon','outline')+'</div></div>'+
+'<div class="visual-trailer"><div class="trailer-head"><span>✦ 原创式灵 · 灵契绘卷</span><span>SSR · SR · R</span></div><div class="trailer-arts">'+['s1','s3','s10','s12'].map(function(id){return '<figure class="trailer-hero" style="margin:0">'+artwork(idmap[id])+'<figcaption>'+idmap[id].name+'</figcaption></figure>'}).join('')+'</div></div>'+
 '<div class="grid"><div class="tile"><span class="symbol">📜</span><h3>召唤百鬼</h3><p>R、SR、SSR 三种稀有度，10 连召唤保底至少一只 SR，50 抽必出 SSR。</p></div><div class="tile"><span class="symbol">⚔️</span><h3>三人共斗</h3><p>普攻积攒灵力，释放治疗、护盾和强力群攻，赢取勾玉和金币。</p></div><div class="tile"><span class="symbol">🌸</span><h3>养成式灵</h3><p>使用金币提升式灵等级，调整上阵阵容，攻克不断变强的妖境。</p></div></div>'+
 '<div class="divider"></div>'+header('出战队伍','你可以在「式灵录」调整三人阵容。')+teamStrip()+
 '<div class="panel"><h3>🎁 每日参拜</h3><p class="muted">每天可领取免费勾玉、金币和体力，不需要登录。</p>'+btn(data.gift===new Date().toLocaleDateString('sv-SE')?'今天已经领取':'领取今日福袋','gift','gold',data.gift===new Date().toLocaleDateString('sv-SE')?'disabled':'')+'</div>';
@@ -137,21 +142,28 @@ return header('式灵录','收集原创式灵，升级并组成最多三人的�
 teamStrip()+'<div class="cards">'+H.map(function(h){return heroCard(h,'roster');}).join('')+'</div><div class="notice">升级需要金币。普通攻击可获得灵力，技能消耗 2 点灵力；治疗型式灵在困难关卡非常有用。</div>';
 }
 function summonView(){
-var results=lastSummons.length?'<div class="divider"></div><h3>本次召唤</h3><div class="result-list">'+lastSummons.map(function(h){return '<div class="result '+h.grade.toLowerCase()+'"><div class="symbol">'+h.emoji+'</div><h4>'+h.name+'</h4>'+grade(h)+'</div>';}).join('')+'</div>':'';
+var results=lastSummons.length?'<div class="divider"></div><h3>本次召唤</h3><div class="result-list">'+lastSummons.map(function(h){return '<div class="result '+h.grade.toLowerCase()+'"><div class="symbol">'+artwork(h)+'</div><h4>'+h.name+'</h4>'+grade(h)+'</div>';}).join('')+'</div>':'';
 return header('式灵召唤','借助勾玉召唤新的式灵，重复召唤也会转化为金币。')+
 '<div class="panel summon-area"><div class="summon-circle" aria-hidden="true">🔮</div><h3>唤灵之阵</h3><p class="muted">普通 R 78% · 稀有 SR 18% · 传说 SSR 4%</p><p class="tiny">距 SSR 硬保底最多还有 '+(50-data.pity)+' 抽 · 已召唤 '+data.pulls+' 次</p><div class="buttons" style="justify-content:center;margin-top:18px">'+btn('召唤一次 · 100勾玉','draw1','outline')+btn('十连召唤 · 900勾玉','draw10','gold')+'</div><p class="tiny">十连召唤至少获得一名 SR 或 SSR。所有奖励仅为游戏内道具，无法购买或兑换现金。</p></div>'+results;
 }
 function stageEnemies(stage){var sprites=[['山狐','🦊'],['雾鬼','👻'],['石灵','🪨'],['夜鸦','🐦‍⬛'],['荒狼','🐺'],['幽灯','🔥']];var a=[];for(var i=0;i<3;i++){var v=sprites[(stage*2+i)%sprites.length],boss=(stage%5===0&&i===2),hp=70+stage*20+(boss?110:0);a.push({id:'e'+i,name:boss?'妖境首领 · '+v[0]:v[0],emoji:v[1],hp:hp,maxHp:hp,atk:14+stage*4+(boss?12:0),def:4+stage*2,boss:boss,shield:0});}return a;}
 function health(f){return Math.max(0,Math.round(f.hp/f.maxHp*100));}
 function fighter(x,i,ally){var sel=ally?i===chosen:i===target,cl=x.hp<=0?'down':sel?'selected selectable':'selectable';
-return '<button class="fighter '+cl+'" '+(x.hp<=0?'disabled':'')+' data-act="'+(ally?'choose-ally':'choose-target')+'" data-i="'+i+'"><span class="symbol">'+x.emoji+'</span><div class="desc"><b>'+x.name+(x.shield>0?' 🛡️':'')+'</b><small>HP '+x.hp+' / '+x.maxHp+(ally?' · '+(x.acted?'已行动':'待行动'):'')+'</small><div class="meter '+(!ally?'red':'')+'"><span class="fill" style="width:'+health(x)+'%"></span></div></div></button>';}
+return '<button class="fighter '+cl+'" '+(x.hp<=0?'disabled':'')+' data-act="'+(ally?'choose-ally':'choose-target')+'" data-i="'+i+'"><span class="symbol">'+(ally?artwork(idmap[x.id]):enemyArt(i))+'</span><div class="desc"><b>'+x.name+(x.shield>0?' 🛡️':'')+'</b><small>HP '+x.hp+' / '+x.maxHp+(ally?' · '+(x.acted?'已行动':'待行动'):'')+'</small><div class="meter '+(!ally?'red':'')+'"><span class="fill" style="width:'+health(x)+'%"></span></div></div></button>';}
 function battleScene(){
-var a=battle.previewAlly||battle.allies[chosen]||battle.allies.find(function(x){return x.hp>0;});
-var e=battle.previewEnemy||battle.enemies[target]||battle.enemies.find(function(x){return x.hp>0;});
-return '<div class="battle-scene" id="battle-scene" aria-label="战斗动画舞台">'+
-'<div class="arena-figure hero"><span class="figure-side">己方式灵</span><span class="spirit" aria-hidden="true">'+(a?a.emoji:'✨')+'</span><span class="figure-name">'+(a?a.name:'式灵')+'</span></div>'+
-'<div class="arena-vs" aria-hidden="true">⚔</div>'+
-'<div class="arena-figure foe"><span class="figure-side">妖境魔物</span><span class="spirit" aria-hidden="true">'+(e?e.emoji:'👹')+'</span><span class="figure-name">'+(e?e.name:'妖怪')+'</span></div>'+
+var ai=battle.previewAlly?battle.allies.indexOf(battle.previewAlly):chosen;
+var ei=battle.previewEnemy?battle.enemies.indexOf(battle.previewEnemy):target;
+function stageUnit(x,i,ally){
+var cls=x.hp<=0?' down':(ally&&i===ai?' current':(!ally&&i===ei?' marked':''));
+return '<div class="stage-unit'+cls+'" aria-label="'+x.name+'">'+
+'<div class="spirit">'+(ally?artwork(idmap[x.id]):enemyArt(i+battle.stage))+'</div>'+
+'<span class="stage-name">'+x.name+'</span><div class="stage-hp"><span style="width:'+health(x)+'%"></span></div></div>';
+}
+return '<div class="battle-scene v2" id="battle-scene" aria-label="六人和风妖境战斗舞台">'+
+'<div class="stage-bg-torii"></div><div class="stage-ground"></div>'+
+'<div class="stage-team allies">'+battle.allies.map(function(x,i){return stageUnit(x,i,true)}).join('')+'</div>'+
+'<div class="stage-vs">⚔</div>'+
+'<div class="stage-team enemies">'+battle.enemies.map(function(x,i){return stageUnit(x,i,false)}).join('')+'</div>'+
 '<div class="scene-wash" aria-hidden="true"></div><div class="battle-fx" id="battle-fx" aria-hidden="true"></div></div>';
 }
 function playBattleFx(kind,enemy,done){
