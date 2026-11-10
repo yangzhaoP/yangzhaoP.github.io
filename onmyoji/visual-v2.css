@@ -134,3 +134,14 @@ body:before{background-image:radial-gradient(#fbd6a00f 1px,transparent 1px),repe
 .hero-banner .eyecatch,.hero-banner h2,.hero-banner p,.hero-banner .buttons{position:relative;z-index:1}
 .hero-banner p{background:linear-gradient(90deg,#251b39a6,transparent);padding:6px 4px 6px 0;border-radius:5px}
 @media(max-width:590px){.hero-banner{background-position:40% center}.hero-banner:after{display:none}.hero-banner p{color:#ffe3d2}.hero-banner h2{font-size:32px}}
+
+/* Eight more original HD shikigami, 8-up sprite strip */
+.zy-extra-photo{background-image:url("./extra-characters.webp");background-size:800% 100%}
+.zy-extra-0{background-position:0% center}
+.zy-extra-1{background-position:14.2857% center}
+.zy-extra-2{background-position:28.5714% center}
+.zy-extra-3{background-position:42.8571% center}
+.zy-extra-4{background-position:57.1429% center}
+.zy-extra-5{background-position:71.4286% center}
+.zy-extra-6{background-position:85.7143% center}
+.zy-extra-7{background-position:100% center}
