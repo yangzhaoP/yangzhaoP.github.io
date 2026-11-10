@@ -222,7 +222,11 @@ var results=lastSummons.length?'<div class="divider"></div><h3>本次召唤</h3>
 return header('式灵召唤','借助勾玉召唤新的式灵，重复召唤也会转化为金币。')+
 '<div class="panel summon-area"><div class="summon-circle" aria-hidden="true">🔮</div><h3>唤灵之阵</h3><p class="muted">普通 R 78% · 稀有 SR 18% · 传说 SSR 4%</p><p class="tiny">距 SSR 硬保底最多还有 '+(50-data.pity)+' 抽 · 已召唤 '+data.pulls+' 次</p><div class="buttons" style="justify-content:center;margin-top:18px">'+btn('召唤一次 · 100勾玉','draw1','outline')+btn('十连召唤 · 900勾玉','draw10','gold')+'</div><p class="tiny">十连召唤至少获得一名 SR 或 SSR。所有奖励仅为游戏内道具，无法购买或兑换现金。</p></div>'+results;
 }
-function stageEnemies(stage){var sprites=[['山狐','🦊'],['雾鬼','👻'],['石灵','🪨'],['夜鸦','🐦‍⬛'],['荒狼','🐺'],['幽灯','🔥']];var a=[];for(var i=0;i<3;i++){var v=sprites[(stage*2+i)%sprites.length],boss=(stage%5===0&&i===2),hp=70+stage*20+(boss?110:0);a.push({id:'e'+i,name:boss?'妖境首领 · '+v[0]:v[0],emoji:v[1],hp:hp,maxHp:hp,atk:14+stage*4+(boss?12:0),def:4+stage*2,boss:boss,shield:0,spd:62+stage*2+i*4+(boss?8:0)});}return a;}
+function stageEnemies(stage,mode){
+var sprites=[['山狐','🦊'],['雾鬼','👻'],['石灵','🪨'],['夜鸦','🐦‍⬛'],['荒狼','🐺'],['幽灯','🔥']],a=[],elite=mode==='boss',trial=mode==='soul';
+for(var i=0;i<3;i++){var v=sprites[(stage*2+i+(trial?2:elite?4:0))%sprites.length],boss=(elite&&i===2)||(stage%5===0&&i===2),scale=elite?1.8:trial?1.34:1,hp=Math.round((70+stage*20+(boss?150:0))*scale);
+a.push({id:'e'+i,name:boss?'妖境首领 · '+v[0]:trial?'御魂守卫 · '+v[0]:v[0],emoji:v[1],hp:hp,maxHp:hp,atk:Math.round((14+stage*4+(boss?14:0))*scale),def:Math.round((4+stage*2)*scale),boss:boss,shield:0,spd:62+stage*2+i*4+(boss?10:0),burn:0,frozen:0});}return a;
+}
 function health(f){return Math.max(0,Math.round(f.hp/f.maxHp*100));}
 function fighter(x,i,ally){var sel=ally?i===chosen:i===target,cl=x.hp<=0?'down':sel?'selected selectable':'selectable';
 return '<button class="fighter '+cl+'" '+(x.hp<=0?'disabled':'')+' data-act="'+(ally?'choose-ally':'choose-target')+'" data-i="'+i+'"><span class="symbol">'+(ally?artwork(idmap[x.id]):enemyArt(i))+'</span><div class="desc"><b>'+x.name+(x.shield>0?' 🛡️':'')+'</b><small>HP '+x.hp+' / '+x.maxHp+(ally?' · '+(x.acted?'已行动':'待行动'):'')+'</small><div class="meter '+(!ally?'red':'')+'"><span class="fill" style="width:'+health(x)+'%"></span></div></div></button>';}
@@ -251,7 +255,11 @@ setTimeout(done,730);
 }
 function dungeon(){
 if(!battle){
-var desc='<div class="panel center"><div style="font-size:67px">🏯</div><h2>妖境 · 第 '+data.maxStage+' 关</h2><p class="muted">每次挑战消耗 2 体力；胜利获得 130 勾玉、'+(120+data.maxStage*30)+' 金币。<br>每 5 关出现强力首领。</p><p class="tiny">挑战前请在式灵录里选择三名伙伴。</p>'+teamStrip()+btn('进入妖境 · 消耗2体力','start-battle','gold')+' '+btn('静心修行 · 恢复3体力','rest','outline')+'</div>';
+var options=[{id:'explore',icon:'🏯',label:'探索妖境',desc:'剧情关卡 · 勾玉金币',cost:2,unlock:true},{id:'soul',icon:'💎',label:'御魂试炼',desc:'强大守卫 · 必得御魂',cost:3,unlock:data.maxStage>=3},{id:'boss',icon:'👹',label:'首领讨伐',desc:'高难妖王 · 丰厚奖励',cost:4,unlock:data.maxStage>=5}];
+var cost=dungeonMode==='boss'?4:dungeonMode==='soul'?3:2;
+var desc='<div class="dungeon-choices">'+options.map(function(q){return '<button class="dungeon-choice '+(dungeonMode===q.id?'active':'')+'" data-act="select-dungeon" data-mode="'+q.id+'" '+(q.unlock?'':'disabled')+'><span>'+q.icon+'</span><strong>'+q.label+'</strong><small>'+q.desc+'</small><i>'+(q.unlock?'体力 '+q.cost:'尚未解锁')+'</i></button>'}).join('')+'</div>'+
+'<div class="panel center"><div style="font-size:58px">'+(dungeonMode==='boss'?'👹':dungeonMode==='soul'?'🔮':'🏯')+'</div><h2>'+(dungeonMode==='boss'?'首领讨伐':dungeonMode==='soul'?'御魂试炼':'妖境探索')+' · 第 '+data.maxStage+' 关</h2>'+
+'<p class="muted">御魂试炼必得御魂，首领讨伐更艰难但奖励更多。</p><p class="tiny">需要三名式灵出战，游戏完全免费。</p>'+teamStrip()+btn('开始挑战 · '+cost+'体力','start-battle','gold')+' '+btn('静心修行 · 恢复3体力','rest','outline')+'</div>';
 if(lastResult)desc='<div class="notice">'+lastResult+'</div>'+desc;
 return header('妖境探险','以智谋搭配技能，挑战不断变强的妖怪。')+desc;
 }
@@ -281,11 +289,21 @@ function team(id){if(!data.owned[id])return;var ix=data.team.indexOf(id);if(ix>=
 function summon(count){var cost=count===10?900:100;if(data.jade<cost)return notify('勾玉不够，可以挑战妖境或领取每日福袋');data.jade-=cost;lastSummons=[];var hasHigh=false;for(var i=0;i<count;i++){var roll=Math.random(),g=data.pity>=49?'SSR':roll<.04?'SSR':roll<.22?'SR':'R';if(count===10&&i===9&&!hasHigh&&g==='R')g='SR';var pool=H.filter(function(x){return x.grade===g;});var h=pool[Math.floor(Math.random()*pool.length)];lastSummons.push(h);if(g!=='R')hasHigh=true;data.pulls++;data.pity=g==='SSR'?0:data.pity+1;var entry=data.owned[h.id];if(entry){entry.copies++;data.coins+=80;}else{data.owned[h.id]={level:1,copies:1};}}
 save();render();notify('召唤完成！'+(lastSummons.some(function(x){return x.grade==='SSR';})?'恭喜获得 SSR！':'去式灵录查看新伙伴吧'));}
 function rest(){if(data.stamina>=20)return notify('体力充足，继续挑战吧');if(data.coins<60)return notify('修行需要 60 金币');data.coins-=60;data.stamina=Math.min(20,data.stamina+3);save();render();notify('静心修行：体力 +3');}
-function startBattle(){animationBusy=false;autoPlay=false;if(data.team.length!==3)return notify('需要三名式灵才能挑战，请在式灵录完成编队');if(data.stamina<2)return notify('体力不足，可以领取福袋或静心修行');data.stamina-=2;save();lastResult=null;battle={stage:data.maxStage,allies:data.team.map(function(id){var p=pow(id),h=idmap[id];return{id:id,name:h.name,emoji:h.emoji,hp:p.hp,maxHp:p.hp,atk:p.atk,def:p.def,spd:p.spd,crit:p.crit,shield:0,acted:false,skill:h.skill,skillLv:data.owned[id].skillLv||1,awake:data.owned[id].awake===true,mode:h.mode};}),enemies:stageEnemies(data.maxStage),energy:3,round:1,phase:'player',log:['妖境之门开启。准备迎战！']};chosen=0;target=0;pendingEnemy=false;buildTimeline();advanceTimeline();}
+function startBattle(){animationBusy=false;autoPlay=false;if(data.team.length!==3)return notify('需要三名式灵才能挑战，请在式灵录完成编队');var cost=dungeonMode==='boss'?4:dungeonMode==='soul'?3:2;if(data.stamina<cost)return notify('体力不足，可以领取福袋或静心修行');data.stamina-=cost;save();lastResult=null;battle={stage:data.maxStage,mode:dungeonMode,allies:data.team.map(function(id){var p=pow(id),h=idmap[id];return{id:id,name:h.name,emoji:h.emoji,hp:p.hp,maxHp:p.hp,atk:p.atk,def:p.def,spd:p.spd,crit:p.crit,shield:0,acted:false,skill:h.skill,skillLv:data.owned[id].skillLv||1,awake:data.owned[id].awake===true,mode:h.mode};}),enemies:stageEnemies(data.maxStage,dungeonMode),energy:3,round:1,phase:'player',log:['妖境之门开启。准备迎战！']};chosen=0;target=0;pendingEnemy=false;buildTimeline();advanceTimeline();}
 function nextAlive(side,index){if(side[index]&&side[index].hp>0)return index;var i=side.findIndex(function(e){return e.hp>0;});return i;}
 function hit(attacker,victim,multi){var crit=attacker.crit>0&&Math.random()*100<attacker.crit;var dmg=Math.max(1,Math.round((attacker.atk*multi-victim.def*.48)*(.91+Math.random()*.19)*(crit?1.55:1)));var shield=Math.min(dmg,victim.shield||0);victim.shield=(victim.shield||0)-shield;victim.hp=Math.max(0,victim.hp-(dmg-shield));victim.lastCrit=crit;return dmg-shield;}
 function log(t){battle.log.push(t);if(battle.log.length>35)battle.log.shift();}
-function endBattle(win){animationBusy=false;autoPlay=false;var stage=battle.stage;if(win){data.wins++;var coin=120+stage*30;data.coins+=coin;data.jade+=130;data.maxStage=Math.max(data.maxStage,stage+1);var extra='';if(Math.random()<.48){var rune=RUNES[Math.floor(Math.random()*RUNES.length)];data.runes[rune.id]++;extra='、'+rune.name;}if(data.soulBag.length<200&&(Math.random()<.78||stage%5===0)){var set=window.ZYSeason.sets[Math.floor(Math.random()*window.ZYSeason.sets.length)],slot=1+Math.floor(Math.random()*6),soul=window.ZYSeason.makeSoul(data.soulSeq++,slot,set.id,stage);data.soulBag.push(soul);extra+='、'+set.name+soul.slot+'号位御魂';}lastResult='🏆 妖境挑战成功！获得 130 勾玉、'+coin+' 金币'+extra+'，已解锁第 '+data.maxStage+' 关。';}else lastResult='💔 挑战失败。升级式灵，调整阵容后再战吧！';battle=null;pendingEnemy=false;save();render();notify(win?'挑战成功！':'队伍落败');}
+function endBattle(win){
+animationBusy=false;autoPlay=false;var stage=battle.stage,mode=battle.mode||'explore';
+if(win){data.wins++;var reward=mode==='boss'?360:mode==='soul'?200:130,coin=Math.round((120+stage*30)*(mode==='boss'?2.2:mode==='soul'?1.4:1));data.coins+=coin;data.jade+=reward;
+if(mode==='explore')data.maxStage=Math.max(data.maxStage,stage+1);
+var extra='';if(Math.random()<.47){var rune=RUNES[Math.floor(Math.random()*RUNES.length)];data.runes[rune.id]++;extra+='、'+rune.name;}
+var drop=mode==='soul'||mode==='boss'?2:(Math.random()<.78?1:0);
+for(var i=0;i<drop&&data.soulBag.length<200;i++){var set=window.ZYSeason.sets[Math.floor(Math.random()*window.ZYSeason.sets.length)];var g=window.ZYSeason.makeSoul(data.soulSeq++,1+Math.floor(Math.random()*6),set.id,stage+(mode==='boss'?7:mode==='soul'?3:0));data.soulBag.push(g);extra+='、'+set.name+g.slot+'号位御魂';}
+lastResult='🏆 '+(mode==='boss'?'首领讨伐':mode==='soul'?'御魂试炼':'妖境探索')+'成功！获得 '+reward+' 勾玉、'+coin+' 金币'+extra+'。';
+}else lastResult='💔 挑战失败。升级式灵、强化御魂后再战吧！';
+battle=null;pendingEnemy=false;save();render();notify(win?'挑战成功！':'队伍落败');
+}
 function takeAction(action){
 if(!battle||battle.phase!=='player'||pendingEnemy||animationBusy)return;
 var actor=battle.allies[chosen],victim=battle.enemies[target];
@@ -361,6 +379,7 @@ advanceTimeline();
 }
 document.addEventListener('click',function(evt){var b=evt.target.closest('button');if(!b)return;var next=b.getAttribute('data-tab');if(next){goto(next);return;}var act=b.getAttribute('data-act');if(!act)return;
 if(act==='go-dungeon')goto('dungeon');
+else if(act==='select-dungeon'){var m=b.getAttribute('data-mode');if(!battle&&(m==='explore'||(m==='soul'&&data.maxStage>=3)||(m==='boss'&&data.maxStage>=5))){dungeonMode=m;render();}}
 else if(act==='go-summon')goto('summon');
 else if(act==='gift')gift();
 else if(act==='train')train(b.getAttribute('data-id'));
