@@ -229,7 +229,7 @@ a.push({id:'e'+i,name:boss?'妖境首领 · '+v[0]:trial?'御魂守卫 · '+v[0]
 }
 function health(f){return Math.max(0,Math.round(f.hp/f.maxHp*100));}
 function fighter(x,i,ally){var sel=ally?i===chosen:i===target,cl=x.hp<=0?'down':sel?'selected selectable':'selectable';
-return '<button class="fighter '+cl+'" '+(x.hp<=0?'disabled':'')+' data-act="'+(ally?'choose-ally':'choose-target')+'" data-i="'+i+'"><span class="symbol">'+(ally?artwork(idmap[x.id]):enemyArt(i))+'</span><div class="desc"><b>'+x.name+(x.shield>0?' 🛡️':'')+'</b><small>HP '+x.hp+' / '+x.maxHp+(ally?' · '+(x.acted?'已行动':'待行动'):'')+'</small><div class="meter '+(!ally?'red':'')+'"><span class="fill" style="width:'+health(x)+'%"></span></div></div></button>';}
+return '<button class="fighter '+cl+'" '+(x.hp<=0?'disabled':'')+' data-act="'+(ally?'choose-ally':'choose-target')+'" data-i="'+i+'"><span class="symbol">'+(ally?artwork(idmap[x.id]):enemyArt(i))+'</span><div class="desc"><b>'+x.name+(x.shield>0?' 🛡️':'')+(x.burn>0?' 🔥':'')+(x.frozen>0?' ❄️':'')+'</b><small>HP '+x.hp+' / '+x.maxHp+(ally?' · '+(x.acted?'已行动':'待行动'):'')+'</small><div class="meter '+(!ally?'red':'')+'"><span class="fill" style="width:'+health(x)+'%"></span></div></div></button>';}
 function battleScene(){
 var ai=battle.previewAlly?battle.allies.indexOf(battle.previewAlly):chosen;
 var ei=battle.previewEnemy?battle.enemies.indexOf(battle.previewEnemy):target;
@@ -266,7 +266,7 @@ return header('妖境探险','以智谋搭配技能，挑战不断变强的妖�
 var nextTurns=(battle.timeline||[]).slice(battle.cursor,battle.cursor+6).map(function(t){var f=t.side==='ally'?battle.allies[t.index]:battle.enemies[t.index];return (t.side==='ally'?'🟢':'🔴')+f.name;}).join(' · ');
 var chosenHero=battle.allies[chosen];var can=battle.phase==='player'&&!animationBusy&&!autoPlay&&chosenHero&&chosenHero.hp>0&&!chosenHero.acted;
 return header('妖境 · 第 '+battle.stage+' 关','第 '+battle.round+' 回合 · '+(battle.phase==='enemy'?'妖怪正在行动':'请选择己方式灵和攻击目标'),' <span class="pill">✨ 灵力 '+battle.energy+' / 7</span>')+
-'<p class="versus">🎬 点击普攻或技能即可观看战斗动画。点左侧选己方，右侧选敌人；普通攻击恢复 1 灵力，技能消耗 2 灵力。</p>'+
+'<p class="versus">🎬 点击普攻或技能即可观看战斗动画。点左侧选己方，右侧选敌人；普通攻击恢复 1 灵力，技能消耗 2 灵力，奥义消耗 4 灵力。</p>'+
 '<div class="battle-status"><b>行动条：</b><span class="turn-chip">'+nextTurns+'</span></div>'+battleScene()+'<div class="battle-grid"><div><div class="side-label">己方 · 式灵</div><div class="fighters">'+battle.allies.map(function(x,i){return fighter(x,i,true);}).join('')+'</div></div><div><div class="side-label">敌方 · 妖怪</div><div class="fighters">'+battle.enemies.map(function(x,i){return fighter(x,i,false);}).join('')+'</div></div></div>'+
 '<div class="battle-controls">'+btn('普通攻击 · +1灵力','normal','outline',can?'':'disabled')+btn(chosenHero?chosenHero.skill+' · 2灵力':'灵术','special','gold',can&&battle.energy>=2?'':'disabled')+btn('✨ 奥义爆发 · 4灵力','ultimate','gold',can&&battle.energy>=4?'':'disabled')+btn(autoPlay?'⏸ 关闭自动':'▶ 自动战斗','toggle-auto',autoPlay?'gold':'outline')+btn('撤退','retreat','outline')+'</div>'+
 '<div class="battle-log" aria-label="战斗记录">'+battle.log.slice(-8).reverse().map(function(x){return '<div>'+x+'</div>';}).join('')+'</div>';
