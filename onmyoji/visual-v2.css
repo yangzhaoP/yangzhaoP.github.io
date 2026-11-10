@@ -150,3 +150,49 @@ body:before{background-image:radial-gradient(#fbd6a00f 1px,transparent 1px),repe
 .zy-photo{background-size:400% auto;background-position-y:16%;background-color:#25273c}
 .zy-extra-photo{background-size:800% auto}
 .zy-photo:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 63%,#11172c5c 100%);pointer-events:none}
+
+
+/* Cinematic edition — self-hosted illustrated portraits and shrine splash */
+.zy-real-art{display:block;width:100%;height:100%;min-height:100%;background-image:url('./assets/portraits-atlas.webp');background-size:600% 200%;background-position:var(--sx,0%) var(--sy,0%);background-repeat:no-repeat;image-rendering:auto;filter:saturate(1.12) contrast(1.05);box-shadow:inset 0 0 16px #0c0a1e73}
+.hero-card .hero-art .zy-real-art{display:block;width:100%;height:100%;transition:transform .35s ease}
+.hero-card:hover .hero-art .zy-real-art{transform:scale(1.075)}
+.stage-unit .spirit .zy-real-art,.fighter .symbol .zy-real-art,.rune-mini .zy-real-art,.trailer-hero .zy-real-art,.result .symbol .zy-real-art{display:block;width:100%;height:100%}
+.hero-banner{background-image:linear-gradient(94deg,#100c20f5 0%,#23142adc 38%,#251d3580 69%,#17132e20 100%),url('./assets/hero-splash.webp');background-size:cover;background-position:center 36%;border-color:#dbb77d;min-height:400px}
+.hero-banner:before,.hero-banner:after{display:none}
+.hero-banner h2{max-width:680px;font-size:clamp(35px,5vw,54px);line-height:1.35}
+.hero-banner p{font-size:15px;max-width:455px;text-shadow:0 3px 12px #000}
+.hero-banner .eyecatch{color:#f5d7a0;text-shadow:0 2px 6px #000}
+.trailer-hero{border-color:#b99796;box-shadow:0 13px 22px #070a1c8a}
+.trailer-hero .zy-real-art{aspect-ratio:150/210}
+.hero-card .hero-art{height:225px}
+.battle-scene.v2{background-image:linear-gradient(180deg,#161529c9 0%,#271c3c87 46%,#151a299c 100%),url('./assets/hero-splash.webp');background-size:cover;background-position:center 32%;height:400px}
+.battle-scene.v2:before{opacity:.22}
+.battle-scene.v2:after{opacity:.5}
+.stage-team{top:24%;height:67%}
+.stage-team.enemies{top:18%;height:68%}
+.stage-unit{width:31%;max-width:146px}
+.stage-unit .spirit{height:180px;border-radius:19px 19px 8px 8px;background:#25273a;box-shadow:0 15px 24px #0008,inset 0 0 12px #fff2}
+.stage-unit .spirit .zy-real-art{border-radius:16px 16px 7px 7px}
+.stage-team.enemies .stage-unit .spirit{background:linear-gradient(#85546b,#362238);filter:hue-rotate(318deg) saturate(.9)}
+.stage-team.enemies .stage-unit:nth-child(2) .spirit{filter:hue-rotate(300deg) saturate(1.2)}
+.stage-team.enemies .stage-unit:nth-child(3) .spirit{filter:hue-rotate(275deg) saturate(1.25)}
+.stage-team.enemies .stage-unit .spirit .zy-portrait{width:100%;height:100%}
+.fighter .symbol{width:48px;min-width:48px;height:68px}
+.fighter .symbol .zy-real-art{border-radius:7px}
+.result .symbol{height:155px}
+.rune-mini{width:82px;min-width:82px;height:117px}
+.stage-vs{font-size:34px;filter:drop-shadow(0 2px 10px #ffefac)}
+.battle-scene.fx-running{box-shadow:0 0 40px #ffdc9b2d,inset 0 0 35px #ffda9470}
+@media(max-width:600px){
+.hero-banner{min-height:345px;background-position:60% center;background-image:linear-gradient(90deg,#181428ef 0%,#221832ba 65%,#201c3465 100%),url('./assets/hero-splash.webp')}
+.hero-banner h2{font-size:32px}
+.hero-card .hero-art{height:182px}
+.trailer-hero .zy-real-art{min-height:130px}
+.battle-scene.v2{height:325px}
+.stage-unit .spirit{height:124px}
+.stage-team{top:27%;height:64%}
+.stage-team.enemies{top:22%;height:62%}
+.stage-vs{font-size:20px}
+.result .symbol{height:120px}
+.rune-mini{width:65px;min-width:65px;height:94px}
+}
