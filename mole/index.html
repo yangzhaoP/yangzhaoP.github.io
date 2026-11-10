@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#142033"><meta name="description" content="周渝打地鼠：用周渝专属头像玩打地鼠，45秒挑战、黄金地鼠和炸弹、连击和最高分。">
+<title>周渝打地鼠 · 周渝游戏馆</title>
+<style>
+:root{color-scheme:dark;--ink:#f4f8ff;--muted:#b7cbe0;--mint:#8bffca;--gold:#ffda81;--red:#ff859e}
+*{box-sizing:border-box}html{min-height:100%}body{margin:0;min-height:100svh;background:radial-gradient(circle at 50% -14%,#2d5b67,#14233d 46%,#0b1325 100%);font-family:system-ui,-apple-system,"Microsoft YaHei",sans-serif;color:var(--ink)}button,a{font:inherit}button{cursor:pointer}a{text-decoration:none;color:#a4ffdd}.wrap{width:min(900px,100%);margin:auto;padding:20px 14px 45px}.back{display:inline-block;border:1px solid #66839b;padding:9px 15px;border-radius:99px;background:#162841b8;font-size:13px}.top{text-align:center;margin:18px 0 22px}.kicker{font-size:11px;font-weight:900;color:var(--mint);letter-spacing:.23em}h1{font-size:clamp(30px,5vw,49px);margin:8px 0 10px}.subtitle{color:var(--muted);font-size:14px}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px;margin:20px 0}.stat{border:1px solid #4e6a84;background:#10223ad6;border-radius:16px;text-align:center;padding:13px 7px}.stat span{display:block;font-size:12px;color:#b9cbe0;margin-bottom:7px}.stat strong{font-size:clamp(22px,4vw,33px);font-variant-numeric:tabular-nums}.stat:nth-child(2) strong{color:var(--gold)}.stat:nth-child(3) strong{color:var(--mint)}.actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}.btn{border:1px solid #b9f5cb;color:#183440;padding:11px 22px;border-radius:12px;font-weight:850;background:linear-gradient(130deg,#b7ffe4,#70e7c4)}.btn.secondary{background:#263d55;color:white;border-color:#57748c}.notice{text-align:center;min-height:30px;color:#c6dcec;font-size:14px}.board-shell{padding:clamp(9px,2vw,19px);border:1px solid #56728e;border-radius:22px;background:#142941d9;box-shadow:0 25px 60px #0005}.board{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(7px,1.6vw,14px);touch-action:manipulation;user-select:none}.hole{position:relative;aspect-ratio:1.24;border-radius:18px;overflow:hidden;background:linear-gradient(#7bc6f1 0%,#bbecff 30%,#9ac966 31%,#5a9b51 67%,#2e6339 100%);border:1px solid #7fc28850;cursor:pointer;box-shadow:inset 0 -15px 25px #153c2073}.hole:before{content:"";position:absolute;left:15%;bottom:10%;width:70%;height:29%;border-radius:50%;background:#16191a;box-shadow:inset 0 5px 13px #000c;z-index:1}.hole:after{content:"";position:absolute;bottom:-15%;left:-15%;width:130%;height:31%;border-radius:50%;background:linear-gradient(#518e45,#31613a);z-index:4;pointer-events:none}.mole{position:absolute;z-index:3;bottom:9%;left:50%;width:55%;height:77%;display:flex;align-items:center;justify-content:center;transform:translate(-50%,103%);transition:transform .15s cubic-bezier(.25,.9,.24,1.14);pointer-events:none}.mole.up{transform:translate(-50%,0)}.head{width:100%;aspect-ratio:1;border:5px solid #f7ebd3;box-shadow:0 7px 15px #16291a73;border-radius:50%;overflow:hidden;background:#fff}.head img{width:100%;height:100%;display:block;object-fit:cover}.badge{position:absolute;z-index:4;top:0;right:3%;background:#ffe088;color:#573b08;font-size:clamp(11px,2vw,18px);border:2px solid white;padding:3px 6px;border-radius:30px;font-weight:900;box-shadow:0 4px 14px #0007}.badge.bomb{background:#ff7a93;color:#420c1c}.hole.hit .head{animation:squish .2s ease}.hole.gold .head{border-color:#ffe48d;box-shadow:0 0 20px #ffda5e}.hole.bomb .head{border-color:#ff869e}.hole.miss{animation:miss .22s ease}.float{position:absolute;z-index:6;left:50%;top:20%;transform:translateX(-50%);color:white;font-size:23px;text-shadow:0 2px 12px #000;font-weight:900;animation:floatUp .55s ease-out both;pointer-events:none}.progress{height:10px;background:#091625;border:1px solid #4e7287;border-radius:20px;margin-top:16px;overflow:hidden}.progress div{height:100%;width:100%;background:linear-gradient(90deg,#74f1d5,#fbe68a);transition:width .2s}.rules{text-align:center;color:#bfd0df;font-size:12px;line-height:1.9;margin-top:15px}.footer{text-align:center;color:#8da7bb;font-size:12px;margin-top:20px}.overlay{position:fixed;inset:0;z-index:10;background:#061022b6;display:grid;place-items:center;padding:20px;backdrop-filter:blur(6px)}.overlay[hidden]{display:none}.dialog{width:min(400px,100%);background:linear-gradient(140deg,#29445b,#172a42);border:1px solid #94bcd2;border-radius:23px;padding:30px;text-align:center;box-shadow:0 24px 70px #0008}.dialog h2{font-size:29px;margin:9px 0}.dialog p{color:#d1e7e7;line-height:1.9}.dialog .large{font-size:54px}.dialog strong{color:#ffe28b;font-size:28px}@keyframes squish{50%{transform:scale(.79)}}@keyframes miss{50%{filter:brightness(1.4)}}@keyframes floatUp{to{transform:translate(-50%,-55px);opacity:0}}@media(max-width:560px){.wrap{padding:12px 9px}.stats{gap:7px}.stat{padding:10px 4px}.stat span{font-size:10px}.hole{border-radius:11px}.head{border-width:3px}.rules{font-size:11px}.mole{width:65%}.top{margin:10px 0}}@media(prefers-reduced-motion:reduce){.mole{transition:none}.hole.hit .head,.hole.miss,.float{animation:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/">← 返回周渝游戏馆</a>
+<div class="top"><div class="kicker">GAME 04 · FUN ARCADE</div><h1>🔨 周渝打地鼠</h1><div class="subtitle">看到照片地鼠就快点敲，千万别点到炸弹！</div></div>
+<div class="stats"><div class="stat"><span>本局得分</span><strong id="score">0</strong></div><div class="stat"><span>历史最高</span><strong id="best">0</strong></div><div class="stat"><span>剩余时间</span><strong id="time">45</strong></div><div class="stat"><span>最高连击</span><strong id="combo">0</strong></div></div>
+<div class="actions"><button id="start" class="btn">▶ 开始游戏</button><button id="restart" class="btn secondary">↻ 重新开始</button></div>
+<p id="notice" class="notice" role="status">准备好了吗？按开始游戏！</p>
+<div class="board-shell"><div id="board" class="board" aria-label="九宫格打地鼠游戏"></div><div class="progress"><div id="bar"></div></div><div class="rules">🐹 普通头像 +1　⭐ 金色头像 +3　💣 炸弹 -2<br>45 秒挑战 · 连击更刺激 · 手机和电脑都能玩</div></div>
+<div class="footer">周渝游戏馆 · 游戏成绩只保存在当前浏览器</div>
+</div>
+<div class="overlay" id="overlay" hidden><div class="dialog"><div class="large">🏆</div><h2>时间到！</h2><p>本局得分：<strong id="final">0</strong></p><p id="result"></p><button class="btn" id="again">再玩一局</button></div></div>
+<script>
+(()=>{
+'use strict';
+const N=9,DURATION=45,K='zhouyu-whack-high-v1';
+const $=id=>document.getElementById(id),board=$('board'),scoreEl=$('score'),bestEl=$('best'),timeEl=$('time'),comboEl=$('combo'),notice=$('notice'),bar=$('bar'),overlay=$('overlay');
+let best=0;try{best=Math.max(0,Number(localStorage.getItem(K))||0)}catch(e){}
+let score=0,combo=0,maxCombo=0,secs=DURATION,active=false,current=-1,type='normal',moveTimer=null,clockTimer=null,token=0,holes=[];
+bestEl.textContent=best;
+function setup(){
+ for(let i=0;i<N;i++){
+ const hole=document.createElement('div');hole.className='hole';hole.dataset.index=String(i);
+ hole.innerHTML='<div class="mole"><div class="head"><img src="/mole/avatar.jpg" alt="地鼠头像" draggable="false"></div><span class="badge" hidden></span></div>';
+ board.appendChild(hole);holes.push(hole);
+ }
+}
+function update(){scoreEl.textContent=score;bestEl.textContent=best;timeEl.textContent=secs;comboEl.textContent=maxCombo;bar.style.width=Math.max(0,secs/DURATION*100)+'%'}
+function cleanup(){clearTimeout(moveTimer);clearInterval(clockTimer);moveTimer=null;clockTimer=null}
+function hide(){if(current<0)return;const h=holes[current];h.className='hole';h.querySelector('.mole').classList.remove('up');h.querySelector('.badge').hidden=true;current=-1}
+function spawn(id){
+ if(!active||id!==token)return;hide();
+ let n=Math.floor(Math.random()*N);if(n===spawn.previous)n=(n+1+Math.floor(Math.random()*(N-1)))%N;spawn.previous=n;current=n;
+ const r=Math.random();type=r<.17?'gold':r<.29?'bomb':'normal';
+ const hole=holes[n];hole.classList.add(type);const mole=hole.querySelector('.mole');mole.classList.add('up');
+ const badge=hole.querySelector('.badge');badge.hidden=type==='normal';badge.className='badge'+(type==='bomb'?' bomb':'');badge.textContent=type==='gold'?'⭐ +3':'💣 -2';
+ const speed=Math.max(390,1100-(DURATION-secs)*17);
+ moveTimer=setTimeout(()=>spawn(id),speed+Math.floor(Math.random()*130));
+}
+function start(){
+ cleanup();hide();token++;const id=token;
+ score=0;combo=0;maxCombo=0;secs=DURATION;active=true;overlay.hidden=true;notice.textContent='开始啦！快敲出现的头像！';update();
+ spawn.previous=-1;spawn(id);clockTimer=setInterval(()=>{if(!active)return;secs--;update();if(secs<=0)end()},1000);
+}
+function end(){
+ active=false;token++;cleanup();hide();if(score>best){best=score;try{localStorage.setItem(K,String(best))}catch(e){}}
+ update();$('final').textContent=score;$('result').textContent='本次最高连击 '+maxCombo+' 次 · '+(score>=35?'太厉害了！':'再挑战一次吧！');overlay.hidden=false;notice.textContent='挑战结束！本局得分 '+score+' 分';
+}
+function floatText(h,text){const d=document.createElement('span');d.className='float';d.textContent=text;h.appendChild(d);setTimeout(()=>d.remove(),570)}
+board.addEventListener('pointerdown',e=>{
+ if(!active)return;const h=e.target.closest('.hole');if(!h||!board.contains(h))return;e.preventDefault();
+ const i=Number(h.dataset.index);
+ if(i!==current){combo=0;h.classList.add('miss');setTimeout(()=>h.classList.remove('miss'),260);notice.textContent='扑空了！再试一次';return}
+ if(type==='bomb'){score=Math.max(0,score-2);combo=0;floatText(h,'💣 -2');notice.textContent='哎呀，敲到炸弹了！'}
+ else{const plus=type==='gold'?3:1;score+=plus;combo++;maxCombo=Math.max(maxCombo,combo);floatText(h,(type==='gold'?'⭐ ':'+')+plus);notice.textContent=type==='gold'?'黄金地鼠，+3 分！':combo>=5?'漂亮！'+combo+' 连击！':'好样的！+'+plus}
+ h.classList.add('hit');hide();if(score>best){best=score;try{localStorage.setItem(K,String(best))}catch(e){}}update();
+});
+$('start').addEventListener('click',start);$('restart').addEventListener('click',start);$('again').addEventListener('click',start);
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&active){end()}});
+setup();update();
+})();
+</script>
+</body></html>
