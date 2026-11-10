@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#141123">
+<meta name="description" content="周渝之纵横阴阳师：原创和风式神召唤与回合制战斗网页小游戏，手机电脑都能玩。">
+<title>周渝之纵横阴阳师 · 免费网页游戏</title>
+<style>
+:root{color-scheme:dark;--bg:#120f1d;--panel:#241d32;--soft:#2e263d;--line:#54445e;--ink:#f7eedc;--sub:#c7b8c7;--gold:#f7ce83;--red:#db797b;--aqua:#9bdbc9;--purple:#c7a2fd}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);font-family:system-ui,-apple-system,"Microsoft YaHei",sans-serif;background:radial-gradient(circle at 60% -10%,#53415f 0%,#191425 47%,#0e0d17 100%);min-height:100svh}
+body:before{content:"";position:fixed;inset:0;background:repeating-linear-gradient(90deg,transparent 0,transparent 110px,#ffffff04 111px,#ffffff04 112px);pointer-events:none}
+a{color:var(--gold);text-decoration:none}a:hover{text-decoration:underline}button{font:inherit;cursor:pointer}button:disabled{opacity:.45;cursor:not-allowed}button:focus-visible,a:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.shell{width:min(1200px,100%);padding:18px;margin:auto;position:relative}.top{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:14px 8px 22px}.brand{display:flex;align-items:center;gap:15px}.seal{width:62px;height:62px;display:grid;place-items:center;border:2px solid #e9bc7f;border-radius:50%;background:linear-gradient(145deg,#623a4e,#241925);font-size:33px;box-shadow:0 0 0 6px #c99b5a10}.eyebrow{font-size:11px;letter-spacing:.21em;color:var(--gold);font-weight:800}.brand h1{font-size:clamp(23px,3.4vw,35px);margin:4px 0 3px;letter-spacing:.04em}.brand p{font-size:12px;color:var(--sub);margin:0}.back{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);padding:10px 13px;border-radius:12px;color:#ecdbc9;background:#ffffff09;font-size:13px;white-space:nowrap}
+.resources{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:18px}.resource{flex:1;min-width:125px;display:flex;justify-content:center;gap:10px;align-items:center;border:1px solid #54435d;background:#2b223aab;border-radius:13px;padding:10px;font-size:14px}.resource strong{font-variant-numeric:tabular-nums;color:#fff0cb}.resource .ico{font-size:23px}
+.layout{display:grid;grid-template-columns:226px minmax(0,1fr);gap:18px}.sidebar,.content{background:#211a2fc9;border:1px solid #51405a;border-radius:19px;box-shadow:0 20px 50px #0003}.sidebar{padding:16px;align-self:start;position:sticky;top:14px}.sidebar h3{font-size:12px;letter-spacing:.17em;color:#c9a67f;margin:3px 8px 13px}.nav{width:100%;display:flex;text-align:left;gap:12px;align-items:center;padding:13px 11px;background:transparent;color:#d6cad7;border:1px solid transparent;border-radius:12px;margin-bottom:5px;font-weight:650}.nav .ni{font-size:21px}.nav:hover{background:#4a3546}.nav.active{background:linear-gradient(110deg,#774b51,#4a354e);color:#fff5e3;border-color:#c9a26c}.sidebar-note{margin:18px 5px 3px;padding-top:15px;border-top:1px solid #5b4561;color:#ab9faf;font-size:12px;line-height:1.7}.content{min-height:590px;padding:clamp(16px,2.8vw,29px);overflow:hidden}.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 20px}.section-head h2{margin:0;font-size:clamp(23px,4vw,29px)}.section-head p{margin:6px 0 0;color:#beafc2;font-size:13px;line-height:1.7}
+.btn{border:1px solid #a97766;background:linear-gradient(145deg,#9b5c55,#70465a);color:#fff3db;padding:11px 17px;border-radius:11px;font-weight:750;transition:filter .15s,transform .1s}.btn:hover{filter:brightness(1.12)}.btn:active{transform:scale(.98)}.btn.outline{background:#372b43;border-color:#715a72}.btn.gold{background:linear-gradient(135deg,#f9d79c,#cb905c);color:#2c2027;border-color:#fce0ac}.btn.small{padding:8px 11px;font-size:12px}.buttons{display:flex;gap:10px;flex-wrap:wrap}.muted{color:#c8b9cb;font-size:13px;line-height:1.7}.tiny{font-size:12px;color:#ae9fb1}.divider{height:1px;background:#55435d;margin:20px 0}.panel{border:1px solid #58465e;border-radius:15px;background:#30263c80;padding:17px;margin-bottom:16px}.panel h3{margin:0 0 9px}.panel p{line-height:1.7}.hero-banner{background:linear-gradient(125deg,#5c3c4bba,#42334db8 56%,#30273b),radial-gradient(circle at 90% 25%,#e7a56d60,transparent 30%);border:1px solid #926d73;border-radius:18px;padding:clamp(20px,4vw,33px);margin-bottom:20px;min-height:200px;position:relative;overflow:hidden}.hero-banner:after{content:"✦";position:absolute;right:32px;bottom:-48px;font-size:210px;color:#f8c78d1b;pointer-events:none}.hero-banner h2{font-size:clamp(26px,5vw,41px);margin:11px 0}.hero-banner p{max-width:500px;font-size:14px;color:#e4d2db;line-height:1.85}.hero-banner .buttons{position:relative;z-index:1}.eyecatch{font-weight:750;letter-spacing:.14em;color:#ffd99a;font-size:12px}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}.tile{padding:16px;border:1px solid #5e4c68;border-radius:14px;background:#30283d9e}.tile .symbol{font-size:29px;display:block;margin-bottom:10px}.tile h3{margin:0 0 8px;font-size:16px}.tile p{margin:0;font-size:12px;color:#c0b0c1;line-height:1.7}.meter{height:9px;border-radius:20px;background:#1a1724;overflow:hidden;border:1px solid #695567}.meter .fill{display:block;height:100%;background:linear-gradient(90deg,#86c5a4,#aceed1);border-radius:20px;transition:width .2s}.meter.red .fill{background:linear-gradient(90deg,#b64f60,#ec9090)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(174px,1fr));gap:12px}.hero-card{background:#30273ecb;border:1px solid #695366;border-radius:15px;overflow:hidden;transition:border-color .15s,transform .15s}.hero-card:hover{border-color:#d2a274}.hero-card.selected{border-color:#f6d28f;box-shadow:0 0 0 2px #e7c38135}.hero-card.locked{opacity:.58;filter:grayscale(.5)}.hero-art{height:106px;display:grid;place-items:center;font-size:52px;background:radial-gradient(circle at 55% 90%,#b8a4af30,transparent 68%),linear-gradient(140deg,#694f68,#322b49);position:relative}.hero-art .rarity{position:absolute;top:10px;right:10px}.rarity{font-size:10px;letter-spacing:.08em;border-radius:7px;padding:4px 7px;border:1px solid #827080;background:#1c1827;font-weight:900;color:#c8c5da}.rarity.SR{color:#f4bbfa;border-color:#956ba8}.rarity.SSR{color:#f9cf79;border-color:#e0a74d}.hero-body{padding:12px}.hero-body h4{margin:0 0 5px;font-size:16px}.hero-body p{font-size:12px;color:#c9bcc9;margin:0 0 10px;line-height:1.55}.hero-body .buttons{gap:6px}.teamstrip{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}.chip{display:inline-flex;align-items:center;border:1px solid #846676;border-radius:25px;padding:8px 11px;background:#4b3547;color:#f6e5dd;font-size:13px}.chip .dot{display:inline-block;height:6px;width:6px;border-radius:50%;background:#edc78b;margin-right:7px}.loot-card{text-align:center;padding:15px 6px;background:#312641;border-radius:13px;border:1px solid #66516a}.loot-card .symbol{font-size:43px}.loot-card h4{margin:8px 0 4px}.loot-card p{font-size:12px;color:#c4bacb;margin:0}
+.summon-circle{width:170px;height:170px;border-radius:50%;border:2px dashed #e4b574;box-shadow:0 0 0 11px #c3964b16,0 0 32px #ddaf6665;background:radial-gradient(circle,#725167 0%,#503a5f 48%,#272238 68%);margin:14px auto 28px;display:grid;place-items:center;font-size:79px;animation:breathe 5s ease-in-out infinite}@keyframes breathe{50%{transform:scale(1.04);box-shadow:0 0 0 16px #c3964b0d,0 0 46px #e8bd7d78}}
+.summon-area{text-align:center}.result-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin:18px 0}.result{background:#33283e;border:1px solid #745673;border-radius:12px;text-align:center;padding:13px 7px}.result .symbol{font-size:37px}.result strong{display:block;font-size:13px;margin-top:6px}.result span{font-size:11px;color:#bdb0c0}.result.ssr{border-color:#eac47b;box-shadow:0 0 15px #e0ad573a}.result.sr{border-color:#cda9ec}
+.battle-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.fighters{display:grid;gap:9px}.fighter{display:flex;align-items:center;gap:9px;position:relative;text-align:left;width:100%;background:#332a42;border:1px solid #68536c;border-radius:12px;padding:10px;color:var(--ink);min-height:82px}.fighter.selectable:hover{border-color:#e7ba85}.fighter.selected{border-color:#fad38f;background:#45344a}.fighter.down{opacity:.4;filter:grayscale(1)}.fighter .symbol{font-size:33px;min-width:39px;text-align:center}.fighter .desc{flex:1;min-width:0}.fighter .desc b{display:block;font-size:13px}.fighter .desc small{display:block;color:#c7bbcf;font-size:11px;margin:4px 0 5px}.fighter .meter{height:7px}.side-label{letter-spacing:.13em;color:#e8bf91;font-size:12px;margin:5px 0 10px}.versus{font-size:11px;color:#c6afc0;margin-bottom:15px}.battle-controls{margin-top:17px;display:flex;gap:10px;flex-wrap:wrap}.battle-log{max-height:145px;overflow:auto;background:#151521;border:1px solid #5b485e;border-radius:11px;padding:10px 12px;color:#c9bcc7;font-size:12px;line-height:1.8;margin-top:14px}.battle-log div{border-bottom:1px dashed #ffffff14;padding:3px 0}.battle-log div:last-child{border:0}.pill{border-radius:22px;padding:6px 9px;font-size:11px;background:#5d4457;color:#ffdda8}.center{text-align:center}.notice{border-left:3px solid #e4ba7d;background:#75574140;padding:12px 14px;color:#f3dcbf;font-size:13px;line-height:1.6;border-radius:8px;margin:14px 0}.toast{position:fixed;z-index:100;bottom:22px;left:50%;transform:translateX(-50%);background:#fff1d0;color:#3e2b33;padding:12px 19px;border-radius:12px;box-shadow:0 10px 35px #0007;font-size:14px;font-weight:700;max-width:90vw}.toast[hidden]{display:none}.footer{text-align:center;margin-top:20px;font-size:12px;color:#a59baa;line-height:1.9}
+@media(max-width:850px){.layout{grid-template-columns:1fr}.sidebar{position:static;padding:11px;display:flex;align-items:center;gap:8px;overflow:auto}.sidebar h3,.sidebar-note{display:none}.nav{white-space:nowrap;width:auto;margin:0;padding:10px 13px;flex-shrink:0}.content{min-height:560px}.top{align-items:flex-start}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:550px){.shell{padding:11px}.top{gap:10px}.seal{width:47px;height:47px;font-size:27px}.back{font-size:11px;padding:8px}.brand h1{font-size:20px}.brand p{display:none}.resource{min-width:calc(50% - 5px);font-size:12px}.resource .ico{font-size:18px}.grid{grid-template-columns:1fr}.battle-grid{grid-template-columns:1fr}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.hero-art{height:80px;font-size:43px}.hero-body{padding:10px}.hero-body h4{font-size:14px}.btn{padding:10px 13px}.fighter{min-height:73px}.top{padding:8px 0 15px}}
+</style>
+</head>
+<body>
+<div class="shell">
+<header class="top">
+  <div class="brand"><div class="seal">⛩️</div><div><div class="eyebrow">ORIGINAL FANTASY · MINI RPG</div><h1>周渝之纵横阴阳师</h1><p>收服百鬼，结识式灵，开启一场属于你的冒险</p></div></div>
+  <a class="back" href="/">← 游戏大厅</a>
+</header>
+<div class="resources" id="resources" aria-label="游戏资源"></div>
+<div class="layout">
+<aside class="sidebar" id="navigation" aria-label="游戏菜单">
+  <h3>浮世绘卷</h3>
+  <button class="nav active" data-tab="home"><span class="ni">🏮</span> 庭院</button>
+  <button class="nav" data-tab="summon"><span class="ni">📜</span> 式灵召唤</button>
+  <button class="nav" data-tab="roster"><span class="ni">🪭</span> 式灵录</button>
+  <button class="nav" data-tab="dungeon"><span class="ni">⚔️</span> 妖境探险</button>
+  <button class="nav" data-tab="guide"><span class="ni">📖</span> 游戏说明</button>
+  <p class="sidebar-note">纯免费单机体验，无需登录。游戏进度保存在当前浏览器，清除浏览器数据会丢失存档。</p>
+</aside>
+<main class="content" id="view" aria-live="polite"></main>
+</div>
+<footer class="footer">© 周渝之纵横阴阳师 · 原创式灵与世界观 · 非官方《阴阳师》游戏 · 不含充值或广告</footer>
+</div>
+<div id="toast" class="toast" hidden role="status"></div>
+<script>
+(function(){
+'use strict';
+var KEY='zhouyu-yinyangshi-v1';
+var H=[
+{id:'s1',name:'竹影武士',grade:'R',type:'木',emoji:'🎋',role:'前卫',skill:'竹海护阵',mode:'guard',hp:170,atk:24,def:12,desc:'立于竹影间的寡言守护者。'},
+{id:'s2',name:'青灯书生',grade:'R',type:'火',emoji:'🏮',role:'输出',skill:'灯火连斩',mode:'strike',hp:120,atk:37,def:6,desc:'以一盏青灯，照见无数旧梦。'},
+{id:'s3',name:'桃花灵',grade:'SR',type:'花',emoji:'🌸',role:'治疗',skill:'桃华回春',mode:'heal',hp:132,atk:24,def:7,desc:'借春风疗愈同伴的伤痛。'},
+{id:'s4',name:'蜃海游侠',grade:'R',type:'水',emoji:'🐚',role:'输出',skill:'潮汐追袭',mode:'strike',hp:112,atk:39,def:5,desc:'踏浪而来的无名浪客。'},
+{id:'s5',name:'纸鸢使',grade:'R',type:'风',emoji:'🪁',role:'治疗',skill:'风铃之约',mode:'heal',hp:108,atk:27,def:6,desc:'让微风带来远方的思念。'},
+{id:'s6',name:'玄甲卫',grade:'SR',type:'土',emoji:'🛡️',role:'前卫',skill:'磐石壁垒',mode:'guard',hp:205,atk:25,def:14,desc:'守住最后一道山门的盾。'},
+{id:'s7',name:'炎羽使',grade:'SR',type:'火',emoji:'🦅',role:'群攻',skill:'焰羽漫天',mode:'aoe',hp:134,atk:40,def:5,desc:'长空之上，火羽如雨。'},
+{id:'s8',name:'雷鼓童',grade:'SR',type:'雷',emoji:'🥁',role:'输出',skill:'震天惊雷',mode:'strike',hp:138,atk:43,def:7,desc:'鼓声响时，夜空裂作白昼。'},
+{id:'s9',name:'雪魄',grade:'SR',type:'冰',emoji:'❄️',role:'群攻',skill:'凝霜领域',mode:'aoe',hp:126,atk:42,def:6,desc:'从未融化的第一片雪。'},
+{id:'s10',name:'千面狐',grade:'SSR',type:'幻',emoji:'🦊',role:'输出',skill:'九幻绝影',mode:'burst',hp:158,atk:59,def:9,desc:'千张面孔，只为守一个约定。'},
+{id:'s11',name:'星鲸',grade:'SSR',type:'星',emoji:'🐋',role:'治疗',skill:'星海祈愿',mode:'heal',hp:195,atk:43,def:11,desc:'载着繁星游过梦境之海。'},
+{id:'s12',name:'霜弦姬',grade:'SSR',type:'月',emoji:'🎻',role:'群攻',skill:'月下霜弦',mode:'aoe',hp:165,atk:58,def:9,desc:'一曲霜弦，百鬼止步。'}
+];
+var idmap={};H.forEach(function(h){idmap[h.id]=h;});
+function newState(){return{coins:800,jade:1100,stamina:18,maxStage:1,wins:0,pulls:0,pity:0,gift:'',team:['s1','s2','s3'],owned:{s1:{level:1,copies:1},s2:{level:1,copies:1},s3:{level:1,copies:1}}};}
+function int(v,f){var n=Number(v);return Number.isFinite(n)&&n>=0?Math.floor(n):f;}
+function load(){try{var raw=JSON.parse(localStorage.getItem(KEY));if(!raw||typeof raw!=='object'||!raw.owned||!raw.team)return newState();var init=newState();init.coins=int(raw.coins,800);init.jade=int(raw.jade,1100);init.stamina=Math.min(99,int(raw.stamina,18));init.maxStage=Math.max(1,int(raw.maxStage,1));init.wins=int(raw.wins,0);init.pulls=int(raw.pulls,0);init.pity=Math.min(49,int(raw.pity,0));init.gift=typeof raw.gift==='string'?raw.gift:'';init.owned={};Object.keys(raw.owned).forEach(function(id){if(idmap[id])init.owned[id]={level:Math.max(1,Math.min(30,int(raw.owned[id].level,1))),copies:Math.max(1,int(raw.owned[id].copies,1))};});['s1','s2','s3'].forEach(function(id){if(!init.owned[id])init.owned[id]={level:1,copies:1};});init.team=raw.team.filter(function(id,i,a){return !!init.owned[id]&&a.indexOf(id)===i;}).slice(0,3);if(init.team.length===0)init.team=['s1','s2','s3'];return init;}catch(e){return newState();}}
+var data=load(),tab='home',battle=null,chosen=0,target=0,lastResult=null,lastSummons=[],pendingEnemy=false,toastTimer;
+function save(){try{localStorage.setItem(KEY,JSON.stringify(data));}catch(e){}}
+function el(id){return document.getElementById(id);}
+function notify(s){var n=el('toast');n.textContent=s;n.hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(function(){n.hidden=true;},2600);}
+function pow(id){var h=idmap[id],lv=data.owned[id]?data.owned[id].level:1;return{hp:h.hp+(lv-1)*16,atk:h.atk+(lv-1)*5,def:h.def+(lv-1)*2};}
+function grade(h){return '<span class="rarity '+h.grade+'">'+h.grade+'</span>';}
+function header(title,desc,right){return '<div class="section-head"><div><h2>'+title+'</h2><p>'+desc+'</p></div>'+(right||'')+'</div>';}
+function btn(text,action,extra,attr){return '<button class="btn '+(extra||'')+'" data-act="'+action+'" '+(attr||'')+'>'+text+'</button>';}
+function resources(){el('resources').innerHTML='<div class="resource"><span class="ico">💠</span> 勾玉 <strong>'+data.jade+'</strong></div><div class="resource"><span class="ico">🪙</span> 金币 <strong>'+data.coins+'</strong></div><div class="resource"><span class="ico">🍡</span> 体力 <strong>'+data.stamina+'</strong></div><div class="resource"><span class="ico">🏯</span> 通关 <strong>'+data.wins+'</strong></div>';}
+function nav(){document.querySelectorAll('[data-tab]').forEach(function(e){e.classList.toggle('active',e.getAttribute('data-tab')===tab);});}
+function heroCard(h,kind){var item=data.owned[h.id],mine=!!item,power=mine?pow(h.id):null,isTeam=data.team.indexOf(h.id)>=0;
+var actions='';
+if(kind==='roster'&&mine){actions='<div class="buttons">'+btn('升级 '+(item.level*75)+'金币','train','small outline','data-id="'+h.id+'"')+btn(isTeam?'下阵':'上阵','team','small','data-id="'+h.id+'"')+'</div>';}
+var badge=mine?'<span class="tiny">Lv.'+item.level+' · '+h.role+(item.copies>1?' · 召唤×'+item.copies:'')+'</span>':'<span class="tiny">尚未召唤</span>';
+return '<article class="hero-card '+(!mine?'locked ':'')+(isTeam?'selected':'')+'"><div class="hero-art">'+h.emoji+grade(h)+'</div><div class="hero-body"><h4>'+h.name+'</h4><p>'+h.type+' · '+h.skill+'</p>'+badge+(power?'<p style="margin-top:8px">生命 '+power.hp+' · 攻击 '+power.atk+'</p>':'')+actions+'</div></article>';}
+function teamStrip(){return '<div class="teamstrip">'+data.team.map(function(id){return '<span class="chip"><span class="dot"></span>'+idmap[id].emoji+' '+idmap[id].name+' Lv.'+data.owned[id].level+'</span>';}).join('')+'</div>';}
+function home(){
+return '<div class="hero-banner"><div class="eyecatch">百鬼夜行 · 浮生一卷</div><h2>执符而行，纵横阴阳</h2><p>妖气漫过山海，古老的式灵再次苏醒。召唤你的伙伴，组成三人小队，穿越妖境，谱写周渝的传奇。</p><div class="buttons">'+btn('⚔️ 前往妖境','go-dungeon','gold')+btn('📜 召唤式灵','go-summon','outline')+'</div></div>'+
+'<div class="grid"><div class="tile"><span class="symbol">📜</span><h3>召唤百鬼</h3><p>R、SR、SSR 三种稀有度，10 连召唤保底至少一只 SR，50 抽必出 SSR。</p></div><div class="tile"><span class="symbol">⚔️</span><h3>三人共斗</h3><p>普攻积攒灵力，释放治疗、护盾和强力群攻，赢取勾玉和金币。</p></div><div class="tile"><span class="symbol">🌸</span><h3>养成式灵</h3><p>使用金币提升式灵等级，调整上阵阵容，攻克不断变强的妖境。</p></div></div>'+
+'<div class="divider"></div>'+header('出战队伍','你可以在「式灵录」调整三人阵容。')+teamStrip()+
+'<div class="panel"><h3>🎁 每日参拜</h3><p class="muted">每天可领取免费勾玉、金币和体力，不需要登录。</p>'+btn(data.gift===new Date().toLocaleDateString('sv-SE')?'今天已经领取':'领取今日福袋','gift','gold',data.gift===new Date().toLocaleDateString('sv-SE')?'disabled':'')+'</div>';
+}
+function roster(){
+return header('式灵录','收集原创式灵，升级并组成最多三人的出战队伍。','<span class="pill">已收集 '+Object.keys(data.owned).length+' / '+H.length+'</span>')+
+teamStrip()+'<div class="cards">'+H.map(function(h){return heroCard(h,'roster');}).join('')+'</div><div class="notice">升级需要金币。普通攻击可获得灵力，技能消耗 2 点灵力；治疗型式灵在困难关卡非常有用。</div>';
+}
+function summon(){
+var results=lastSummons.length?'<div class="divider"></div><h3>本次召唤</h3><div class="result-list">'+lastSummons.map(function(h){return '<div class="result '+h.grade.toLowerCase()+'"><div class="symbol">'+h.emoji+'</div><h4>'+h.name+'</h4>'+grade(h)+'</div>';}).join('')+'</div>':'';
+return header('式灵召唤','借助勾玉召唤新的式灵，重复召唤也会转化为金币。')+
+'<div class="panel summon-area"><div class="summon-circle" aria-hidden="true">🔮</div><h3>唤灵之阵</h3><p class="muted">普通 R 78% · 稀有 SR 18% · 传说 SSR 4%</p><p class="tiny">距 SSR 硬保底最多还有 '+(50-data.pity)+' 抽 · 已召唤 '+data.pulls+' 次</p><div class="buttons" style="justify-content:center;margin-top:18px">'+btn('召唤一次 · 100勾玉','draw1','outline')+btn('十连召唤 · 900勾玉','draw10','gold')+'</div><p class="tiny">十连召唤至少获得一名 SR 或 SSR。所有奖励仅为游戏内道具，无法购买或兑换现金。</p></div>'+results;
+}
+function stageEnemies(stage){var sprites=[['山狐','🦊'],['雾鬼','👻'],['石灵','🪨'],['夜鸦','🐦‍⬛'],['荒狼','🐺'],['幽灯','🔥']];var a=[];for(var i=0;i<3;i++){var v=sprites[(stage*2+i)%sprites.length],boss=(stage%5===0&&i===2),hp=70+stage*20+(boss?110:0);a.push({id:'e'+i,name:boss?'妖境首领 · '+v[0]:v[0],emoji:v[1],hp:hp,maxHp:hp,atk:14+stage*4+(boss?12:0),def:4+stage*2,boss:boss,shield:0});}return a;}
+function health(f){return Math.max(0,Math.round(f.hp/f.maxHp*100));}
+function fighter(x,i,ally){var sel=ally?i===chosen:i===target,cl=x.hp<=0?'down':sel?'selected selectable':'selectable';
+return '<button class="fighter '+cl+'" '+(x.hp<=0?'disabled':'')+' data-act="'+(ally?'choose-ally':'choose-target')+'" data-i="'+i+'"><span class="symbol">'+x.emoji+'</span><div class="desc"><b>'+x.name+(x.shield>0?' 🛡️':'')+'</b><small>HP '+x.hp+' / '+x.maxHp+(ally?' · '+(x.acted?'已行动':'待行动'):'')+'</small><div class="meter '+(!ally?'red':'')+'"><span class="fill" style="width:'+health(x)+'%"></span></div></div></button>';}
+function dungeon(){
+if(!battle){
+var desc='<div class="panel center"><div style="font-size:67px">🏯</div><h2>妖境 · 第 '+data.maxStage+' 关</h2><p class="muted">每次挑战消耗 2 体力；胜利获得 130 勾玉、'+(120+data.maxStage*30)+' 金币。<br>每 5 关出现强力首领。</p><p class="tiny">挑战前请在式灵录里选择三名伙伴。</p>'+teamStrip()+btn('进入妖境 · 消耗2体力','start-battle','gold')+' '+btn('静心修行 · 恢复3体力','rest','outline')+'</div>';
+if(lastResult)desc='<div class="notice">'+lastResult+'</div>'+desc;
+return header('妖境探险','以智谋搭配技能，挑战不断变强的妖怪。')+desc;
+}
+var chosenHero=battle.allies[chosen];var can=battle.phase==='player'&&chosenHero&&chosenHero.hp>0&&!chosenHero.acted;
+return header('妖境 · 第 '+battle.stage+' 关','第 '+battle.round+' 回合 · '+(battle.phase==='enemy'?'妖怪正在行动':'请选择己方式灵和攻击目标'),' <span class="pill">✨ 灵力 '+battle.energy+' / 7</span>')+
+'<p class="versus">提示：点左侧选择己方式灵，点右侧选择目标。普通攻击恢复 1 点灵力，技能消耗 2 点。</p>'+
+'<div class="battle-grid"><div><div class="side-label">己方 · 式灵</div><div class="fighters">'+battle.allies.map(function(x,i){return fighter(x,i,true);}).join('')+'</div></div><div><div class="side-label">敌方 · 妖怪</div><div class="fighters">'+battle.enemies.map(function(x,i){return fighter(x,i,false);}).join('')+'</div></div></div>'+
+'<div class="battle-controls">'+btn('普通攻击 · +1灵力','normal','outline',can?'':'disabled')+btn(chosenHero?chosenHero.skill+' · 2灵力':'灵术','special','gold',can&&battle.energy>=2?'':'disabled')+btn('撤退','retreat','outline')+'</div>'+
+'<div class="battle-log" aria-label="战斗记录">'+battle.log.slice(-8).reverse().map(function(x){return '<div>'+x+'</div>';}).join('')+'</div>';
+}
+function guide(){return header('冒险指南','这是独立制作的原创和风小游戏，不含任何官方游戏素材。')+
+'<div class="panel"><h3>🏮 怎样开始？</h3><p class="muted">首次进入已经拥有竹影武士、青灯书生和桃花灵，可以直接去「妖境探险」进行三人回合制战斗。</p></div>'+
+'<div class="panel"><h3>📜 召唤规则</h3><p class="muted">单抽消耗 100 勾玉，十连消耗 900 勾玉。SSR 自上次获得 SSR 起，最多 50 抽必出。一次十连至少包含 SR 或 SSR。重复式灵获得金币。</p></div>'+
+'<div class="panel"><h3>⚔️ 战斗与养成</h3><p class="muted">点击己方式灵选择行动者，再选择敌人，使用普攻或技能。普攻增加 1 灵力，技能消耗 2 灵力。治疗与护盾技能作用于己方，无需选择敌人。战斗胜利可赚取勾玉和金币，用金币升级式灵。</p></div>'+
+'<div class="panel"><h3>💾 存档与隐私</h3><p class="muted">游戏在浏览器 localStorage 中保存式灵、货币与关卡进度。不同设备、无痕模式和不同浏览器的存档互不相通。没有账号系统、服务器数据库、广告或实际付费。</p>'+btn('清除当前游戏存档','reset-save','outline')+'</div>';
+}
+function render(){resources();nav();el('view').innerHTML=tab==='home'?home():tab==='roster'?roster():tab==='summon'?summon():tab==='dungeon'?dungeon():guide();}
+function goto(x){tab=x;render();window.scrollTo({top:0,behavior:'smooth'});}
+function gift(){var today=new Date().toLocaleDateString('sv-SE');if(data.gift===today)return notify('今天的福袋已领过啦');data.gift=today;data.jade+=350;data.coins+=400;data.stamina=Math.min(99,data.stamina+6);save();render();notify('参拜成功！勾玉 +350、金币 +400、体力 +6');}
+function train(id){var h=data.owned[id];if(!h)return;if(h.level>=30)return notify('式灵已达最高等级');var cost=h.level*75;if(data.coins<cost)return notify('金币不足，前往妖境挑战吧');data.coins-=cost;h.level++;save();render();notify(idmap[id].name+' 已升至 Lv.'+h.level);}
+function team(id){if(!data.owned[id])return;var ix=data.team.indexOf(id);if(ix>=0){if(data.team.length<=1)return notify('至少要保留一名式灵');data.team.splice(ix,1);}else{if(data.team.length>=3)return notify('队伍最多三名，请先下阵一位');data.team.push(id);}save();render();}
+function summon(count){var cost=count===10?900:100;if(data.jade<cost)return notify('勾玉不够，可以挑战妖境或领取每日福袋');data.jade-=cost;lastSummons=[];var hasHigh=false;for(var i=0;i<count;i++){var roll=Math.random(),g=data.pity>=49?'SSR':roll<.04?'SSR':roll<.22?'SR':'R';if(count===10&&i===9&&!hasHigh&&g==='R')g='SR';var pool=H.filter(function(x){return x.grade===g;});var h=pool[Math.floor(Math.random()*pool.length)];lastSummons.push(h);if(g!=='R')hasHigh=true;data.pulls++;data.pity=g==='SSR'?0:data.pity+1;var entry=data.owned[h.id];if(entry){entry.copies++;data.coins+=80;}else{data.owned[h.id]={level:1,copies:1};}}
+save();render();notify('召唤完成！'+(lastSummons.some(function(x){return x.grade==='SSR';})?'恭喜获得 SSR！':'去式灵录查看新伙伴吧'));}
+function rest(){if(data.stamina>=20)return notify('体力充足，继续挑战吧');if(data.coins<60)return notify('修行需要 60 金币');data.coins-=60;data.stamina=Math.min(20,data.stamina+3);save();render();notify('静心修行：体力 +3');}
+function startBattle(){if(data.team.length!==3)return notify('需要三名式灵才能挑战，请在式灵录完成编队');if(data.stamina<2)return notify('体力不足，可以领取福袋或静心修行');data.stamina-=2;save();lastResult=null;battle={stage:data.maxStage,allies:data.team.map(function(id){var p=pow(id),h=idmap[id];return{id:id,name:h.name,emoji:h.emoji,hp:p.hp,maxHp:p.hp,atk:p.atk,def:p.def,shield:0,acted:false,skill:h.skill,mode:h.mode};}),enemies:stageEnemies(data.maxStage),energy:3,round:1,phase:'player',log:['妖境之门开启。准备迎战！']};chosen=0;target=0;pendingEnemy=false;render();}
+function nextAlive(side,index){if(side[index]&&side[index].hp>0)return index;var i=side.findIndex(function(e){return e.hp>0;});return i;}
+function hit(attacker,victim,multi){var dmg=Math.max(1,Math.round((attacker.atk*multi-victim.def*.45)*(.9+Math.random()*.2)));var shield=Math.min(dmg,victim.shield||0);victim.shield=(victim.shield||0)-shield;victim.hp=Math.max(0,victim.hp-(dmg-shield));return dmg-shield;}
+function log(t){battle.log.push(t);if(battle.log.length>35)battle.log.shift();}
+function endBattle(win){var stage=battle.stage;if(win){data.wins++;var coin=120+stage*30;data.coins+=coin;data.jade+=130;data.maxStage=Math.max(data.maxStage,stage+1);lastResult='🏆 妖境挑战成功！获得 130 勾玉、'+coin+' 金币，已解锁第 '+data.maxStage+' 关。';}else lastResult='💔 挑战失败。升级式灵，调整阵容后再战吧！';battle=null;pendingEnemy=false;save();render();notify(win?'挑战成功！':'队伍落败');}
+function takeAction(action){
+if(!battle||battle.phase!=='player'||pendingEnemy)return;
+chosen=nextAlive(battle.allies,chosen);target=nextAlive(battle.enemies,target);var a=battle.allies[chosen],e=battle.enemies[target];
+if(!a||a.acted||!e)return;
+if(action==='special'&&battle.energy<2)return notify('灵力不足，先使用普通攻击');
+if(action==='normal'){var n=hit(a,e,1);battle.energy=Math.min(7,battle.energy+1);log(a.name+' 普攻 '+e.name+'，造成 '+n+' 点伤害。');}
+else{
+battle.energy-=2;
+if(a.mode==='heal'){var base=Math.round(a.atk*1.1+23);battle.allies.forEach(function(f){if(f.hp>0)f.hp=Math.min(f.maxHp,f.hp+base);});log(a.name+' 施展「'+a.skill+'」，全队恢复 '+base+' 点生命。');}
+else if(a.mode==='guard'){var shield=Math.round(a.atk*.65+24);battle.allies.forEach(function(f){if(f.hp>0)f.shield+=shield;});log(a.name+' 施展「'+a.skill+'」，全队获得 '+shield+' 点护盾。');}
+else if(a.mode==='aoe'){var total=0;battle.enemies.forEach(function(f){if(f.hp>0)total+=hit(a,f,1.02);});log(a.name+' 施展「'+a.skill+'」，群体共造成 '+total+' 点伤害。');}
+else{var ratio=a.mode==='burst'?2.7:1.85;var dmg=hit(a,e,ratio);log(a.name+' 施展「'+a.skill+'」，对 '+e.name+' 造成 '+dmg+' 点伤害！');}
+}
+a.acted=true;
+if(battle.enemies.every(function(f){return f.hp<=0;})){endBattle(true);return;}
+if(battle.allies.filter(function(f){return f.hp>0;}).every(function(f){return f.acted;})){battle.phase='enemy';pendingEnemy=true;render();setTimeout(enemyTurn,600);}else{chosen=nextUnacted();target=nextAlive(battle.enemies,target);render();}
+}
+function nextUnacted(){var i=battle.allies.findIndex(function(f){return f.hp>0&&!f.acted;});return i<0?0:i;}
+function enemyTurn(){
+if(!battle||battle.phase!=='enemy')return;
+battle.enemies.forEach(function(e){if(e.hp<=0)return;var living=battle.allies.filter(function(f){return f.hp>0;});if(!living.length)return;var targetF=living[Math.floor(Math.random()*living.length)];var dmg=hit(e,targetF,1);log(e.name+' 袭击 '+targetF.name+'，造成 '+dmg+' 点伤害。');});
+if(battle.allies.every(function(f){return f.hp<=0})){endBattle(false);return;}
+battle.round++;battle.phase='player';battle.energy=Math.min(7,battle.energy+2);battle.allies.forEach(function(f){f.acted=false;});chosen=nextUnacted();target=nextAlive(battle.enemies,target);pendingEnemy=false;log('第 '+battle.round+' 回合开始，灵力恢复 2 点。');render();
+}
+document.addEventListener('click',function(evt){var b=evt.target.closest('button');if(!b)return;var next=b.getAttribute('data-tab');if(next){goto(next);return;}var act=b.getAttribute('data-act');if(!act)return;
+if(act==='go-dungeon')goto('dungeon');
+else if(act==='go-summon')goto('summon');
+else if(act==='gift')gift();
+else if(act==='train')train(b.getAttribute('data-id'));
+else if(act==='team')team(b.getAttribute('data-id'));
+else if(act==='draw1')summon(1);
+else if(act==='draw10')summon(10);
+else if(act==='rest')rest();
+else if(act==='start-battle')startBattle();
+else if(act==='choose-ally'){if(battle&&battle.phase==='player'){var i=Number(b.getAttribute('data-i'));if(battle.allies[i].hp>0&&!battle.allies[i].acted){chosen=i;render();}}}
+else if(act==='choose-target'){if(battle){var j=Number(b.getAttribute('data-i'));if(battle.enemies[j].hp>0){target=j;render();}}}
+else if(act==='normal'||act==='special')takeAction(act);
+else if(act==='retreat'){if(battle){battle=null;pendingEnemy=false;lastResult='你选择了撤退，本次体力不退还。';render();}}
+else if(act==='reset-save'){if(confirm('确认清除本游戏的所有进度？操作不可撤销。')){data=newState();battle=null;lastResult=null;lastSummons=[];save();goto('home');notify('存档已重置');}}
+});
+render();
+})();
+</script>
+</body></html>
