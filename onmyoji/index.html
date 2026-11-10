@@ -71,7 +71,7 @@ a{color:var(--gold);text-decoration:none}a:hover{text-decoration:underline}butto
 <div class="shell">
 <header class="top">
   <div class="brand"><div class="seal">⛩️</div><div><div class="eyebrow">ORIGINAL FANTASY · MINI RPG</div><h1>周渝之纵横阴阳师</h1><p>收服百鬼，结识式灵，开启一场属于你的冒险</p></div></div>
-  <a class="back" href="/">← 游戏大厅</a>
+  <div class="top-actions"><button class="back" id="sound-toggle" data-act="toggle-audio" type="button">🔇 音效关闭</button><a class="back" href="/">← 游戏大厅</a></div>
 </header>
 <div class="resources" id="resources" aria-label="游戏资源"></div>
 <div class="layout">
@@ -158,6 +158,61 @@ var used=Object.keys(data.equip).filter(function(other){return other!==id&&data.
 if(used>=data.runes[rune])return notify('符印不足，挑战妖境可获得更多');
 data.equip[id]=rune;save();render();notify(idmap[id].name+' 装备了 '+runeMap[rune].name);
 }
+function soulsView(){
+var season=window.ZYSeason,hero=data.owned[soulHero]?soulHero:Object.keys(data.owned)[0];soulHero=hero;
+var tabs='<div class="soul-tabs">'+Object.keys(data.owned).map(function(id){var h=idmap[id];return btn(h.emoji+' '+h.name,'pick-soul-hero','small '+(id===hero?'gold':'outline'),'data-id="'+id+'"')}).join('')+'</div>';
+var slots=data.soulEquip[hero]||{},benefits=season.benefits(data,hero),p=pow(hero);
+var board='<div class="soul-stats"><strong>'+idmap[hero].name+' · 装备属性</strong><span>生命 '+p.hp+'　攻击 '+p.atk+'　防御 '+p.def+'　速度 '+p.spd+'　暴击 '+p.crit+'%</span></div>'+
+'<div class="soul-slots">'+Array.from({length:6},function(_,i){var slot=i+1,g=data.soulBag.find(function(x){return x.id===slots[slot]});var set=g?season.sets.find(function(x){return x.id===g.set}):null;
+return '<div class="soul-slot"><div class="soul-slot-number">'+(i+1)+'号位</div><div class="soul-slot-icon">'+(set?set.icon:'✧')+'</div><b>'+(set?set.name:'未装备')+'</b><div class="tiny">'+(g?season.nameStat[g.kind]+' +'+season.number(g)+' · +'+g.level:'待解锁更多御魂')+'</div>'+(g?btn('卸下','unequip-soul','small outline','data-slot="'+slot+'"'):'')+'</div>';
+}).join('')+'</div>';
+var sets='<div class="soul-sets">'+season.sets.map(function(x){var n=benefits.counts[x.id]||0;return '<span class="soul-set"><b>'+x.icon+' '+x.name+'</b><small>'+n+' / 4 · 2件：'+x.two+' · 4件：'+x.four+'</small></span>'}).join('')+'</div>';
+var bag='<div class="soul-bag">'+data.soulBag.slice().reverse().map(function(g){
+var set=season.sets.find(function(x){return x.id===g.set}),held=Object.keys(data.soulEquip).find(function(id){return Object.values(data.soulEquip[id]).includes(g.id)}),cost=90+g.level*65;
+return '<div class="soul-item"><div class="soul-item-icon">'+set.icon+'</div><div class="soul-item-info"><strong>'+set.name+' · '+g.slot+'号位</strong><div class="tiny">'+season.nameStat[g.kind]+' +'+season.number(g)+' · 强化 +'+g.level+(held?' · '+idmap[held].name+'已穿戴':'')+'</div><div class="soul-item-actions">'+btn(held===hero?'已穿戴':'装备','equip-soul','small '+(held===hero?'gold':'outline'),'data-soul="'+g.id+'" '+(held===hero?'disabled':''))+btn('强化 '+cost+'金币','upgrade-soul','small outline','data-soul="'+g.id+'" '+(g.level>=12?'disabled':''))+'</div></div></div>';
+}).join('')+'</div>';
+return header('御魂殿','每位式灵可以装备 6 件御魂。凑齐 2 件或 4 件同套装可获得额外属性。','<span class="pill">拥有 '+data.soulBag.length+' 件</span>')+
+'<div class="panel"><h3>选择式灵</h3>'+tabs+board+sets+'</div><div class="panel"><h3>御魂仓库 · 可跨角色更换</h3><p class="tiny">探索妖境有机会掉落御魂，使用金币强化，最高 +12。</p>'+bag+'</div>';
+}
+function equipSoul(gid){
+var g=data.soulBag.find(function(x){return x.id===gid});if(!g||!data.owned[soulHero])return;if(battle)return notify('战斗结束后才能更换御魂');
+Object.keys(data.soulEquip).forEach(function(id){Object.keys(data.soulEquip[id]).forEach(function(slot){if(data.soulEquip[id][slot]===gid)delete data.soulEquip[id][slot]})});
+data.soulEquip[soulHero]=data.soulEquip[soulHero]||{};data.soulEquip[soulHero][g.slot]=gid;save();render();notify('已为'+idmap[soulHero].name+'装备'+g.slot+'号位御魂');
+}
+function unequipSoul(slot){if(!data.soulEquip[soulHero])return;delete data.soulEquip[soulHero][slot];save();render();notify('御魂已卸下')}
+function upgradeSoul(gid){
+var g=data.soulBag.find(function(x){return x.id===gid});if(!g||g.level>=12)return;
+var cost=90+g.level*65;if(data.coins<cost)return notify('金币不足，完成副本可获得金币');
+data.coins-=cost;g.level++;save();render();notify('御魂强化成功：+'+g.level);
+}
+function storyView(){
+var rows=window.ZYSeason.chapters.map(function(c,i){var unlock=data.maxStage>=c.stage;
+return '<article class="story-chapter '+(unlock?'':'story-locked')+'"><div class="story-index">'+String(i+1).padStart(2,'0')+'</div><div class="story-copy"><span class="tiny">'+(unlock?'已解锁 · '+c.subtitle:'🔒 通关第 '+(c.stage-1)+' 关后解锁')+'</span><h3>'+c.title+'</h3>'+(unlock?'<p>'+c.text+'</p><small>'+c.reward+'</small>':'<p>故事尚未展开。请继续探索妖境，倾听式灵们的心愿。</p>')+'</div></article>';
+}).join('');
+return header('故事绘卷','月下灵契，百鬼同游。随着关卡进度解锁原创剧情。')+'<div class="story-chapters">'+rows+'</div>';
+}
+function questsView(){
+var list=window.ZYSeason.achievements.map(function(q){
+var n=window.ZYSeason.progress(q,data),claimed=!!data.claimed[q.id],ready=n>=q.goal;
+return '<article class="quest"><div class="quest-mark">'+(claimed?'✓':ready?'🏆':'✦')+'</div><div class="quest-detail"><strong>'+q.title+'</strong><div class="tiny">'+q.desc+' · '+Math.min(n,q.goal)+'/'+q.goal+'</div><div class="meter"><span class="fill" style="width:'+Math.min(100,n/q.goal*100)+'%"></span></div><small>奖励：'+q.jade+' 勾玉、'+q.coins+' 金币</small></div>'+btn(claimed?'已领取':ready?'领取奖励':'未达成','claim-quest','small '+(ready&&!claimed?'gold':'outline'),'data-quest="'+q.id+'" '+(claimed||!ready?'disabled':''))+'</article>';
+}).join('');
+return header('任务成就','完成召唤、收集与副本挑战，获得一次性额外奖励。')+'<div class="panel quest-list">'+list+'</div>';
+}
+function claimQuest(id){
+var q=window.ZYSeason.achievements.find(function(x){return x.id===id});
+if(!q||data.claimed[id]||window.ZYSeason.progress(q,data)<q.goal)return;
+data.claimed[id]=true;data.jade+=q.jade;data.coins+=q.coins;save();render();notify('成就达成：'+q.title+'，奖励已领取！');
+}
+function soundFx(mode){
+if(!audioEnabled)return;
+try{audioContext=audioContext||new(window.AudioContext||window.webkitAudioContext)();if(audioContext.state==='suspended')audioContext.resume();
+var o=audioContext.createOscillator(),v=audioContext.createGain(),t=audioContext.currentTime;
+o.type=mode==='heal'?'sine':mode==='special'?'triangle':'sawtooth';
+var f=mode==='heal'?620:mode==='special'?380:200;o.frequency.setValueAtTime(f,t);o.frequency.exponentialRampToValueAtTime(mode==='heal'?760:85,t+.21);v.gain.setValueAtTime(.0001,t);v.gain.exponentialRampToValueAtTime(.04,t+.025);v.gain.exponentialRampToValueAtTime(.0001,t+.25);o.connect(v);v.connect(audioContext.destination);o.start(t);o.stop(t+.26);
+}catch(e){}
+}
+function toggleAudio(){audioEnabled=!audioEnabled;var b=el('sound-toggle');if(b)b.textContent=audioEnabled?'🔊 音效开启':'🔇 音效关闭';notify(audioEnabled?'已开启原创战斗音效':'已关闭音效');if(audioEnabled)soundFx('heal')}
+function exportSave(){var raw=JSON.stringify(data,null,2),blob=new Blob([raw],{type:'application/json;charset=utf-8'}),url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download='周渝之纵横阴阳师-游戏存档.json';document.body.appendChild(link);link.click();link.remove();setTimeout(function(){URL.revokeObjectURL(url)},500);notify('存档文件已导出，请妥善保存')}
 function roster(){
 return header('式灵录','收集原创式灵，升级并组成最多三人的出战队伍。','<span class="pill">已收集 '+Object.keys(data.owned).length+' / '+H.length+'</span>')+
 teamStrip()+'<div class="cards">'+H.map(function(h){return heroCard(h,'roster');}).join('')+'</div><div class="notice">升级需要金币。普通攻击可获得灵力，技能消耗 2 点灵力；治疗型式灵在困难关卡非常有用。</div>';
@@ -213,7 +268,7 @@ function guide(){return header('冒险指南','这是独立制作的原创和风
 '<div class="panel"><h3>📜 召唤规则</h3><p class="muted">单抽消耗 100 勾玉，十连消耗 900 勾玉。SSR 自上次获得 SSR 起，最多 50 抽必出。一次十连至少包含 SR 或 SSR。重复式灵获得金币。</p></div>'+
 '<div class="panel"><h3>🔮 御灵符印</h3><p class="muted">挑战妖境有机会获得符印，可装备提升生命、攻击、防御或速度。存档与之前兼容。</p></div>'+
 '<div class="panel"><h3>⚔️ 战斗与养成</h3><p class="muted">点击己方式灵选择行动者，再选择敌人，使用普攻或技能。普攻增加 1 灵力，技能消耗 2 灵力。治疗与护盾技能作用于己方，无需选择敌人。战斗胜利可赚取勾玉和金币，用金币升级式灵。</p></div>'+
-'<div class="panel"><h3>💾 存档与隐私</h3><p class="muted">游戏在浏览器 localStorage 中保存式灵、货币与关卡进度。不同设备、无痕模式和不同浏览器的存档互不相通。没有账号系统、服务器数据库、广告或实际付费。</p>'+btn('清除当前游戏存档','reset-save','outline')+'</div>';
+'<div class="panel"><h3>💾 存档与隐私</h3><p class="muted">游戏在浏览器 localStorage 中保存式灵、货币与关卡进度。不同设备、无痕模式和不同浏览器的存档互不相通。没有账号系统、服务器数据库、广告或实际付费。</p>'+btn('导出存档备份','export-save','gold')+' '+btn('清除当前游戏存档','reset-save','outline')+'</div>';
 }
 function render(){resources();nav();el('view').innerHTML=tab==='home'?home():tab==='roster'?roster():tab==='runes'?runesView():tab==='souls'?soulsView():tab==='story'?storyView():tab==='quests'?questsView():tab==='summon'?summonView():tab==='dungeon'?dungeon():guide();if(autoTimer!==null){clearTimeout(autoTimer);autoTimer=null;}if(tab==='dungeon'&&battle&&autoPlay&&battle.phase==='player'&&!animationBusy&&!pendingEnemy)autoTimer=setTimeout(autoTick,850);}
 function goto(x){tab=x;render();window.scrollTo({top:0,behavior:'smooth'});}
@@ -308,6 +363,13 @@ else if(act==='gift')gift();
 else if(act==='train')train(b.getAttribute('data-id'));
 else if(act==='team')team(b.getAttribute('data-id'));
 else if(act==='equip')equipRune(b.getAttribute('data-id'),b.getAttribute('data-rune'));
+else if(act==='pick-soul-hero'){if(data.owned[b.getAttribute('data-id')]){soulHero=b.getAttribute('data-id');render();}}
+else if(act==='equip-soul')equipSoul(b.getAttribute('data-soul'));
+else if(act==='unequip-soul')unequipSoul(b.getAttribute('data-slot'));
+else if(act==='upgrade-soul')upgradeSoul(b.getAttribute('data-soul'));
+else if(act==='claim-quest')claimQuest(b.getAttribute('data-quest'));
+else if(act==='export-save')exportSave();
+else if(act==='toggle-audio')toggleAudio();
 else if(act==='draw1')summon(1);
 else if(act==='draw10')summon(10);
 else if(act==='rest')rest();
