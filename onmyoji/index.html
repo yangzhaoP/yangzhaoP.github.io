@@ -167,7 +167,7 @@ var results=lastSummons.length?'<div class="divider"></div><h3>本次召唤</h3>
 return header('式灵召唤','借助勾玉召唤新的式灵，重复召唤也会转化为金币。')+
 '<div class="panel summon-area"><div class="summon-circle" aria-hidden="true">🔮</div><h3>唤灵之阵</h3><p class="muted">普通 R 78% · 稀有 SR 18% · 传说 SSR 4%</p><p class="tiny">距 SSR 硬保底最多还有 '+(50-data.pity)+' 抽 · 已召唤 '+data.pulls+' 次</p><div class="buttons" style="justify-content:center;margin-top:18px">'+btn('召唤一次 · 100勾玉','draw1','outline')+btn('十连召唤 · 900勾玉','draw10','gold')+'</div><p class="tiny">十连召唤至少获得一名 SR 或 SSR。所有奖励仅为游戏内道具，无法购买或兑换现金。</p></div>'+results;
 }
-function stageEnemies(stage){var sprites=[['山狐','🦊'],['雾鬼','👻'],['石灵','🪨'],['夜鸦','🐦‍⬛'],['荒狼','🐺'],['幽灯','🔥']];var a=[];for(var i=0;i<3;i++){var v=sprites[(stage*2+i)%sprites.length],boss=(stage%5===0&&i===2),hp=70+stage*20+(boss?110:0);a.push({id:'e'+i,name:boss?'妖境首领 · '+v[0]:v[0],emoji:v[1],hp:hp,maxHp:hp,atk:14+stage*4+(boss?12:0),def:4+stage*2,boss:boss,shield:0});}return a;}
+function stageEnemies(stage){var sprites=[['山狐','🦊'],['雾鬼','👻'],['石灵','🪨'],['夜鸦','🐦‍⬛'],['荒狼','🐺'],['幽灯','🔥']];var a=[];for(var i=0;i<3;i++){var v=sprites[(stage*2+i)%sprites.length],boss=(stage%5===0&&i===2),hp=70+stage*20+(boss?110:0);a.push({id:'e'+i,name:boss?'妖境首领 · '+v[0]:v[0],emoji:v[1],hp:hp,maxHp:hp,atk:14+stage*4+(boss?12:0),def:4+stage*2,boss:boss,shield:0,spd:62+stage*2+i*4+(boss?8:0)});}return a;}
 function health(f){return Math.max(0,Math.round(f.hp/f.maxHp*100));}
 function fighter(x,i,ally){var sel=ally?i===chosen:i===target,cl=x.hp<=0?'down':sel?'selected selectable':'selectable';
 return '<button class="fighter '+cl+'" '+(x.hp<=0?'disabled':'')+' data-act="'+(ally?'choose-ally':'choose-target')+'" data-i="'+i+'"><span class="symbol">'+(ally?artwork(idmap[x.id]):enemyArt(i))+'</span><div class="desc"><b>'+x.name+(x.shield>0?' 🛡️':'')+'</b><small>HP '+x.hp+' / '+x.maxHp+(ally?' · '+(x.acted?'已行动':'待行动'):'')+'</small><div class="meter '+(!ally?'red':'')+'"><span class="fill" style="width:'+health(x)+'%"></span></div></div></button>';}
@@ -200,10 +200,11 @@ var desc='<div class="panel center"><div style="font-size:67px">🏯</div><h2>�
 if(lastResult)desc='<div class="notice">'+lastResult+'</div>'+desc;
 return header('妖境探险','以智谋搭配技能，挑战不断变强的妖怪。')+desc;
 }
+var nextTurns=(battle.timeline||[]).slice(battle.cursor,battle.cursor+6).map(function(t){var f=t.side==='ally'?battle.allies[t.index]:battle.enemies[t.index];return (t.side==='ally'?'🟢':'🔴')+f.name;}).join(' · ');
 var chosenHero=battle.allies[chosen];var can=battle.phase==='player'&&!animationBusy&&!autoPlay&&chosenHero&&chosenHero.hp>0&&!chosenHero.acted;
 return header('妖境 · 第 '+battle.stage+' 关','第 '+battle.round+' 回合 · '+(battle.phase==='enemy'?'妖怪正在行动':'请选择己方式灵和攻击目标'),' <span class="pill">✨ 灵力 '+battle.energy+' / 7</span>')+
 '<p class="versus">🎬 点击普攻或技能即可观看战斗动画。点左侧选己方，右侧选敌人；普通攻击恢复 1 灵力，技能消耗 2 灵力。</p>'+
-battleScene()+'<div class="battle-grid"><div><div class="side-label">己方 · 式灵</div><div class="fighters">'+battle.allies.map(function(x,i){return fighter(x,i,true);}).join('')+'</div></div><div><div class="side-label">敌方 · 妖怪</div><div class="fighters">'+battle.enemies.map(function(x,i){return fighter(x,i,false);}).join('')+'</div></div></div>'+
+'<div class="battle-status"><b>行动条：</b><span class="turn-chip">'+nextTurns+'</span></div>'+battleScene()+'<div class="battle-grid"><div><div class="side-label">己方 · 式灵</div><div class="fighters">'+battle.allies.map(function(x,i){return fighter(x,i,true);}).join('')+'</div></div><div><div class="side-label">敌方 · 妖怪</div><div class="fighters">'+battle.enemies.map(function(x,i){return fighter(x,i,false);}).join('')+'</div></div></div>'+
 '<div class="battle-controls">'+btn('普通攻击 · +1灵力','normal','outline',can?'':'disabled')+btn(chosenHero?chosenHero.skill+' · 2灵力':'灵术','special','gold',can&&battle.energy>=2?'':'disabled')+btn(autoPlay?'⏸ 关闭自动':'▶ 自动战斗','toggle-auto',autoPlay?'gold':'outline')+btn('撤退','retreat','outline')+'</div>'+
 '<div class="battle-log" aria-label="战斗记录">'+battle.log.slice(-8).reverse().map(function(x){return '<div>'+x+'</div>';}).join('')+'</div>';
 }
@@ -222,7 +223,7 @@ function team(id){if(!data.owned[id])return;var ix=data.team.indexOf(id);if(ix>=
 function summon(count){var cost=count===10?900:100;if(data.jade<cost)return notify('勾玉不够，可以挑战妖境或领取每日福袋');data.jade-=cost;lastSummons=[];var hasHigh=false;for(var i=0;i<count;i++){var roll=Math.random(),g=data.pity>=49?'SSR':roll<.04?'SSR':roll<.22?'SR':'R';if(count===10&&i===9&&!hasHigh&&g==='R')g='SR';var pool=H.filter(function(x){return x.grade===g;});var h=pool[Math.floor(Math.random()*pool.length)];lastSummons.push(h);if(g!=='R')hasHigh=true;data.pulls++;data.pity=g==='SSR'?0:data.pity+1;var entry=data.owned[h.id];if(entry){entry.copies++;data.coins+=80;}else{data.owned[h.id]={level:1,copies:1};}}
 save();render();notify('召唤完成！'+(lastSummons.some(function(x){return x.grade==='SSR';})?'恭喜获得 SSR！':'去式灵录查看新伙伴吧'));}
 function rest(){if(data.stamina>=20)return notify('体力充足，继续挑战吧');if(data.coins<60)return notify('修行需要 60 金币');data.coins-=60;data.stamina=Math.min(20,data.stamina+3);save();render();notify('静心修行：体力 +3');}
-function startBattle(){animationBusy=false;autoPlay=false;if(data.team.length!==3)return notify('需要三名式灵才能挑战，请在式灵录完成编队');if(data.stamina<2)return notify('体力不足，可以领取福袋或静心修行');data.stamina-=2;save();lastResult=null;battle={stage:data.maxStage,allies:data.team.map(function(id){var p=pow(id),h=idmap[id];return{id:id,name:h.name,emoji:h.emoji,hp:p.hp,maxHp:p.hp,atk:p.atk,def:p.def,shield:0,acted:false,skill:h.skill,mode:h.mode};}),enemies:stageEnemies(data.maxStage),energy:3,round:1,phase:'player',log:['妖境之门开启。准备迎战！']};chosen=0;target=0;pendingEnemy=false;render();}
+function startBattle(){animationBusy=false;autoPlay=false;if(data.team.length!==3)return notify('需要三名式灵才能挑战，请在式灵录完成编队');if(data.stamina<2)return notify('体力不足，可以领取福袋或静心修行');data.stamina-=2;save();lastResult=null;battle={stage:data.maxStage,allies:data.team.map(function(id){var p=pow(id),h=idmap[id];return{id:id,name:h.name,emoji:h.emoji,hp:p.hp,maxHp:p.hp,atk:p.atk,def:p.def,shield:0,acted:false,skill:h.skill,mode:h.mode};}),enemies:stageEnemies(data.maxStage),energy:3,round:1,phase:'player',log:['妖境之门开启。准备迎战！']};chosen=0;target=0;pendingEnemy=false;buildTimeline();advanceTimeline();}
 function nextAlive(side,index){if(side[index]&&side[index].hp>0)return index;var i=side.findIndex(function(e){return e.hp>0;});return i;}
 function hit(attacker,victim,multi){var dmg=Math.max(1,Math.round((attacker.atk*multi-victim.def*.45)*(.9+Math.random()*.2)));var shield=Math.min(dmg,victim.shield||0);victim.shield=(victim.shield||0)-shield;victim.hp=Math.max(0,victim.hp-(dmg-shield));return dmg-shield;}
 function log(t){battle.log.push(t);if(battle.log.length>35)battle.log.shift();}
@@ -255,41 +256,50 @@ else if(a.mode==='guard'){var shield=Math.round(a.atk*.65+24);battle.allies.forE
 else if(a.mode==='aoe'){var total=0;battle.enemies.forEach(function(f){if(f.hp>0)total+=hit(a,f,1.02);});log(a.name+' 施展「'+a.skill+'」，群体共造成 '+total+' 点伤害。');}
 else{var ratio=a.mode==='burst'?2.7:1.85;var dmg=hit(a,e,ratio);log(a.name+' 施展「'+a.skill+'」，对 '+e.name+' 造成 '+dmg+' 点伤害！');}
 }
-a.acted=true;
-if(battle.enemies.every(function(f){return f.hp<=0;})){endBattle(true);return;}
-if(battle.allies.filter(function(f){return f.hp>0;}).every(function(f){return f.acted;})){battle.phase='enemy';pendingEnemy=true;render();setTimeout(enemyTurn,600);}else{chosen=nextUnacted();target=nextAlive(battle.enemies,target);render();}
-}
-function autoTick(){autoTimer=null;if(!battle||!autoPlay||battle.phase!=='player'||animationBusy||pendingEnemy)return;var idx=nextUnacted();if(!battle.allies[idx]||battle.allies[idx].hp<=0||battle.allies[idx].acted)return;chosen=idx;var enemies=battle.enemies.filter(function(x){return x.hp>0});if(!enemies.length)return;var lowest=enemies.slice().sort(function(a,b){return a.hp-b.hp})[0];target=battle.enemies.indexOf(lowest);var ally=battle.allies[idx];var lowHp=battle.allies.some(function(x){return x.hp>0&&x.hp<x.maxHp*.72});var skill=battle.energy>=2&&(ally.mode==='heal'?lowHp:ally.mode==='guard'?battle.allies.some(function(x){return x.hp>0&&x.shield<15}):true);takeAction(skill?'special':'normal');}
+a.acted=true;if(battle.enemies.every(function(f){return f.hp<=0;})){endBattle(true);return;}battle.cursor++;advanceTimeline();}
+function autoTick(){autoTimer=null;if(!battle||!autoPlay||battle.phase!=='player'||animationBusy||pendingEnemy)return;var idx=chosen;if(!battle.allies[idx]||battle.allies[idx].hp<=0||battle.allies[idx].acted)return;chosen=idx;var enemies=battle.enemies.filter(function(x){return x.hp>0});if(!enemies.length)return;var lowest=enemies.slice().sort(function(a,b){return a.hp-b.hp})[0];target=battle.enemies.indexOf(lowest);var ally=battle.allies[idx];var lowHp=battle.allies.some(function(x){return x.hp>0&&x.hp<x.maxHp*.72});var skill=battle.energy>=2&&(ally.mode==='heal'?lowHp:ally.mode==='guard'?battle.allies.some(function(x){return x.hp>0&&x.shield<15}):true);takeAction(skill?'special':'normal');}
 function nextUnacted(){var i=battle.allies.findIndex(function(f){return f.hp>0&&!f.acted;});return i<0?0:i;}
-function enemyTurn(){
-if(!battle||battle.phase!=='enemy')return;
-var match=battle,foes=battle.enemies.filter(function(e){return e.hp>0;});
-function attackNext(i){
-if(!battle||battle!==match||battle.phase!=='enemy')return;
-if(i>=foes.length){
-battle.previewAlly=null;battle.previewEnemy=null;
-if(battle.allies.every(function(f){return f.hp<=0;})){endBattle(false);return;}
-battle.round++;battle.phase='player';battle.energy=Math.min(7,battle.energy+2);
-battle.allies.forEach(function(f){f.acted=false;});
-chosen=nextUnacted();target=nextAlive(battle.enemies,target);
-pendingEnemy=false;animationBusy=false;
-log('第 '+battle.round+' 回合开始，灵力恢复 2 点。');render();return;
+function buildTimeline(){
+if(!battle)return;
+var turns=[];
+battle.allies.forEach(function(a,i){if(a.hp>0)turns.push({side:'ally',index:i,speed:a.spd||80,rank:i});});
+battle.enemies.forEach(function(e,i){if(e.hp>0)turns.push({side:'enemy',index:i,speed:e.spd||65,rank:i});});
+turns.sort(function(a,b){return b.speed-a.speed||(a.side===b.side?a.rank-b.rank:(a.side==='ally'?-1:1));});
+battle.timeline=turns;battle.cursor=0;
 }
-var e=foes[i],living=battle.allies.filter(function(f){return f.hp>0;});
+function advanceTimeline(){
+if(!battle)return;
+if(battle.enemies.every(function(f){return f.hp<=0;})){endBattle(true);return;}
+if(battle.allies.every(function(f){return f.hp<=0;})){endBattle(false);return;}
+while(battle.cursor<battle.timeline.length){
+var t=battle.timeline[battle.cursor],who=t.side==='ally'?battle.allies[t.index]:battle.enemies[t.index];
+if(who&&who.hp>0)break;battle.cursor++;
+}
+if(battle.cursor>=battle.timeline.length){
+battle.round++;battle.energy=Math.min(7,battle.energy+2);
+battle.allies.forEach(function(f){f.acted=false;});
+log('第 '+battle.round+' 回合开始，灵力恢复 2 点。');buildTimeline();
+}
+var turn=battle.timeline[battle.cursor];if(!turn)return;
+battle.previewEnemy=null;battle.previewAlly=null;
+if(turn.side==='ally'){
+chosen=turn.index;target=nextAlive(battle.enemies,target);
+battle.phase='player';pendingEnemy=false;animationBusy=false;render();return;
+}
+var attacker=battle.enemies[turn.index],living=battle.allies.filter(function(f){return f.hp>0;});
 if(!living.length){endBattle(false);return;}
 var victim=living[Math.floor(Math.random()*living.length)];
-battle.previewAlly=victim;battle.previewEnemy=e;
-animationBusy=true;render();
+battle.previewEnemy=attacker;battle.previewAlly=victim;battle.phase='enemy';
+pendingEnemy=true;animationBusy=true;render();var game=battle;
+setTimeout(function(){
+if(!battle||battle!==game||battle.phase!=='enemy')return;
 playBattleFx('normal',true,function(){
-if(!battle||battle!==match||battle.phase!=='enemy')return;
-var dmg=hit(e,victim,1);
-log(e.name+' 袭击 '+victim.name+'，造成 '+dmg+' 点伤害。');
-animationBusy=false;render();
-if(battle.allies.every(function(f){return f.hp<=0;})){endBattle(false);return;}
-setTimeout(function(){attackNext(i+1);},160);
+if(!battle||battle!==game||battle.phase!=='enemy')return;
+var damage=hit(attacker,victim,1);log(attacker.name+' 袭击 '+victim.name+'，造成 '+damage+' 点伤害。');
+battle.previewAlly=null;battle.previewEnemy=null;battle.cursor++;animationBusy=false;pendingEnemy=false;
+advanceTimeline();
 });
-}
-attackNext(0);
+},230);
 }
 document.addEventListener('click',function(evt){var b=evt.target.closest('button');if(!b)return;var next=b.getAttribute('data-tab');if(next){goto(next);return;}var act=b.getAttribute('data-act');if(!act)return;
 if(act==='go-dungeon')goto('dungeon');
@@ -302,7 +312,7 @@ else if(act==='draw1')summon(1);
 else if(act==='draw10')summon(10);
 else if(act==='rest')rest();
 else if(act==='start-battle')startBattle();
-else if(act==='choose-ally'){if(battle&&!animationBusy&&battle.phase==='player'){var i=Number(b.getAttribute('data-i'));if(battle.allies[i].hp>0&&!battle.allies[i].acted){chosen=i;render();}}}
+else if(act==='choose-ally'){if(battle&&!animationBusy&&battle.phase==='player'){var i=Number(b.getAttribute('data-i'));if(i!==chosen)notify('请按行动条顺序行动');else render();}}
 else if(act==='choose-target'){if(battle&&!animationBusy){var j=Number(b.getAttribute('data-i'));if(battle.enemies[j].hp>0){target=j;render();}}}
 else if(act==='normal'||act==='special')takeAction(act);
 else if(act==='toggle-auto'){if(battle){autoPlay=!autoPlay;render();notify(autoPlay?'已开启自动战斗':'已暂停自动战斗');}}
